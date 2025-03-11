@@ -85,31 +85,31 @@ Code access - access entries
 
 #### Home Page
 
-![](Design-2.JPG)
+![](AfterwordsProposal/Design-2.JPG)
 
 #### About Page
 
-![](Design-2-About.JPG)
+![](AfterwordsProposal/Design-2-About.JPG)
 
 #### How To Page
 
-![](Design-2-How-to.JPG)
+![](AfterwordsProposal/Design-2-How-to.JPG)
 
 #### Login Page
 
-![](Design-2-Login.JPG)
+![](AfterwordsProposal/Design-2-Login.JPG)
 
 #### Add Loved One Page
 
-![](Design-2-Add.JPG)
+![](AfterwordsProposal/Design-2-Add.JPG)
 
 #### Adding Loved One Info Page
 
-![](Design-2-Adding.JPG)
+![](AfterwordsProposal/Design-2-Adding.JPG)
 
 #### Adding Entry Page
 
-![](Design-2-Entry.JPG)
+![](AfterwordsProposal/Design-2-Entry.JPG)
 
 ### Data
 
