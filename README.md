@@ -57,28 +57,30 @@ Trust and authentication
 
 Frontend:
 React
-SASS/Tailwind
+SASS
 
 Backend:
 Node
 Express
-MongoDB
-JSON Web Token (JWT)
-bcrypt
+MySQL
+JSON Web Token (JWT) - authenticating users
+bcrypt?
 
 Storage/Security:
-Firebase
-AES-256
-UUID
+Firebase - authentication instead of JWT?
+AES-256 - encryption of data
+UUID - creating unique ids for data and users' loved ones entries
 
 ### APIs
 
-Express.js, Context API, JWT, Firebase
+Express.js - server environment
+JWT - authenticating users
+Firebase - authenticating and storing data instead of mySQL?
 
 ### Sitemap
 
 Homepage - (user login, code access, about section, how-to section)
-Logged in - add loved one, access/edit entries/codes
+Logged in - add loved one, create/read/update/delete user/loved ones/entries
 Code access - access entries
 
 ### Mockups
@@ -123,7 +125,7 @@ username/user email and password linked to data created > UCI < loved ones linke
 **GET /login**
 **GET /user/:id**
 **POST /user/:id/create-loved-one**
-**POST /user/:id/loved-one-entry**
+**POST /user/:id/loved-one/:id/create-entry**
 **GET /user/:id/loved-one/:id/entries**
 **GET /user/:id/loved-one/:id/entry/:id**
 **PUT /user/:id/loved-one/:id**

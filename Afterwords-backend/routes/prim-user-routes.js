@@ -1,6 +1,6 @@
 import express from "express";
-import * as warehousesController from "../controllers/users-controllers.js";
-import * as inventoriesController from "../controllers/loved-ones-controllers.js";
+import * as warehousesController from "../controllers/prim-user-controllers.js";
+import * as inventoriesController from "../controllers/loved-one-controllers.js";
 
 const router = express.Router();
 

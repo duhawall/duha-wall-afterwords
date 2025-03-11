@@ -2,32 +2,28 @@ import initKnex from "knex";
 import configuration from "../knexfile.js";
 const knex = initKnex(configuration);
 
-class User {
-  //   static getAllUsers() {
-  //     return knex("user");
-  //   }
-
-  static getSingleUser(userId) {
-    return knex("user").where({ id: userId });
+class PrimUser {
+  static getSinglePrimUser(userId) {
+    return knex("prim-user").where({ id: userId });
   }
 
-  static createNewUser(userData) {
-    return knex("user").insert(userData);
+  static createNewPrimUser(userData) {
+    return knex("prim-user").insert(userData);
   }
 
-  static updateUser(userId, userData) {
-    return knex("user").where({ id: userId }).update(userData);
+  static updatePrimUser(userId, userData) {
+    return knex("prim-user").where({ id: userId }).update(userData);
   }
 
-  static deleteUser(userId) {
-    return knex("user").where({ id: userId }).delete();
+  static deletePrimUser(userId) {
+    return knex("prim-user").where({ id: userId }).delete();
   }
 
-  static getUserWithEntries(userId) {
-    return knex("user")
+  static getPrimUserWithEntries(userId) {
+    return knex("prim-user")
       .join("post", "post.user_id", "user.id")
       .where({ user_id: userId });
   }
 }
 
-export default User;
+export default PrimUser;
