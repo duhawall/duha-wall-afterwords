@@ -1,0 +1,19 @@
+{
+  "name": "afterwords-frontend",
+  "version": "1.0.0",
+  "description": "frontend capstone project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Duha Wall",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.8.2",
+    "dotenv": "^16.4.7",
+    "knex": "^3.1.0",
+    "react-router-dom": "^7.3.0",
+    "sass": "^1.85.1",
+    "vite": "^6.2.1"
+  }
+}
