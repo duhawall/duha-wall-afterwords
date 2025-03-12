@@ -1,0 +1,54 @@
+@use "./variables" as *;
+
+@mixin tablet {
+  @media screen and (min-width: $tablet__min-breakpoint) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: $desktop__min-breakpoint) {
+    @content;
+  }
+}
+
+@mixin tablet-photo-size {
+  @include tablet {
+    width: 2.75rem;
+    height: 2.75rem;
+    @content;
+  }
+}
+
+@mixin desktop-photo-size {
+  @include desktop {
+    width: 3rem;
+    height: 3rem;
+    @content;
+  }
+}
+
+@mixin box-border {
+  background-color: $secondary-white;
+  border-radius: $border-radius;
+  border: solid $secondary-green 0.5px;
+}
+
+@mixin title-mobile {
+  font-size: 1.625rem;
+  line-height: 2.375rem;
+  font-weight: 400;
+}
+
+@mixin heading-mobile {
+  font-family: $font-sub;
+  font-size: 1.125rem;
+  line-height: 1.4375rem;
+  font-weight: 500;
+}
+
+@mixin body-mobile {
+  font-size: 1.125rem;
+  line-height: 0.9375rem;
+  font-weight: 500;
+}

@@ -1,0 +1,59 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/fonts" as *;
+
+.main__section {
+  @include desktop {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+}
+
+.mission-photos__section {
+  @include desktop {
+    width: 100%;
+  }
+}
+
+.mission {
+  &__section {
+    padding: $margin-mobile;
+    background-color: $primary-pistachio;
+
+    @include tablet {
+      padding: $margin-tablet $margin-tablet 3rem $margin-tablet;
+    }
+
+    @include desktop {
+      padding: 3rem 2.5rem;
+    }
+  }
+
+  &__title {
+    font-size: 0.75rem;
+    margin-bottom: $margin-mobile;
+
+    @include tablet {
+      font-size: 1.4rem;
+      margin: $margin-tablet 0;
+    }
+  }
+  &__text {
+    font-family: $font-main;
+    font-weight: 300;
+    font-size: 1.49rem;
+    line-height: 38px;
+
+    @include tablet {
+      font-size: 2.35rem;
+      line-height: 4rem;
+    }
+
+    @include desktop {
+      font-size: 3.2rem;
+      width: 44rem;
+      line-height: 4rem;
+    }
+  }
+}

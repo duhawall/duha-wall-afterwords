@@ -63,12 +63,12 @@ Backend:
 Node
 Express
 MySQL
-JSON Web Token (JWT) - authenticating users
-bcrypt?
+JSON Web Token (JWT) - authenticating users maybe not if there's no time
+bcrypt? maybe not if there's no time
 
 Storage/Security:
-Firebase - authentication instead of JWT?
-AES-256 - encryption of data
+Firebase - authentication instead of JWT? if there's time
+AES-256 - encryption of data if there's time
 UUID - creating unique ids for data and users' loved ones entries
 
 ### APIs
@@ -115,10 +115,11 @@ Code access - access entries
 
 ### Data
 
-username/user email and password linked to data created > UCI < loved ones linked to their entries
+username/user email and password linked to data created > entries < loved ones linked to their UCI
 
 ### Endpoints
 
+Primary user
 **GET /about**
 **GET /how-to**
 **POST /register**
@@ -128,11 +129,19 @@ username/user email and password linked to data created > UCI < loved ones linke
 **POST /user/:id/loved-one/:id/create-entry**
 **GET /user/:id/loved-one/:id/entries**
 **GET /user/:id/loved-one/:id/entry/:id**
+**PUT /user/:id**
 **PUT /user/:id/loved-one/:id**
 **PUT /user/:id/loved-one/:id/entry/:id**
 **DELETE /user/:id**
 **DELETE /user/:id/loved-one/:id**
 **DELETE /user/:id/loved-one/:id/entry/:id**
+
+Loved One
+**GET /UCI**
+
+<!-- **GET /loved-one/:id/entries** -->
+
+**GET /loved-one/:id/entry/:id**
 
 **GET /about**
 
@@ -170,6 +179,7 @@ Response:
         "id": 1,
         "email": "duhaemousa@gmail.com",
         "lovedOne": "Tony",
+        "loved-one_id": 1,
         "entries": [
     "Hey there love, I just thought of when we went on our first date. I cannot believe it has been 20 years, and I get to wake up to your beautiful face today. I feel so blessed and I want you to know I cherish your presence and laughter. You warm my heart so much, and my life feels and smells the best, even with your farts. I love you to all my bits and yours",
     "Travelling without you sucks. I miss holding you at night. Surprisingly, it feels too quiet without you snoring here. I hope you are warm and the kiddos are having a blast at the camp! Counting the days till I get home and hold you all my love. Four more... Happy Valentine's Day babes",

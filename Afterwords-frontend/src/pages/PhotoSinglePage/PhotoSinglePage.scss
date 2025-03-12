@@ -1,0 +1,19 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.single {
+  &__section {
+    padding: 1rem;
+
+    @include tablet {
+      padding: 0 1.5rem;
+    }
+
+    @include desktop {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 14rem;
+    }
+  }
+}
