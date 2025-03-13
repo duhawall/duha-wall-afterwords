@@ -19,7 +19,6 @@
 .mission {
   &__section {
     padding: $margin-mobile;
-    background-color: $primary-pistachio;
 
     @include tablet {
       padding: $margin-tablet $margin-tablet 3rem $margin-tablet;
@@ -40,10 +39,12 @@
     }
   }
   &__text {
-    font-family: $font-main;
-    font-weight: 300;
-    font-size: 1.49rem;
-    line-height: 38px;
+    font-family: $font-sub;
+    font-weight: 400;
+    font-size: 2.5rem;
+    text-align: center;
+    line-height: 60px;
+    width: 70%;
 
     @include tablet {
       font-size: 2.35rem;
@@ -55,5 +56,38 @@
       width: 44rem;
       line-height: 4rem;
     }
+
+    &--changing {
+      font-size: 2.5rem;
+      opacity: 0;
+      animation: fadeInInterval 2s ease-in-out infinite;
+
+      @keyframes fadeInInterval {
+        0% {
+          opacity: 0%;
+        }
+        80% {
+          opacity: 100%;
+        }
+      }
+    }
   }
+}
+
+.logo {
+  font-family: "LibreBodoni";
+  color: #262626;
+}
+
+.background-photo {
+  background-image: url("../../assets/images/sky-background.jpg");
+  height: 500px;
+  border-radius: 9.375rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  box-shadow: inset 1px 1px 10px -1px rgba(0, 0, 0, 0.3);
 }

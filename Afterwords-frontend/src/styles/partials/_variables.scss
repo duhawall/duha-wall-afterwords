@@ -4,17 +4,17 @@ $tablet__max-breakpoint: 1279px;
 $desktop__min-breakpoint: 1280px;
 
 // FONT FAMILY
-$font-main: 'Newsreader';
-$font-sub: 'Outfit';
+$font-main: "LibreBodoni";
+$font-sub: "Montserrat";
 
 // COLOR VARIABLES
-$primary-black: #0C1E1A;
-$primary-green: #1E6655;
-$primary-pistachio: #EFFAF7;
+$primary-lilac: #b6a3d6;
+$primary-plum: #9b7b91;
+$primary-grey: #b1b1b1;
 
-$secondary-green: #B7CEC9;
-$secondary-sage: #E4EFEC;
-$secondary-white: #FFFFFF;
+$secondary-green: #799af7;
+$secondary-sage: #e4efec;
+$secondary-white: #ffffff;
 
 // STANDARD PAGE LAYOUT & MARGINS
 $margin-mobile: 1rem;
@@ -27,10 +27,10 @@ $column-desktop: 5rem;
 
 $gap-mobile: 1rem;
 $gap-tablet: 1.5rem;
-$gap-desktop: 1.5rem; 
+$gap-desktop: 1.5rem;
 
 // STANDARD ELEMENT PADDING
-$padding-element-mobile: .5rem;
+$padding-element-mobile: 0.5rem;
 $margin-primary-nav: 1.5rem;
 $margin-section: 3rem;
 

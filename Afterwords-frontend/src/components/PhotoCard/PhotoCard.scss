@@ -1,0 +1,100 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.photo {
+  width: 100%;
+  aspect-ratio: 1.5/1;
+  object-fit: cover;
+  border-radius: $border-radius;
+  border-radius: 0.625rem 0.625rem 0 0;
+
+  &__container {
+    width: 100%;
+    border: solid $secondary-green 0.05rem;
+    border-radius: $border-radius;
+    margin-bottom: $margin-mobile;
+
+    @include tablet {
+      width: 47%;
+      border: solid $secondary-green 0.0938rem;
+    }
+
+    @include desktop {
+      border-radius: 0.875rem;
+      width: 24rem;
+    }
+
+    &-author {
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+      background-color: $secondary-sage;
+      border-bottom: $border-radius;
+      width: 100%;
+      height: 100%;
+
+      @include tablet {
+        height: auto;
+        border-radius: 21px 21px 0 0;
+      }
+    }
+
+    &-tags {
+      display: flex;
+      flex-direction: row;
+      background-color: $secondary-sage;
+      gap: $padding-element-mobile;
+      padding: $padding-element-mobile;
+      border-radius: 0 0 0.4375rem 0.4375rem;
+
+      @include tablet {
+        justify-content: flex-start;
+        padding: 1rem 0 1rem 1rem;
+      }
+
+      @include desktop {
+        border-radius: 0 0 0.8125rem 0.8125rem;
+      }
+    }
+  }
+
+  &__author {
+    position: absolute;
+    background-color: $secondary-sage;
+    padding: $padding-element-mobile;
+    font-size: 0.63rem;
+    font-weight: 500;
+    letter-spacing: 0.02rem;
+    bottom: 0.0625rem;
+    border-radius: 10px 0 0 0;
+    border-bottom: solid $secondary-green 0.01rem;
+
+    @include tablet {
+      font-size: 0.75rem;
+      padding: 0.5rem 0.7rem;
+    }
+  }
+
+  &__tag {
+    @include box-border;
+    font-weight: 500;
+    background-color: $secondary-white;
+    font-size: 0.58rem;
+    padding: 0.3rem $padding-element-mobile;
+
+    &--hover {
+      &:hover {
+        background-color: $secondary-sage;
+      }
+    }
+
+    @include tablet {
+      font-size: 0.8rem;
+      padding: 0.5rem 0.8rem;
+    }
+
+    @include desktop {
+      border-radius: 0.8125rem;
+    }
+  }
+}
