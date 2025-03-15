@@ -26,7 +26,6 @@ function Homepage() {
       navigate(path);
     } else {
       setSelectedTag("");
-      navigate("/");
     }
   }
 
@@ -45,6 +44,7 @@ function Homepage() {
       <HeaderNav isHomePage={true} filtersShowClick={filtersShowClick} showTags={showTags} />
       <main className="main__section">
         <OptionsList
+          isHomePage={true}
           handleTagClick={handleTagClick}
           showTags={showTags}
           selectedTag={selectedTag}

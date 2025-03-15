@@ -14,15 +14,15 @@ function OptionSelected({ words, index, handleTagClick }) {
                     {/* Home Page */}
                     {optionStatus === "/" && (
                         <Link to="/">
-                            {/* <div onClick={() => handleTagClick("homepage", "/")}> */}
-                            <section className="mission__section">
-                                <h3 className="mission__text">
-                                    Your <span className="mission__text mission__text--changing">{words[index]}</span>
-                                    <br />
-                                    Their Comfort
-                                </h3>
-                            </section>
-                            {/* </div> */}
+                            <div onClick={() => handleTagClick("homepage", "/")}>
+                                <section className="mission__section">
+                                    <h3 className="mission__text">
+                                        Your <span className="mission__text mission__text--changing">{words[index]}</span>
+                                        <br />
+                                        Their Comfort
+                                    </h3>
+                                </section>
+                            </div>
                         </Link>
                     )}
 

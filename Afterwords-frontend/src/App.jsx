@@ -1,7 +1,7 @@
 import "./App.scss";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Homepage from "./pages/Homepage/Homepage.jsx";
-// import HeaderNav from "./components/HeaderNav/HeaderNav.jsx";
+import HeaderNav from "./components/HeaderNav/HeaderNav.jsx";
 import PhotoSinglePage from "./pages/PhotoSinglePage/PhotoSinglePage.jsx";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage.jsx";
 import Footer from "./components/Footer/Footer.jsx";
