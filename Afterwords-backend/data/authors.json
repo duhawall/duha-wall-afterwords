@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "authorName": "Sophie March",
+    "email": "sophie.march@example.com",
+    "password": "AlicePass123!"
+  },
+  {
+    "id": "2",
+    "email": "bob.johnson@example.com",
+    "password": "BobSecure456$"
+  },
+  {
+    "id": "3",
+    "email": "charlie.doe@example.com",
+    "password": "CharliePwd789#"
+  },
+  {
+    "id": "4",
+    "email": "dana.white@example.com",
+    "password": "DanaKey000@"
+  }
+]

@@ -8,29 +8,24 @@
     }
   }
 
-  &__section {
+  &__drawer {
     background-color: white;
-    padding: $padding-element-mobile;
-    width: 75%;
+    padding: 0.2rem $padding-element-mobile;
+    width: 15em;
     border: 2px solid $primary-grey;
     border-radius: 50px 0 0 50px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.3rem;
 
     @include tablet {
-      padding: 1rem $margin-tablet 4rem $margin-tablet;
+      width: 17em;
     }
 
     @include desktop {
-      width: 26rem;
-      height: 100%;
-      background-color: $secondary-sage;
-      padding: 2rem 0rem 2rem 3rem;
+      width: 18em;
+      height: 14.1%;
     }
-  }
-
-  &__drawer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
   }
 
   &__tag {
@@ -39,12 +34,12 @@
     font-family: $font-sub;
     font-weight: 500;
     color: $primary-plum;
-    padding: 0.3rem;
+    padding: 0.1rem 0.4rem;
     margin: 0.2rem;
     border: solid 0.124rem $primary-plum;
 
     @include tablet {
-      padding: 0.6rem 0.7rem;
+      padding: 0.2rem 0.7rem;
       font-size: 0.9rem;
       font-weight: 500;
     }

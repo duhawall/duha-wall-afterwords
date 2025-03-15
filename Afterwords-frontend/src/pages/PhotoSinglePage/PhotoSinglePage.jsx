@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./PhotoSinglePage.scss";
-import HeaderNav from "../../components/HeaderNav/HeaderNav";
+import HeaderNav from "../../components/HeaderNav/HeaderNav.jsx";
 
 function PhotoSinglePage() {
   const [photo, setPhoto] = useState(null);
@@ -59,7 +59,7 @@ function PhotoSinglePage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    
+
 
     const isFormValid = name.length > 0 || comment.length > 0;
     const isNameFilled = name.length > 0;

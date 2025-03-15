@@ -1,17 +1,17 @@
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
-import primUsersRoutes from "./routes/prim-user-routes.js";
+import authorsRoutes from "./routes/author-routes.js";
 import lovedOnesRoutes from "./routes/loved-one-routes.js";
 
 const app = express();
 const { CORS_ORIGIN, PORT } = process.env;
 
 app.use(cors({ origin: CORS_ORIGIN }));
-app.use(express.json()); // parses body
+app.use(express.json()); // attaches body to the req Object
 
-app.use("/prim-users", primUsersRoutes);
-app.use("/loved-ones", lovedOnesRoutes);
+// app.use("/authors", authorsRoutes);
+// app.use("/loved-ones", lovedOnesRoutes);
 
 app.get("/", (req, res) => {
   res.send(

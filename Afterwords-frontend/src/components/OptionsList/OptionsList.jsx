@@ -14,20 +14,29 @@ function OptionsList({ handleTagClick, showTags, selectedTag, clickedTag }) {
         className={`filters-container ${showTags === true ? "filters-container--open" : ""
           }`}
       >
-        <section className="filters__section">
-          <ul className="filters__drawer">
-            {["About", "How To", "Login"].map((option, index) => (
-              <li
-                className={`filters__tag ${selectedTag === option ? "filters__tag--selected" : ""
-                  }`}
-                key={index}
-                onClick={() => handleTagClick(option)}
-              >
-                {option}
-              </li>
-            ))}
-          </ul>
-        </section>
+        <ul className="filters__drawer">
+          <li
+            className={`filters__tag ${selectedTag === "/about" ? "filters__tag--selected" : ""
+              }`}
+            onClick={() => handleTagClick("/about")}
+          >
+            About
+          </li>
+          <li
+            className={`filters__tag ${selectedTag === "/howto" ? "filters__tag--selected" : ""
+              }`}
+            onClick={() => handleTagClick("/howto")}
+          >
+            How To
+          </li>
+          <li
+            className={`filters__tag ${selectedTag === "/login" ? "filters__tag--selected" : ""
+              }`}
+            onClick={() => handleTagClick("/login")}
+          >
+            Login
+          </li>
+        </ul>
       </div>
     </>
   );
