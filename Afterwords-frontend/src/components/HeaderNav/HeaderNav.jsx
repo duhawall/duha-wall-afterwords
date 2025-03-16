@@ -30,7 +30,6 @@ function HeaderNav({ filtersShowClick, showTags, isHomePage }) {
           </div>
         </nav>
       ) : (
-
         <nav className="primary-nav">
           <div className="primary-nav__header-container">
             <h1 className="primary-nav__header">

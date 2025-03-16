@@ -14,8 +14,11 @@ body,
 footer,
 input,
 button,
-textarea {
-  font-family: $font-main, Arial, Helvetica, sans-serif;
+textarea,
+li,
+p {
+  color: white;
+  font-family: $font-sub, Arial, Helvetica, sans-serif;
   background-color: $primary-plum;
 }
 

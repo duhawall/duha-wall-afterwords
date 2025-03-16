@@ -1,0 +1,147 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.options {
+  &__container {
+    display: flex;
+    padding: 0 1rem;
+
+    @include tablet {
+      width: 76%;
+    }
+  }
+
+  &__selection {
+    // display: flex;
+    // flex-direction: column;
+    width: 100%;
+    padding: 3rem 0;
+  }
+}
+
+.background-photo {
+  background-image: url("../../assets/images/sky-background.jpg");
+  min-width: 2rem;
+  // height: 100%;
+  height: auto;
+  border-radius: 15rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: inset 1px 1px 10px -1px rgba(0, 0, 0, 0.3);
+
+  @include tablet {
+    width: 2.5rem;
+    border-radius: 500px;
+  }
+
+  @include desktop {
+    width: 2.5rem;
+  }
+
+  // @include tablet {
+  //   width: 100%;
+  //   height: 24rem;
+  //   border-radius: 500px;
+  // }
+}
+
+.mission {
+  &__section {
+    padding: $margin-mobile;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+
+    @include tablet {
+      padding: 3rem 1rem;
+    }
+
+    @include desktop {
+      padding: 3rem 2.5rem;
+    }
+  }
+
+  &__text {
+    font-family: $font-sub;
+    font-weight: 400;
+    font-size: 2.5rem;
+    text-align: left;
+    line-height: 60px;
+    width: 35%;
+    padding-left: 1rem;
+
+    @include tablet {
+      font-size: 2.5rem;
+      line-height: 4rem;
+      width: 20%;
+      padding-left: 1rem;
+    }
+
+    @include desktop {
+      font-size: 2.8rem;
+      width: 18%;
+      line-height: 4.5rem;
+    }
+
+    &--changing {
+      padding-left: 0;
+      font-size: 2.5rem;
+      opacity: 0;
+      animation: fadeInInterval 3s ease-in-out infinite;
+
+      @keyframes fadeInInterval {
+        0% {
+          opacity: 0%;
+        }
+        45% {
+          opacity: 100%;
+        }
+      }
+
+      @include desktop {
+        font-size: 2.8rem;
+      }
+    }
+  }
+}
+
+.about {
+  // &__section {
+  //   color: white;
+  // }
+
+  &__text {
+    padding: 0.5rem 2rem;
+    line-height: 1.5rem;
+
+    @include tablet {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.how-to {
+  &__section {
+    width: 100%;
+    padding-left: 2rem;
+  }
+
+  &__instructions {
+    line-height: 1.5rem;
+  }
+
+  &__details {
+    padding: 0rem 0 1.5rem 0;
+
+    &--no-padding {
+      padding: 0;
+    }
+  }
+}
+
+.login {
+  &__section {
+    display: flex;
+  }
+}

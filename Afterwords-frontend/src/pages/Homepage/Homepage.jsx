@@ -1,6 +1,6 @@
 import "./Homepage.scss";
 // import PhotoList from "../../components/PhotoList/PhotoList.jsx";
-import OptionSelected from "../../components/OptionSelected/OptionSelected.jsx";
+import HomepageOptions from "../../components/HomepageOptions/HomepageOptions.jsx";
 import OptionsList from "../../components/OptionsList/OptionsList.jsx";
 import HeaderNav from "../../components/HeaderNav/HeaderNav.jsx";
 import { useState, useEffect } from "react";
@@ -11,7 +11,6 @@ function Homepage() {
   const [selectedTag, setSelectedTag] = useState("");
   const words = ["Light,", "Warmth,", "Legacy,", "Words,", "Messages,", "Story,"];
   const [index, setIndex] = useState(0);
-  // const [optionStatus, setOptionStatus] = useState("");
   const navigate = useNavigate();
 
   function filtersShowClick() {
@@ -49,7 +48,7 @@ function Homepage() {
           showTags={showTags}
           selectedTag={selectedTag}
         />
-        <OptionSelected words={words} index={index} selectedTag={selectedTag} handleTagClick={handleTagClick} />
+        <HomepageOptions words={words} index={index} selectedTag={selectedTag} handleTagClick={handleTagClick} />
         {/* <section className="mission__section">
           <div alt="light blue sky background" className="background-photo">
           </div>

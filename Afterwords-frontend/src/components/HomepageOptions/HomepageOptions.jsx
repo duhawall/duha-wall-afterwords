@@ -1,4 +1,4 @@
-import "./OptionSelected.scss";
+import "./HomepageOptions.scss";
 import { useLocation, Link } from "react-router-dom";
 
 
@@ -28,8 +28,8 @@ function OptionSelected({ words, index, handleTagClick }) {
 
                     {/* About Page */}
                     {optionStatus === "/about" && (
-                        <Link to="/about">
-                            <section className="about__section" onClick={() => handleTagClick("about", "/about")}>
+                        <Link to="/about" onClick={() => handleTagClick("about", "/about")}>
+                            <section className="about__section">
                                 <p className="about__text">
                                     Afterwords understands that there is no right time to speak of loss, as it is one of
                                     life’s most profound challenges.
@@ -58,35 +58,34 @@ function OptionSelected({ words, index, handleTagClick }) {
                             <ul className="how-to__section">
                                 <li className="how-to__instructions">
                                     <strong>1. Sign Up:</strong>
-                                    <br /> Create an account on Afterwords to access and store your entries.
+                                    <p className="how-to__details"> Create an account on Afterwords to access and store your entries.</p>
                                 </li>
                                 <li className="how-to__instructions">
                                     <strong>2. Add a Loved One:</strong>
-                                    <br /> Enter their name to start writing.
-                                    <br /> You’ll get a Unique Code (UIC)—share it with them!
+                                    <p className="how-to__details"> Enter their name to start writing.
+                                        You’ll get a Unique Code (UIC)—share it with them!</p>
                                 </li>
                                 <li className="how-to__instructions">
                                     <strong>3. Write Messages:</strong>
-                                    <br /> Leave up to 31 messages per person,
-                                    <br /> to encourage deep reflection. Edit anytime.
+                                    <p className="how-to__details"> Leave up to 31 messages per person,
+                                        to encourage deep reflection. Edit anytime.</p>
                                 </li>
                                 <li className="how-to__instructions">
                                     <strong>4. Safe & Secure:</strong>
-                                    <br /> Entries are saved securely and encrypted, so only
-                                    <br /> you and your loved ones with the UIC can see them.
+                                    <p className="how-to__details"> Entries are saved securely and encrypted, so only
+                                        you and your loved ones with the UIC can see them.</p>
                                 </li>
                                 <li className="how-to__instructions">
                                     <strong>5. Lost Code?</strong>
-                                    <br /> Our future updates will provide more authentication options.
+                                    <p className="how-to__details"> Our future updates will provide more safety and authentication options.</p>
                                 </li>
                                 <li className="how-to__instructions">
                                     <strong>6. Leave a Legacy:</strong>
-                                    <br /> Your words will comfort and support them forever.
+                                    <p className="how-to__details how-to__details--no-padding"> Your words will comfort and support your loved ones forever.</p>
                                 </li>
                             </ul>
                         </Link>
                     )}
-
                     {/* Login Page */}
                     {optionStatus === "/login" && (
                         <Link to="/login" onClick={() => handleTagClick("login", "/login")}>
