@@ -94,7 +94,10 @@
         0% {
           opacity: 0%;
         }
-        45% {
+        35% {
+          opacity: 100%;
+        }
+        65% {
           opacity: 100%;
         }
       }
@@ -141,7 +144,83 @@
 }
 
 .login {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 15rem;
+    height: 15rem;
+    background-color: $primary-lilac;
+    border-radius: calc($border-radius * 4);
+  }
+}
+
+.form {
   &__section {
     display: flex;
+    flex-direction: column;
+    margin: 2rem 0;
+  }
+
+  &__email,
+  &__password {
+    font-family: $font-sub;
+    margin-bottom: 0.5rem;
+
+    @include desktop {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__input {
+    color: $secondary-grey;
+    border-radius: $border-radius;
+    height: 2rem;
+    background-color: $secondary-white;
+    margin-bottom: 1.5rem;
+    // border: solid 2px $secondary-grey;
+    font-family: $font-sub;
+
+    &:active {
+      border: solid 2px $primary-lilac;
+    }
+
+    &--error {
+      border: solid 3px #b10606;
+    }
+
+    @include tablet {
+      border-radius: 0.75rem;
+    }
+
+    &--email,
+    &--password {
+      height: 2.5rem;
+      padding: 0.6rem;
+    }
+  }
+  &__button {
+    color: $secondary-white;
+    background-color: $primary-lilac;
+    // align-self: flex-start;
+    width: 4.5rem;
+    margin: 0rem 0.2rem;
+    padding: 0.4rem 0.8rem;
+
+    @include tablet {
+      font-size: 1.2rem;
+      width: 7rem;
+      padding: 0.6rem 1rem;
+      border-radius: 0.7rem;
+    }
+  }
+}
+
+input[type="password"] {
+  font-size: 41px;
+
+  &::placeholder {
+    font-size: 14px;
   }
 }

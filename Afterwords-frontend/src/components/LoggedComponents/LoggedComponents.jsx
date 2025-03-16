@@ -1,10 +1,73 @@
-import "./HomepageOptions.scss";
-import { useLocation, Link } from "react-router-dom";
+import "./HomeComponents.scss";
+import { useState } from "react";
+import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 
 
-function OptionSelected({ words, index, handleTagClick }) {
+function LoggedComponents({ words, index, handleTagClick, isHomePage }) {
     const location = useLocation();
     const optionStatus = location.pathname;
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const [isEmailEmpty, setIsEmailEmpty] = useState(false);
+    const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
+    const navigate = useNavigate();
+    const params = useParams();
+
+    const checkLogin = async () => {
+        try {
+            const getLoginData = await axios.get(
+                `${backendUrl}/login/${params.email}`
+            );
+            setEmail(response.data.email);
+            console.log("hollup", setEmail);
+            if (!checkLogin) {
+                return resizeBy.status(404).json({
+                    message: `Email ${req.params.email} not found`,
+                });
+            }
+        } catch {
+            alert("Error: could not find email. Please check if it is correct");
+        }
+    };
+
+    const handleAddEmail = (event) => {
+        setEmail(event.target.value);
+        setIsEmailEmpty(false);
+    };
+
+    const handleAddPassword = (event) => {
+        setPassword(event.target.value);
+        setIsPasswordEmpty(false);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const isFormValid = email.length > 0 || password.length > 0;
+        const isEmailFilled = email.length > 0;
+        const isPasswordFilled = password.length > 0;
+
+        if (!isFormValid) {
+            setIsEmailEmpty(true);
+            setIsPasswordEmpty(true);
+            return alert("Please fill in both email and password field first.");
+        } else if (!isEmailFilled) {
+            setIsEmailEmpty(true);
+            return alert("Please fill in the email field first.");
+        } else if (!isPasswordFilled) {
+            setIsPasswordEmpty(true);
+            return alert("Please fill in the password field first.");
+        }
+
+        console.log("Logged in:", { email, password });
+
+        navigate("/logout");
+
+        setEmail("");
+        setPassword("");
+    };
 
     return (
         <>
@@ -16,11 +79,11 @@ function OptionSelected({ words, index, handleTagClick }) {
                         <Link to="/">
                             <div onClick={() => handleTagClick("homepage", "/")}>
                                 <section className="mission__section">
-                                    <h3 className="mission__text">
+                                    <h1 className="mission__text">
                                         Your <span className="mission__text mission__text--changing">{words[index]}</span>
                                         <br />
                                         Their Comfort
-                                    </h3>
+                                    </h1>
                                 </section>
                             </div>
                         </Link>
@@ -53,8 +116,8 @@ function OptionSelected({ words, index, handleTagClick }) {
                     )}
 
                     {/* How-To Page */}
-                    {optionStatus === "/howto" && (
-                        <Link to="/howto" onClick={() => handleTagClick("howto", '/howto')}>
+                    {optionStatus === "/how-to" && (
+                        <Link to="/how-to" onClick={() => handleTagClick("how-to", '/how-to')}>
                             <ul className="how-to__section">
                                 <li className="how-to__instructions">
                                     <strong>1. Sign Up:</strong>
@@ -87,10 +150,40 @@ function OptionSelected({ words, index, handleTagClick }) {
                         </Link>
                     )}
                     {/* Login Page */}
+                    <Link to="/login" onClick={() => handleTagClick("login", "/logged")}>
+                    </Link>
                     {optionStatus === "/login" && (
-                        <Link to="/login" onClick={() => handleTagClick("login", "/login")}>
-                            <section className="login__container">LOGIN SECTION</section>
-                        </Link>
+                        <form className="login__container" onSubmit={handleSubmit}>
+                            <label htmlFor="email" className="form__email">Email</label>
+                            <input
+                                id="email"
+                                className={`form__input form__input--email ${isEmailEmpty ? "form__input--error" : ""
+                                    }`}
+                                type="email"
+                                placeholder="Enter your email"
+                                name="email"
+                                // autoComplete="email"
+                                value={email}
+                                onChange={handleAddEmail}
+                            />
+                            <label htmlFor="password" className="form__password">
+                                Name
+                            </label>
+                            <input
+                                id="password"
+                                className={`form__input form__input--password ${isPasswordEmpty ? "form__input--error" : ""
+                                    }`}
+                                type="password"
+                                placeholder="Enter your password"
+                                name="password"
+                                value={password}
+                                // autoComplete="current-password"
+                                onChange={handleAddPassword}
+                            />
+                            <button className="form__button" type="submit">
+                                LOG IN
+                            </button>
+                        </form>
                     )}
                 </div>
             </div>
@@ -98,4 +191,4 @@ function OptionSelected({ words, index, handleTagClick }) {
     );
 }
 
-export default OptionSelected;
+export default LoggedComponents;

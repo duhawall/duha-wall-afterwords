@@ -3,14 +3,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const apiKey = "ninjatuna";
-function OptionsList({ handleTagClick, showTags, selectedTag, clickedTag, isHomePage }) {
+function OptionsList({ handleTagClick, showTags, selectedTag, clickedTag, isHomeOptions }) {
   const [tags, setTags] = useState(null);
 
   useEffect(() => { }, [tags]);
 
   return (
     <>
-      {isHomePage ? (
+      {isHomeOptions ? (
         <div
           className={`filters-container ${showTags === true ? "filters-container--open" : ""
             }`}
@@ -24,9 +24,9 @@ function OptionsList({ handleTagClick, showTags, selectedTag, clickedTag, isHome
               About
             </li>
             <li
-              className={`filters__tag ${selectedTag === "/howto" ? "filters__tag--selected" : ""
+              className={`filters__tag ${selectedTag === "/how-to" ? "filters__tag--selected" : ""
                 }`}
-              onClick={() => handleTagClick("howto", "/howto")}
+              onClick={() => handleTagClick("how-to", "/how-to")}
             >
               How To
             </li>
@@ -46,23 +46,23 @@ function OptionsList({ handleTagClick, showTags, selectedTag, clickedTag, isHome
         >
           <ul className="filters__drawer">
             <li
-              className={`filters__tag ${selectedTag === "/about" ? "filters__tag--selected" : ""
+              className={`filters__tag ${selectedTag === "/add-loved-one" ? "filters__tag--selected" : ""
                 }`}
-              onClick={() => handleTagClick("addLovedOne", "/addLovedOne")}
+              onClick={() => handleTagClick("add-loved-one", "/addLovedOne")}
             >
               Add Loved One
             </li>
             <li
-              className={`filters__tag ${selectedTag === "/howto" ? "filters__tag--selected" : ""
+              className={`filters__tag ${selectedTag === "/loved-ones" ? "filters__tag--selected" : ""
                 }`}
-              onClick={() => handleTagClick("/howto")}
+              onClick={() => handleTagClick("loved-ones", "/loved-ones")}
             >
               Loved Ones
             </li>
             <li
-              className={`filters__tag ${selectedTag === "/login" ? "filters__tag--selected" : ""
+              className={`filters__tag ${selectedTag === "/logged" ? "filters__tag--selected" : ""
                 }`}
-              onClick={() => handleTagClick("/login")}
+              onClick={() => handleTagClick("logged", "/logged")}
             >
               Logout
             </li>

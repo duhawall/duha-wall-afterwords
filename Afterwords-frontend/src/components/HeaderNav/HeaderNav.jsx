@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 function HeaderNav({ filtersShowClick, showTags, isHomePage }) {
   return (
-
     <header>
       {isHomePage ? (
         <nav className="primary-nav">
@@ -16,7 +15,6 @@ function HeaderNav({ filtersShowClick, showTags, isHomePage }) {
                 }`}
               onClick={filtersShowClick}
             >
-              {/* <h2 className="primary-nav__filters-text">Options</h2> */}
               <svg
                 aria-hidden="true"
                 role="img"
@@ -33,14 +31,13 @@ function HeaderNav({ filtersShowClick, showTags, isHomePage }) {
         <nav className="primary-nav">
           <div className="primary-nav__header-container">
             <h1 className="primary-nav__header">
-              <Link to="/">Afterwords LOGGED IN.</Link>
+              <Link to="/">Afterwords LOGGED.</Link>
             </h1>
             <button
               className={`primary-nav__filters-container ${showTags ? "primary-nav__filters-container--clicked" : ""
                 }`}
               onClick={filtersShowClick}
             >
-              {/* <h2 className="primary-nav__filters-text">Options</h2> */}
               <svg
                 aria-hidden="true"
                 role="img"

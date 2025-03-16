@@ -136,7 +136,7 @@ button {
     border: solid $primary-lilac 0.8px;
     border-radius: $border-radius;
     margin-bottom: $margin-mobile;
-    background-color: $secondary-sage;
+    background-color: $secondary-grey;
   }
 
   &-by {
@@ -229,69 +229,6 @@ button {
       @include tablet {
         padding: 2rem;
       }
-    }
-  }
-}
-
-.form {
-  &__section {
-    display: flex;
-    flex-direction: column;
-    margin: 2rem 0;
-  }
-
-  &__name,
-  &__comment {
-    margin-bottom: 0.5rem;
-
-    @include desktop {
-      font-size: 1.1rem;
-    }
-  }
-  &__input {
-    border-radius: $border-radius;
-    height: 2rem;
-    background-color: $secondary-white;
-    margin-bottom: 1.5rem;
-    border: solid 2px $secondary-sage;
-    font-family: $font-sub;
-
-    &:active {
-      border: solid 2px $primary-lilac;
-    }
-
-    &--error {
-      border: solid 2px #b10606;
-    }
-
-    @include tablet {
-      border-radius: 0.75rem;
-    }
-
-    &--name {
-      height: 2.5rem;
-      padding: 0.6rem;
-    }
-
-    &--comment {
-      height: 6rem;
-      margin-top: 0.3rem;
-      padding: 0.6rem;
-    }
-  }
-  &__button {
-    color: $secondary-white;
-    background-color: $primary-lilac;
-    align-self: flex-end;
-    width: 4.5rem;
-    margin: 0rem 0.2rem;
-    padding: 0.4rem 0.8rem;
-
-    @include tablet {
-      font-size: 1.2rem;
-      width: 7rem;
-      padding: 0.6rem 1rem;
-      border-radius: 0.7rem;
     }
   }
 }

@@ -1,93 +1,123 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import "./PhotoSinglePage.scss";
+import "./LoggedInPage.scss";
+import { useNavigate } from "react-router-dom";
 import HeaderNav from "../../components/HeaderNav/HeaderNav.jsx";
+import OptionsList from "../../components/OptionsList/OptionsList.jsx";
 
-function PhotoSinglePage() {
-  const [photo, setPhoto] = useState(null);
-  const [comments, setComments] = useState([]);
-  const [name, setName] = useState("");
-  const [comment, setComment] = useState("");
-  const [isNameEmpty, setIsNameEmpty] = useState(false);
-  const [isCommentEmpty, setIsCommentEmpty] = useState(false);
-  const params = useParams();
+function LoggedInPage() {
+  // const [photo, setPhoto] = useState(null);
+  // const [comments, setComments] = useState([]);
+  // const [name, setName] = useState("");
+  // const [comment, setComment] = useState("");
+  // const [isNameEmpty, setIsNameEmpty] = useState(false);
+  // const [isCommentEmpty, setIsCommentEmpty] = useState(false);
+  // const params = useParams();
 
-  const loadPhoto = async () => {
-    const response = await axios.get(
-      `https://unit-3-project-c5faaab51857.herokuapp.com/photos/${params.id}?api_key=ninjatuna`
-    );
-    setPhoto(response.data);
-  };
+  // const loadPhoto = async () => {
+  //   const response = await axios.get(
+  //     `https://unit-3-project-c5faaab51857.herokuapp.com/photos/${params.id}?api_key=ninjatuna`
+  //   );
+  //   setPhoto(response.data);
+  // };
 
-  const loadComment = async () => {
-    const responseComments = await axios.get(
-      `https://unit-3-project-c5faaab51857.herokuapp.com/photos/${params.id}/comments?api_key=ninjatuna`
-    );
-    responseComments.data.sort((a, b) => b.timestamp - a.timestamp);
-    setComments(responseComments.data);
-  };
+  // const loadComment = async () => {
+  //   const responseComments = await axios.get(
+  //     `https://unit-3-project-c5faaab51857.herokuapp.com/photos/${params.id}/comments?api_key=ninjatuna`
+  //   );
+  //   responseComments.data.sort((a, b) => b.timestamp - a.timestamp);
+  //   setComments(responseComments.data);
+  // };
 
-  const postComment = async (newComment) => {
-    try {
-      await axios.post(
-        `https://unit-3-project-c5faaab51857.herokuapp.com/photos/${params.id}/comments?api_key=ninjatuna`,
-        newComment
-      );
-      loadComment();
-    } catch {
-      alert("Error: could not post comment.");
-    }
-  };
+  // const postComment = async (newComment) => {
+  //   try {
+  //     await axios.post(
+  //       `https://unit-3-project-c5faaab51857.herokuapp.com/photos/${params.id}/comments?api_key=ninjatuna`,
+  //       newComment
+  //     );
+  //     loadComment();
+  //   } catch {
+  //     alert("Error: could not post comment.");
+  //   }
+  // };
 
-  useEffect(() => {
-    loadPhoto();
-    loadComment();
-  }, []);
+  // useEffect(() => {
+  //   loadPhoto();
+  //   loadComment();
+  // }, []);
 
-  if (photo === null) {
-    return <p>Loading Photo...</p>;
+  // if (photo === null) {
+  //   return <p>Loading Photo...</p>;
+  // }
+
+  // const handleAddName = (event) => {
+  //   setName(event.target.value);
+  // };
+
+  // const handleAddComment = (event) => {
+  //   setComment(event.target.value);
+  // };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+
+
+  //   const isFormValid = name.length > 0 || comment.length > 0;
+  //   const isNameFilled = name.length > 0;
+  //   const isCommentFilled = comment.length > 0;
+
+  //   if (!isFormValid) {
+  //     setIsNameEmpty(true);
+  //     setIsCommentEmpty(true);
+  //     return alert("Please fill empty field(s) first.");
+  //   } else if (!isNameFilled) {
+  //     setIsNameEmpty(true);
+  //     return alert("Please fill name field first.");
+  //   } else if (!isCommentFilled) {
+  //     setIsCommentEmpty(true);
+  //     return alert("Please fill comment field first.");
+  //   }
+
+  //   const veryNewComment = { name, comment };
+  //   postComment(veryNewComment);
+  //   setName("");
+  //   setComment("");
+  // };
+
+  const [showTags, setShowTags] = useState(false);
+  const [selectedTag, setSelectedTag] = useState("");
+  const navigate = useNavigate();
+
+  function filtersShowClick() {
+    setShowTags(!showTags);
+    console.log("show me your tags", setShowTags);
+    console.log("hide your tags", showTags);
   }
 
-  const handleAddName = (event) => {
-    setName(event.target.value);
-  };
-
-  const handleAddComment = (event) => {
-    setComment(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-
-    const isFormValid = name.length > 0 || comment.length > 0;
-    const isNameFilled = name.length > 0;
-    const isCommentFilled = comment.length > 0;
-
-    if (!isFormValid) {
-      setIsNameEmpty(true);
-      setIsCommentEmpty(true);
-      return alert("Please fill empty field(s) first.");
-    } else if (!isNameFilled) {
-      setIsNameEmpty(true);
-      return alert("Please fill name field first.");
-    } else if (!isCommentFilled) {
-      setIsCommentEmpty(true);
-      return alert("Please fill comment field first.");
+  function handleTagClick(clickedTag, path) {
+    if (selectedTag != clickedTag) {
+      setSelectedTag(clickedTag);
+      navigate(path);
+    } else {
+      setSelectedTag("");
     }
-
-    const veryNewComment = { name, comment };
-    postComment(veryNewComment);
-    setName("");
-    setComment("");
-  };
+  }
 
   return (
     <>
-      <HeaderNav isHomePage={false} />
-      <main className="single__section">
-        <div className="single__container">
+      <HeaderNav
+        isHomePage={false}
+        filtersShowClick={filtersShowClick}
+        showTags={showTags} />
+      <OptionsList
+        isHomeOptions={false}
+        handleTagClick={handleTagClick}
+        showTags={showTags}
+        selectedTag={selectedTag}
+      />
+      HELLO HELLO!
+      {/* <div className="single__container">
           <img src={photo.photo} className="single__photo photo"></img>
           <ul className="single__tag-container">
             {photo.tags.map((tag, index) => (
@@ -178,10 +208,9 @@ function PhotoSinglePage() {
               </li>
             ))}
           </ul>
-        </div>
-      </main>
+        </div> */}
     </>
   );
 }
 
-export default PhotoSinglePage;
+export default LoggedInPage;
