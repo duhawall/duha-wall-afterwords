@@ -5,13 +5,14 @@ import authorsRoutes from "./routes/author-routes.js";
 import lovedOnesRoutes from "./routes/loved-one-routes.js";
 
 const app = express();
-const { CORS_ORIGIN, PORT } = process.env;
+const PORT = process.env.PORT || 8081;
+const BACKEND_URL = process.env.BACKEND_URL;
 
-app.use(cors({ origin: CORS_ORIGIN }));
+app.use(cors({ origin: process.env.CORS_ORIGIN }));
 app.use(express.json()); // attaches body to the req Object
 
-// app.use("/authors", authorsRoutes);
-// app.use("/loved-ones", lovedOnesRoutes);
+app.use("/authors", authorsRoutes);
+app.use("/loved-ones", lovedOnesRoutes);
 
 app.get("/", (req, res) => {
   res.send(
@@ -20,5 +21,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT} :)`);
+  console.log(`Server is running at ${BACKEND_URL}:${PORT} :)`);
 });

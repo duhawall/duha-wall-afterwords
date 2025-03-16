@@ -8,7 +8,7 @@ router.get("/loved-one/entries", (req, res) => {
   res.send(entriesData);
 });
 
-router.post("/user/loved-one/:id", (req, res) => {
+router.post("/:id/loved-one/:id", (req, res) => {
   const lovedOne = fs.readFileSync("./data/entries.json", "utf8");
   const parsedLovedOne = JSON.parse(lovedOnesData);
   const foundLovedOne = (lovedOne) => {

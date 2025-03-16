@@ -4,11 +4,17 @@ import * as authorsController from "../controllers/authors-controllers.js";
 
 const router = express.Router();
 
-// REMEMBER TO CHANGE THE "PLACEHOLDER" TO THE NAME OF YOUR FUNCTION
-// router
-//   .route("/")
+router.route("/");
+
+router.route("/add-new").post(authorsController.addAuthor); // add new author
+
+router
+  .route("/:id")
+  .get(authorsController.findAuthor) // get user data
+  .put(authorsController.editAuthor); // update user data
+//   .delete(authorsController.deleteAuthor); // delete user
 //   .post(authorsController.addUser) // add user
-//   .post(authorsController.addLovedOne) // add user's loved ones
+//   .post(authorsController.addLovedOne); // add user's loved ones
 //   .post(authorsController.addEntry); // add loved one's entry
 
 // router
