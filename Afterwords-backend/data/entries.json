@@ -1,8 +1,8 @@
 [
   {
-    "authorId": "1",
+    "id": "1",
     "authorName": "Sophie March",
-    "lovedOne-id": "9d8e239c-3953-4822-83f2-ccdd98b8c5e6",
+    "lovedOneId": "9d8e239c-3953-4822-83f2-ccdd98b8c5e6",
     "lovedOne": "Ellie Birdo",
     "entries": [
       {

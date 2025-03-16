@@ -44,11 +44,11 @@ function OptionsList({ handleTagClick, showTags, selectedTag, clickedTag, isHome
           className={`filters-container ${showTags === true ? "filters-container--open" : ""
             }`}
         >
-          <ul className="filters__drawer">
+          <ul className="filters__drawer filters__drawer--extended">
             <li
               className={`filters__tag ${selectedTag === "/add-loved-one" ? "filters__tag--selected" : ""
                 }`}
-              onClick={() => handleTagClick("add-loved-one", "/addLovedOne")}
+              onClick={() => handleTagClick("add-loved-one", "/add-loved-one")}
             >
               Add Loved One
             </li>

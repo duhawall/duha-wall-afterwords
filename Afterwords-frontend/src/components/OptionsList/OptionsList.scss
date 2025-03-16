@@ -23,8 +23,16 @@
     }
 
     @include desktop {
-      width: 18em;
-      height: 14.1%;
+      width: 17em;
+      height: 9.1%;
+    }
+
+    &--extended {
+      width: 22em;
+
+      @include tablet {
+        width: 24em;
+      }
     }
   }
 
