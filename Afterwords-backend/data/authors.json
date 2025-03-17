@@ -1,13 +1,13 @@
 [
   {
     "id": "1",
-    "authorName": "Who Am I?",
+    "authorName": "Sophie March",
     "email": "who-are-you@example.com",
     "password": "securepassword123"
   },
   {
     "id": "2",
-    "authorName": "Bob Johnson",
+    "authorName": "Dina Basiony",
     "email": "bob.johnson@example.com",
     "password": "BobSecure456$"
   },

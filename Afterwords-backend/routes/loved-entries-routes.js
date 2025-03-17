@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.route("/");
 
-router.route("/add-new").post(lovedOnesController.addLovedOne); // add new author
+router.route("/:id/add-new").post(lovedOnesController.addLovedOne); // add new author
 
 // router
 //   .route("/:id")

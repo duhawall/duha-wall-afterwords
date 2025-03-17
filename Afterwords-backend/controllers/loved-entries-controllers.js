@@ -7,49 +7,61 @@ const router = express.Router();
 const lovedOnesData = fs.readFileSync("./data/loved-entries.json", "utf8");
 const parsedLovedOnesData = JSON.parse(lovedOnesData);
 
-// add a new author (data) - POST /loved-ones/add-new
+// add a new author (data) - POST /loved-ones/:id/add-new
 const addLovedOne = (req, res) => {
-  //   console.log(req.body);
-  const existingLovedOne = data.find(
-    (lovedOneId) => parsedLovedOnesData.lovedOneId === lovedOneId
+  const { lovedOneName } = req.body;
+  const { id: authorId } = req.params;
+
+  const author = parsedLovedOnesData.find((author) => author.id === authorId);
+
+  if (!author) {
+    return res.status(404).json({ error: "Author not found" });
+  }
+
+  const existingLovedOne = author.lovedOnes.find(
+    (lovedOneUser) => lovedOneUser.lovedOneName === lovedOneName
   );
 
   if (existingLovedOne) {
-    return { error: "Loved One already exists. Please try a different name" };
+    return res.json({
+      error: "Loved One already exists. Please try a different name",
+    });
   }
 
-  if (!existingLovedOne) {
-    const { lovedOne } = req.body;
-    const newLovedOne = {
-      id: uuidv4(),
-      lovedOne: lovedOne,
-      entries: [],
-    };
+  const newLovedOne = {
+    lovedOneId: uuidv4(),
+    lovedOneName: lovedOneName,
+    entries: [],
+  };
 
-    existingLovedOne.parsedLovedOnesData.push(newLovedOne);
-  } else {
-    console.log("Loved One not found.");
-  }
+  author.lovedOnes.push(newLovedOne);
 
-  // const { email, password, authorName } = req.body;
-  // const newLovedOne = {
-  //   id: `${highestId + 1}`,
-  //   authorName: authorName,
-  //   email: email,
-  //   password: password,
-  // };
-  // if (!req.body.authorName || !req.body.email || !req.body.password) {
-  //   return res.status(400).json({ error: "Missing input required." });
-  // }
+  fs.writeFileSync(
+    "./data/loved-entries.json",
+    JSON.stringify(parsedLovedOnesData, null, 2)
+  );
 
-  // parsedLovedOnesData.push(newLovedOne);
-
-  // fs.writeFileSync(
-  //   "./data/loved-entries.json",
-  //   JSON.stringify(parsedLovedOnesData, null, 2)
-  // );
-  // res.json(newLovedOne);
+  return res.status(201).json(newLovedOne);
 };
+
+// const { email, password, authorName } = req.body;
+// const newLovedOne = {
+//   id: `${highestId + 1}`,
+//   authorName: authorName,
+//   email: email,
+//   password: password,
+// };
+// if (!req.body.authorName || !req.body.email || !req.body.password) {
+//   return res.status(400).json({ error: "Missing input required." });
+// }
+
+// parsedLovedOnesData.push(newLovedOne);
+
+// fs.writeFileSync(
+//   "./data/loved-entries.json",
+//   JSON.stringify(parsedLovedOnesData, null, 2)
+// );
+// res.json(newLovedOne);
 
 // // get author's data
 // const findLovedOne = (req, res) => {
