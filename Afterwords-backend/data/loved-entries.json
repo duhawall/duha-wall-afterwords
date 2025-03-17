@@ -46,8 +46,10 @@
   },
   {
     "id": "1",
-    "authorName": "Sophine March",
-    "lovedOnes": [
+    "authorName": "Sophie March",
+    "lovedOneId": "9d8e239c-4141-4822-83f2-ccdd98b8c5e6",
+    "lovedOne": "Mayar Higher",
+    "entries": [
       {
         "id": "9d8e239c-3953-4832-83f2-ccdd98b8c5e6",
         "lovedOne": "Dina Bassiony",

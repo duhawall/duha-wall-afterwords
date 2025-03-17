@@ -9,3 +9,14 @@
     height: 14rem;
   }
 }
+
+.form {
+  &__loved-one {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__login {
+    width: 10rem;
+  }
+}

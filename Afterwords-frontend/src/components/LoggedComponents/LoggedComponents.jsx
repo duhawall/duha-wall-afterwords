@@ -88,7 +88,7 @@ function LoggedComponents({ words, index, handleTagClick, isHomePage }) {
                                 name="name"
                                 value={name}
                                 onChange={handleAddLovedOne} />
-                            <button className="form__button" type="submit">Add Loved One
+                            <button className="form__button form__login" type="submit">Add Loved One
                             </button>
                         </form>
                     )}

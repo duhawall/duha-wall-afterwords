@@ -1,46 +1,51 @@
 import express from "express";
 import fs from "fs"; // file system module
-// import { v4 as uuidv4 } from "uuid";
 
 const router = express.Router();
 
 const authorsData = fs.readFileSync("./data/authors.json", "utf8");
 const parsedAuthorsData = JSON.parse(authorsData);
 
-// add author (data)
+// add a new author (data) - POST /authors/add-new
 const addAuthor = (req, res) => {
-  //   console.log(req.body);
-  const highestId =
-    parsedAuthorsData.length > 0
-      ? Math.max(...parsedAuthorsData.map((entry) => entry.id))
-      : 0;
+  const existingAuthor = parsedAuthorsData.author.find(
+    (author) => author.id === id
+  );
 
-  const { email, password, authorName } = req.body;
-  const newAuthor = {
-    id: `${highestId + 1}`,
-    authorName: authorName,
-    email: email,
-    password: password,
-  };
-  if (!req.body.authorName || !req.body.email || !req.body.password) {
-    return res.status(400).json({ error: "Missing input required." });
+  if (existingAuthor) {
+    return { error: "Author already exists." };
   }
 
-  parsedAuthorsData.push(newAuthor);
+  if (!existingAuthor) {
+    const highestId =
+      parsedAuthorsData.length > 0
+        ? Math.max(...parsedAuthorsData.map((entry) => entry.id))
+        : 0;
 
-  fs.writeFileSync(
-    "./data/authors.json",
-    JSON.stringify(parsedAuthorsData, null, 2)
-  );
-  res.json(newAuthor);
+    const { email, password, authorName } = req.body;
+    const newAuthor = {
+      id: `${highestId + 1}`,
+      authorName: authorName,
+      email: email,
+      password: password,
+    };
+    if (!req.body.authorName || !req.body.email || !req.body.password) {
+      return res.status(400).json({ error: "Missing input required." });
+    }
+
+    parsedAuthorsData.push(newAuthor);
+
+    fs.writeFileSync(
+      "./data/authors.json",
+      JSON.stringify(parsedAuthorsData, null, 2)
+    );
+    res.json(newAuthor);
+  }
 };
 
-// get one user data
+// get author's data - GET /authors/:id
 const findAuthor = (req, res) => {
-  const authorsData = fs.readFileSync("./data/authors.json", "utf8");
-  const parsedAuthors = JSON.parse(authorsData);
-  console.log(authorsData);
-  const foundAuthor = parsedAuthors.find((author) => {
+  const foundAuthor = parsedAuthorsData.find((author) => {
     return author.id === req.params.id;
   });
 
@@ -51,13 +56,8 @@ const findAuthor = (req, res) => {
   res.send(foundAuthor);
 };
 
+// update author's data - PUT /authors/:id
 const editAuthor = (req, res) => {
-  console.log(req.body);
-
-  const authorsData = fs.readFileSync("./data/authors.json", "utf8");
-  const parsedAuthorsData = JSON.parse(authorsData);
-
-  // Find the author by ID
   const authorIndex = parsedAuthorsData.findIndex(
     (author) => author.id === req.params.id
   );
@@ -66,15 +66,12 @@ const editAuthor = (req, res) => {
     return res.status(404).json({ error: "Author not found" });
   }
 
-  // Get the updated data from the request body
   const { email, password, authorName } = req.body;
 
-  // Validate the inputs
   if (!authorName || !email || !password) {
     return res.status(400).json({ error: "Missing input required." });
   }
 
-  // Update the author's information
   parsedAuthorsData[authorIndex] = {
     ...parsedAuthorsData[authorIndex],
     authorName,
@@ -82,7 +79,6 @@ const editAuthor = (req, res) => {
     password,
   };
 
-  // Save the updated data back to the JSON file
   fs.writeFileSync(
     "./data/authors.json",
     JSON.stringify(parsedAuthorsData, null, 2)
@@ -91,75 +87,48 @@ const editAuthor = (req, res) => {
   res.json(parsedAuthorsData[authorIndex]); // Return the updated author data
 };
 
-// add loved one name (data)
-// const addLovedOne = router.post("/:id/add-loved-one", (req, res) => {
-//   console.log(req.body);
-//   const authorsData = fs.readFileSync("./data/entries.json", "utf8");
-//   const parsedAuthorsData = JSON.parse(authorsData);
-//   const allAuthors = parsedAuthorsData.find(
-//     (author) => author.id === req.params.id
-//   );
+// delete author's data - DELETE /authors/:id
+const deleteAuthor = (req, res) => {
+  try {
+    const { id } = req.params;
+    let authorsData = JSON.parse(
+      fs.readFileSync("./data/authors.json", "utf8")
+    );
 
-//   const { lovedOne } = req.body;
-//   const newLovedOne = {
-//     // id: id,
-//     // authorName: author.authorName,
-//     // lovedOneId: uuidv4(),
-//     lovedOne,
-//     // entires: [],
-//     // timestamp: Date.now(),
-//   };
+    // Find the author by id
+    const foundAuthor = authorsData.find((author) => author.id === id);
+    console.log("Here's found author:", foundAuthor);
 
-//   allAuthors.id.push(newLovedOne);
+    if (!foundAuthor) {
+      return res.status(404).json({ message: "No author found with that id" });
+    }
 
-//   fs.writeFileSync(
-//     "./data/entries.json",
-//     JSON.stringify(parsedAuthorsData, null, 2)
-//   );
-//   res.json(newLovedOne);
-// });
+    // Create the removed author object to send back in the response
+    const { authorName, email, password } = foundAuthor;
+    const removedAuthor = {
+      message: "Author removed successfully",
+      id,
+      authorName,
+      email,
+      password,
+    };
+    console.log("Here's removed author:", removedAuthor);
 
-// router.delete("/:photoId/comments/:commentId", (req, res) => {
-//   try {
-//     const { photoId, commentId } = req.params;
-//     const photosData = JSON.parse(
-//       fs.readFileSync("./data/photos.json", "utf8")
-//     );
+    // Filter out the author from the authorsData array
+    authorsData = authorsData.filter((author) => author.id !== id);
 
-//     const foundPhoto = photosData.find((photo) => photo.id === photoId);
-//     if (!foundPhoto) {
-//       return res.status(404).json({ message: "No photo with that id found" });
-//     }
+    // Write the updated authors data back to the file
+    fs.writeFileSync(
+      "./data/authors.json",
+      JSON.stringify(authorsData, null, 2)
+    );
 
-//     const foundComment = foundPhoto.comments.find(
-//       (comment) => comment.id === commentId
-//     );
-//     if (!foundComment) {
-//       return res.status(404).json({ message: "No comment with that id found" });
-//     }
+    // Respond with the removed author information
+    res.status(200).json(removedAuthor);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error deleting author" });
+  }
+};
 
-//     const { name, comment, id, timestamp } = foundComment;
-//     const removedComment = {
-//       message: "Comment deleted successfully",
-//       name,
-//       comment,
-//       id,
-//       timestamp,
-//     };
-
-//     foundPhoto.comments = foundPhoto.comments.filter(
-//       (comment) => comment.id !== commentId
-//     );
-
-//     fs.writeFileSync("./data/photos.json", JSON.stringify(photosData));
-
-//     res.status(200).json(removedComment);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: "Error deleting comment" });
-//   }
-// });
-
-// export {};
-
-export { addAuthor, findAuthor, editAuthor };
+export { addAuthor, findAuthor, editAuthor, deleteAuthor };

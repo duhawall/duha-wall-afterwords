@@ -2,7 +2,7 @@ import express from "express";
 import "dotenv/config";
 import cors from "cors";
 import authorsRoutes from "./routes/author-routes.js";
-import lovedOnesRoutes from "./routes/loved-one-routes.js";
+import lovedeEntriesRoutes from "./routes/loved-entries-routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 8081;
@@ -12,11 +12,11 @@ app.use(cors({ origin: process.env.CORS_ORIGIN }));
 app.use(express.json()); // attaches body to the req Object
 
 app.use("/authors", authorsRoutes);
-app.use("/loved-ones", lovedOnesRoutes);
+app.use("/loved-ones", lovedeEntriesRoutes);
 
 app.get("/", (req, res) => {
   res.send(
-    "Welcome to the Afterwords API. To access warehouses data go to <strong>/prim-users.</strong> To access inventories data go to <strong>/loved-ones.</strong>"
+    "Welcome to the Afterwords API. To access user data go to <strong>/authors.</strong> To access loved ones entries data go to <strong>/loved-entries.</strong>"
   );
 });
 

@@ -1,6 +1,5 @@
 import express from "express";
 import * as authorsController from "../controllers/authors-controllers.js";
-// import * as entriesController from "../controllers/entries-controllers.js";
 
 const router = express.Router();
 
@@ -11,8 +10,8 @@ router.route("/add-new").post(authorsController.addAuthor); // add new author
 router
   .route("/:id")
   .get(authorsController.findAuthor) // get user data
-  .put(authorsController.editAuthor); // update user data
-//   .delete(authorsController.deleteAuthor); // delete user
+  .put(authorsController.editAuthor) // update user data
+  .delete(authorsController.deleteAuthor); // delete user
 //   .post(authorsController.addUser) // add user
 //   .post(authorsController.addLovedOne); // add user's loved ones
 //   .post(authorsController.addEntry); // add loved one's entry

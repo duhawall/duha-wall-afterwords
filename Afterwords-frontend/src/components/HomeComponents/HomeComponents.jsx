@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 
 
-function HomeComponents({ words, index, handleTagClick, isHomePage }) {
+function HomeComponents({ words, index }) {
     const location = useLocation();
     const optionStatus = location.pathname;
 
