@@ -1,134 +1,147 @@
 import express from "express";
-import fs from "fs"; // file system module
+import initKnex from "knex";
+import configuration from "../knexfile.js";
+const knex = initKnex(configuration);
 
 const router = express.Router();
 
-const authorsData = fs.readFileSync("./data/authors.json", "utf8");
-const parsedAuthorsData = JSON.parse(authorsData);
+// add new author - POST /authors/add-new
+const postAuthor = async (req, res) => {
+  const requiredFields = ["author_name", "email", "password"];
 
-// add a new author (data) - POST /authors/add-new
-const addAuthor = (req, res) => {
-  const existingAuthor = parsedAuthorsData.author.find(
-    (author) => author.id === id
-  );
-
-  if (existingAuthor) {
-    return { error: "Author already exists." };
+  const missingFields = requiredFields.filter((field) => !req.body[field]);
+  if (missingFields.length > 0) {
+    return res.status(400).json({
+      message: `Missing required fields: ${missingFields.join(", ")}`,
+    });
   }
 
-  if (!existingAuthor) {
-    const highestId =
-      parsedAuthorsData.length > 0
-        ? Math.max(...parsedAuthorsData.map((entry) => entry.id))
-        : 0;
+  try {
+    const result = await knex("authors").insert(req.body);
 
-    const { email, password, authorName } = req.body;
-    const newAuthor = {
-      id: `${highestId + 1}`,
-      authorName: authorName,
-      email: email,
-      password: password,
-    };
-    if (!req.body.authorName || !req.body.email || !req.body.password) {
-      return res.status(400).json({ error: "Missing input required." });
-    }
+    const newAuthorId = result[0]; // new ID number
+    const createdAuthor = await knex("authors")
+      .where({
+        author_id: newAuthorId,
+      })
+      .first(); // get the object rather than []
 
-    parsedAuthorsData.push(newAuthor);
-
-    fs.writeFileSync(
-      "./data/authors.json",
-      JSON.stringify(parsedAuthorsData, null, 2)
-    );
-    res.json(newAuthor);
+    res.status(201).json(createdAuthor);
+  } catch (err) {
+    console.error("Error adding author:", err);
+    res.status(400).json({
+      message: "Error adding author",
+      error: err.message,
+    });
   }
 };
 
 // get author's data - GET /authors/:id
-const findAuthor = (req, res) => {
-  const foundAuthor = parsedAuthorsData.find((author) => {
-    return author.id === req.params.id;
-  });
+const getAuthor = async (req, res) => {
+  try {
+    const authorFound = await knex("authors").where({
+      author_id: req.params.id,
+    });
 
-  if (!foundAuthor) {
-    return res.status(404).json({ message: "Author not found" });
+    if (authorFound.length === 0) {
+      return res.status(404).json({
+        message: `Author with ID ${req.params.id} not found`,
+      });
+    }
+
+    const authorData = authorFound[0];
+    res.json(authorData);
+  } catch (error) {
+    res.status(500).json({
+      message: `Unable to retrieve author data with ID ${req.params.id}`,
+    });
   }
-
-  res.send(foundAuthor);
 };
 
 // update author's data - PUT /authors/:id
-const editAuthor = (req, res) => {
-  const authorIndex = parsedAuthorsData.findIndex(
-    (author) => author.id === req.params.id
-  );
-
-  if (authorIndex === -1) {
-    return res.status(404).json({ error: "Author not found" });
+const putAuthor = async (req, res) => {
+  const { id } = req.params;
+  const updateData = req.body;
+  const allowedFields = ["author_name", "email"];
+  console.log("ID here:", updateData);
+  const fieldsToUpdate = allowedFields.filter((field) => updateData[field]);
+  if (fieldsToUpdate.length === 0) {
+    return res.status(400).json({
+      message:
+        "Please provide at least one field to update (author name and/or email).",
+    });
   }
+  try {
+    const author = await knex("authors").where({ author_id: id }).first();
 
-  const { email, password, authorName } = req.body;
+    if (!author) {
+      return res.status(404).json({
+        message: `The author with this name: ${{ author_name }} was not found.`,
+      });
+    }
+    const rowsUpdated = await knex("authors")
+      .where({ author_id: id })
+      .update(updateData);
 
-  if (!authorName || !email || !password) {
-    return res.status(400).json({ error: "Missing input required." });
+    if (rowsUpdated === 0) {
+      return res
+        .status(404)
+        .json({ message: `Author with ID ${id} not found.` });
+    }
+
+    const updatedAuthor = await knex("authors")
+      .where({ author_id: id })
+      .first();
+    res.status(200).json(updatedAuthor);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: `Error updating author with ID ${id}`,
+      error: error.message,
+    });
   }
-
-  parsedAuthorsData[authorIndex] = {
-    ...parsedAuthorsData[authorIndex],
-    authorName,
-    email,
-    password,
-  };
-
-  fs.writeFileSync(
-    "./data/authors.json",
-    JSON.stringify(parsedAuthorsData, null, 2)
-  );
-
-  res.json(parsedAuthorsData[authorIndex]); // Return the updated author data
 };
 
 // delete author's data - DELETE /authors/:id
-const deleteAuthor = (req, res) => {
+const deleteAuthor = async (req, res) => {
+  const { author_name, email } = req.body; // Assuming the name and email are passed in the request body.
+
+  if (!author_name || !email) {
+    return res.status(400).json({
+      message: "Both author name and email are required to delete an author.",
+    });
+  }
+
   try {
-    const { id } = req.params;
-    let authorsData = JSON.parse(
-      fs.readFileSync("./data/authors.json", "utf8")
-    );
+    const author = await knex("authors").where({ author_name, email }).first();
 
-    // Find the author by id
-    const foundAuthor = authorsData.find((author) => author.id === id);
-    console.log("Here's found author:", foundAuthor);
-
-    if (!foundAuthor) {
-      return res.status(404).json({ message: "No author found with that id" });
+    if (!author) {
+      return res.status(404).json({
+        message: `No author found with name: ${author_name} and email: ${email}.`,
+      });
     }
 
-    // Create the removed author object to send back in the response
-    const { authorName, email, password } = foundAuthor;
-    const removedAuthor = {
-      message: "Author removed successfully",
-      id,
-      authorName,
-      email,
-      password,
-    };
-    console.log("Here's removed author:", removedAuthor);
+    const rowsDeleted = await knex("authors")
+      .where({ author_name, email })
+      .delete();
 
-    // Filter out the author from the authorsData array
-    authorsData = authorsData.filter((author) => author.id !== id);
+    if (rowsDeleted === 0) {
+      return res.status(400).json({
+        success: false,
+        message: `The author with name ${author_name} and email ${email} cannot be deleted. Please try again.`,
+      });
+    }
 
-    // Write the updated authors data back to the file
-    fs.writeFileSync(
-      "./data/authors.json",
-      JSON.stringify(authorsData, null, 2)
-    );
-
-    // Respond with the removed author information
-    res.status(200).json(removedAuthor);
+    res.status(200).json({
+      success: true,
+      message: `Author with name ${author_name} and email ${email} was successfully deleted.`,
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error deleting author" });
+    res.status(500).json({
+      message: "An error occurred while trying to delete the author.",
+    });
   }
 };
 
-export { addAuthor, findAuthor, editAuthor, deleteAuthor };
+export { postAuthor, getAuthor, putAuthor, deleteAuthor };

@@ -1,14 +1,12 @@
 import express from "express";
-import fs from "fs"; // file system module
-import { v4 as uuidv4 } from "uuid";
+import initKnex from "knex";
+import configuration from "../knexfile.js";
+const knex = initKnex(configuration);
 
 const router = express.Router();
 
-const lovedOnesData = fs.readFileSync("./data/loved-entries.json", "utf8");
-const parsedLovedOnesData = JSON.parse(lovedOnesData);
-
-// add a new author (data) - POST /loved-ones/:id/add-new
-const addLovedOne = (req, res) => {
+// add a new author (data) - POST /loved-ones/add-new
+const postLovedOne = (req, res) => {
   const { lovedOneName } = req.body;
   const { id: authorId } = req.params;
 
@@ -44,6 +42,57 @@ const addLovedOne = (req, res) => {
   return res.status(201).json(newLovedOne);
 };
 
+// get all author's loved ones - GET /loved-ones/:authorId/all
+const getLovedOnesForAuthor = async (req, res) => {
+  try {
+    const lovedOnesFound = await knex("loved_ones")
+      .select("loved_one_name")
+      .where({ author_id: req.params.authorId });
+
+    if (lovedOnesFound.length === 0) {
+      return res.status(404).json({
+        message: `No loved ones created yet for author with ID ${req.params.authorId}`,
+      });
+    }
+
+    const lovedOneNames = lovedOnesFound.map(
+      (lovedOne) => lovedOne.loved_one_name
+    );
+
+    res.json(lovedOneNames);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: `Unable to retrieve loved ones data for author with ID ${req.params.id}`,
+    });
+  }
+};
+
+// get a loved one - GET /:authorId/loved-ones/:lovedOneId
+const getLovedOne = async (req, res) => {
+  const { authorId, lovedOneId } = req.params;
+  try {
+    const lovedOne = await knex("loved_ones")
+      .select("loved_one_name", "author_id")
+      .where("loved_one_id", lovedOneId)
+      .andWhere("author_id", authorId)
+      .first();
+
+    if (!lovedOne) {
+      return res.status(404).json({
+        message: `Loved one with ID ${lovedOneId} not found for author with ID ${authorId}.`,
+      });
+    }
+
+    res.status(200).json(lovedOne);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: `Error retrieving loved one with ID ${lovedOneId} for author with ID ${authorId}.`,
+    });
+  }
+};
+
 // const { email, password, authorName } = req.body;
 // const newLovedOne = {
 //   id: `${highestId + 1}`,
@@ -56,28 +105,6 @@ const addLovedOne = (req, res) => {
 // }
 
 // parsedLovedOnesData.push(newLovedOne);
-
-// fs.writeFileSync(
-//   "./data/loved-entries.json",
-//   JSON.stringify(parsedLovedOnesData, null, 2)
-// );
-// res.json(newLovedOne);
-
-// // get author's data
-// const findLovedOne = (req, res) => {
-//   const authorsData = fs.readFileSync("./data/loved-entries.json", "utf8");
-//   const parsedAuthors = JSON.parse(authorsData);
-//   console.log(authorsData);
-//   const foundAuthor = parsedAuthors.find((author) => {
-//     return author.id === req.params.id;
-//   });
-
-//   if (!foundAuthor) {
-//     return res.status(404).json({ message: "Author not found" });
-//   }
-
-//   res.send(foundAuthor);
-// };
 
 // // update author's data
 // const editLovedOne = (req, res) => {
@@ -193,6 +220,8 @@ const addLovedOne = (req, res) => {
 // });
 
 export {
-  addLovedOne,
-  // , findLovedOne, editLovedOne, deleteLovedOne
+  getLovedOnesForAuthor,
+  postLovedOne,
+  getLovedOne,
+  // ,  putLovedOne, deleteLovedOne
 };

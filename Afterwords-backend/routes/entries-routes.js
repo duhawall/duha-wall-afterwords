@@ -1,11 +1,10 @@
 import express from "express";
-import fs from "fs"; // file system module
-import * as lovedOnesController from "../controllers/loved-entries-controllers.js";
+import * as entriesController from "../controllers/entries-controllers.js";
 const router = express.Router();
 
 router.route("/");
 
-router.route("/:id/add-new").post(lovedOnesController.addLovedOne); // add new author
+router.route("/:id/add-new").post(entriesController.addEntry); // add new entry
 
 // router
 //   .route("/:id")
