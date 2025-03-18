@@ -14,7 +14,7 @@ app.use(express.json()); // attaches body to the req Object
 
 app.use("/authors", authorsRoutes);
 app.use("/loved-ones", lovedeEntriesRoutes);
-// app.use("/entries", entriesRoutes);
+app.use("/entries", entriesRoutes);
 
 app.get("/", (req, res) => {
   res.send(

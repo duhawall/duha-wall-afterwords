@@ -6,47 +6,201 @@ import { v4 as uuidv4 } from "uuid";
 
 const router = express.Router();
 
-// const lovedOnesData = fs.readFileSync("./data/loved-entries.json", "utf8");
-// const parsedLovedOnesData = JSON.parse(lovedOnesData);
+// get all loved one's entries - GET /:id/:lovedOneId/entries - localhost:8080/entries/1/101/entries
+const getLovedOneEntries = async (req, res) => {
+  const { id, lovedOneId } = req.params; // Extract author ID and loved one ID
 
-// add a new author (data) - POST /loved-ones/:id/add-new
-const addEntry = (req, res) => {
-  const { lovedOneName } = req.body;
-  const { id: authorId } = req.params;
+  try {
+    // Check if the author exists
+    const authorExists = await knex("authors").where({ author_id: id }).first();
+    if (!authorExists) {
+      return res.status(404).json({ error: "Author not found." });
+    }
 
-  const author = parsedLovedOnesData.find((author) => author.id === authorId);
+    // Check if the loved one exists and belongs to the author
+    const lovedOneExists = await knex("loved_ones")
+      .where({ loved_one_id: lovedOneId, author_id: id })
+      .first();
+    if (!lovedOneExists) {
+      return res
+        .status(404)
+        .json({ error: "Loved one not found for this author." });
+    }
 
-  if (!author) {
-    return res.status(404).json({ error: "Author not found" });
+    // Retrieve all entries for the given loved one and author
+    const entries = await knex("entries")
+      .where({ author_id: id, loved_one_id: lovedOneId })
+      .select("entry_id", "title", "content", "timestamp");
+
+    // Check if there are any entries
+    if (entries.length === 0) {
+      return res
+        .status(404)
+        .json({ error: "No entries found for this loved one." });
+    }
+
+    // Return the entries
+    res.status(200).json({ entries });
+  } catch (error) {
+    console.error(
+      `Error retrieving entries for loved one ${lovedOneId}`,
+      error
+    );
+    res
+      .status(500)
+      .json({ error: "Internal server error retrieving entries." });
+  }
+};
+
+// add a new entry - POST /entries/:id/:lovedOneId/entry/add-new - localhost:8080/entries/1/101/entry/add-new
+const addEntry = async (req, res) => {
+  const { title, content } = req.body; // Assuming 'title' and 'content' are passed in the body
+  const { id, lovedOneId } = req.params;
+
+  if (!title || !content) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in title and content first." });
   }
 
-  const existingLovedOne = author.lovedOnes.find(
-    (lovedOneUser) => lovedOneUser.lovedOneName === lovedOneName
-  );
+  try {
+    const authorExists = await knex("authors").where({ author_id: id }).first();
+    if (!authorExists) {
+      return res.status(404).json({ error: "Author not found." });
+    }
 
-  if (existingLovedOne) {
-    return res.json({
-      error: "Loved One already exists. Please try a different name",
+    const lovedOneExists = await knex("loved_ones")
+      .where({ loved_one_id: lovedOneId })
+      .first();
+    if (!lovedOneExists) {
+      return res.status(404).json({ error: "Loved one not found." });
+    }
+
+    const newEntry = {
+      entry_id: uuidv4(),
+      author_id: id,
+      loved_one_id: lovedOneId,
+      title,
+      content,
+      timestamp: Date.now(),
+    };
+
+    await knex("entries").insert(newEntry);
+
+    res.status(201).json({
+      message: "Entry added successfully",
+      entry: newEntry,
     });
+  } catch (error) {
+    console.error(`Error adding entry ${entry_id}`, error);
+    res
+      .status(500)
+      .json({ error: `Internal server error adding entry ${entry_id}` });
+  }
+};
+
+// get an entry - GET /entries/:id/:lovedOneId/entry/:entryId - localhost:8080/entries/1/101/entry/37959d68-25df-46a0-bba0-df6601efd612
+const getEntry = async (req, res) => {
+  const { id, lovedOneId, entryId } = req.params;
+
+  try {
+    const entry = await knex("entries")
+      .where({ entry_id: entryId, author_id: id, loved_one_id: lovedOneId })
+      .first();
+
+    if (!entry) {
+      return res.status(404).json({ error: "Entry not found." });
+    }
+
+    res.status(200).json({
+      message: "Entry found successfully.",
+      entry,
+    });
+  } catch (error) {
+    console.error(`Error getting entry ${entryId}`, error);
+    res
+      .status(500)
+      .json({ error: `Internal server error getting entry ${entryId}` });
+  }
+};
+
+// update an entry - PUT /entries/:id/:lovedOneId/entry/:entryId - localhost:8080/entries/1/101/entry/37959d68-25df-46a0-bba0-df6601efd612
+const putEntry = async (req, res) => {
+  const { title, content } = req.body;
+  const { id, lovedOneId, entryId } = req.params;
+
+  if (!title || !content) {
+    return res
+      .status(400)
+      .json({ error: "Please fill in title and content first." });
   }
 
-  const newLovedOne = {
-    lovedOneId: uuidv4(),
-    lovedOneName: lovedOneName,
-    entries: [],
-  };
+  try {
+    const authorExists = await knex("authors").where({ author_id: id }).first();
+    if (!authorExists) {
+      return res.status(404).json({ error: "Author not found." });
+    }
 
-  author.lovedOnes.push(newLovedOne);
+    const lovedOneExists = await knex("loved_ones")
+      .where({ loved_one_id: lovedOneId })
+      .first();
+    if (!lovedOneExists) {
+      return res.status(404).json({ error: "Loved one not found." });
+    }
 
-  fs.writeFileSync(
-    "./data/loved-entries.json",
-    JSON.stringify(parsedLovedOnesData, null, 2)
-  );
+    const entry = await knex("entries")
+      .where({ entry_id: entryId, author_id: id, loved_one_id: lovedOneId })
+      .first();
 
-  return res.status(201).json(newLovedOne);
+    if (!entry) {
+      return res.status(404).json({ error: "Entry not found." });
+    }
+
+    const updatedEntry = {
+      title,
+      content,
+      timestamp: Date.now(),
+    };
+
+    await knex("entries")
+      .where({ entry_id: entryId, author_id: id, loved_one_id: lovedOneId })
+      .update(updatedEntry);
+
+    res.status(200).json({
+      message: "Entry updated successfully",
+      entry: { ...entry, ...updatedEntry },
+    });
+  } catch (error) {
+    console.error(`Error updating entry ${entryId}`, error);
+    res
+      .status(500)
+      .json({ error: `Internal server error updating entry ${entryId}` });
+  }
 };
 
-export {
-  addEntry,
-  // , findEntry, editEntry, deleteEntry
+const deleteEntry = async (req, res) => {
+  const { id, lovedOneId, entryId } = req.params;
+
+  try {
+    const entry = await knex("entries")
+      .where({ entry_id: entryId, author_id: id, loved_one_id: lovedOneId })
+      .first();
+
+    if (!entry) {
+      return res.status(404).json({ error: "Entry not found." });
+    }
+
+    await knex("entries")
+      .where({ entry_id: entryId, author_id: id, loved_one_id: lovedOneId })
+      .del();
+
+    res.status(200).json({ message: "Entry deleted successfully." });
+  } catch (error) {
+    console.error(`Error deleting entry ${entryId}`, error);
+    res
+      .status(500)
+      .json({ error: `Internal server error deleting entry ${entryId}` });
+  }
 };
+
+export { getLovedOneEntries, addEntry, getEntry, putEntry, deleteEntry };

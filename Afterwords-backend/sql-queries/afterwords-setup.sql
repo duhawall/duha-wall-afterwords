@@ -42,9 +42,9 @@ CREATE TABLE entries (
 );
 
 INSERT INTO entries (entry_id, title, content, timestamp, author_id, loved_one_id) VALUES
-('201', 'Until We Meet Again', 'Love is not measured in days...', 1673344800, '1', '101'),
-('202', 'The Light You Left Behind', 'You were always the warmth...', 1676477400, '1', '101'),
-('203', 'If Love Had a Shape', 'If love had a shape...', 1679301900, '1', '102'),
-('204', 'A Whisper in the Wind', 'I still reach for your hand...', 1680705600, '2', '103'),
-('205', 'The Echo of Us', 'Love is not measured in days...', 1683528000, '3', '105'),
-('206', 'You Are My Always', 'Even in the silence...', 1686611400, '4', '106');
+('2f8e3f10-b0a7-4c83-bf93-9089f607def7', 'Until We Meet Again', 'Love is not measured in days...', 1673344800, '1', '101'),
+('7d3b9cb7-90ea-4bfa-9a51-4c2a4b8d9f2d', 'The Light You Left Behind', 'You were always the warmth...', 1676477400, '1', '101'),
+('1f2c7ea9-d052-48e0-8b0c-69085e746d1f', 'If Love Had a Shape', 'If love had a shape...', 1679301900, '1', '102'),
+('943f13d0-2488-4feb-ab80-101a7db0f9c8', 'A Whisper in the Wind', 'I still reach for your hand...', 1680705600, '2', '103'),
+('922f13d0-2488-4feb-7s81-101a7db0f9c8', 'The Echo of Us', 'Love is not measured in days...', 1683528000, '3', '105'),
+('b4c2e1f8-24a2-467b-bb8b-908cbf7e1234', 'You Are My Always', 'Even in the silence...', 1686611400, '4', '106');
