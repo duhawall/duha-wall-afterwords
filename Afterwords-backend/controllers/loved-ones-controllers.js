@@ -58,7 +58,7 @@ const postLovedOne = async (req, res) => {
 const getLovedOnesForAuthor = async (req, res) => {
   try {
     const lovedOnesFound = await knex("loved_ones")
-      .select("loved_one_name")
+      // .select("loved_one_name")
       .where({ author_id: req.params.id });
 
     if (lovedOnesFound.length === 0) {
@@ -66,12 +66,12 @@ const getLovedOnesForAuthor = async (req, res) => {
         message: `No loved ones created yet for author with ID ${req.params.id}`,
       });
     }
-
+    console.log(lovedOnesFound);
     const lovedOneNames = lovedOnesFound.map(
       (lovedOne) => lovedOne.loved_one_name
     );
 
-    res.json(lovedOneNames);
+    res.json(lovedOnesFound);
   } catch (error) {
     console.error(error);
     res.status(500).json({

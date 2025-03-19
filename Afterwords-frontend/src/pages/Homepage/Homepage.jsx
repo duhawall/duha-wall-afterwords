@@ -1,11 +1,11 @@
-import "./Homepage.scss";
+import "./HomePage.scss";
 import HomeComponents from "../../components/HomeComponents/HomeComponents.jsx";
-import OptionsList from "../../components/OptionsList/OptionsList.jsx";
+import DrawerMenu from "../../components/DrawerMenu/DrawerMenu.jsx";
 import HeaderNav from "../../components/HeaderNav/HeaderNav.jsx";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Homepage() {
+function HomePage({ isHomePage, loggedIn, setLoggedIn }) {
   const words = ["Light,", "Warmth,", "Legacy,", "Words,", "Messages,", "Story,"];
   const [index, setIndex] = useState(0);
   const [showTags, setShowTags] = useState(false);
@@ -14,8 +14,6 @@ function Homepage() {
 
   function filtersShowClick() {
     setShowTags(!showTags);
-    console.log("show me your tags", setShowTags);
-    console.log("hide your tags", showTags);
   }
 
   function handleTagClick(clickedTag, path) {
@@ -27,34 +25,35 @@ function Homepage() {
     }
   }
 
-  // set 2 seconds interval to change word
   useEffect(() => {
-    const interval = setInterval(() => {
+    const wordEffectInterval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % words.length);
     }, 3000);
 
     // cleanup on unmount
-    return () => clearInterval(interval);
+    return () => clearInterval(wordEffectInterval);
   }, []);
 
 
   return (
     <>
       <HeaderNav
+        loggedIn={loggedIn}
         isHomePage={true}
         filtersShowClick={filtersShowClick}
         showTags={showTags} />
       <main className="main__section">
-        <OptionsList
+        <DrawerMenu
+          loggedIn={loggedIn}
           isHomeOptions={true}
           handleTagClick={handleTagClick}
           showTags={showTags}
           selectedTag={selectedTag}
         />
-        <HomeComponents words={words} index={index} handleTagClick={handleTagClick} />
+        <HomeComponents words={words} index={index} handleTagClick={handleTagClick} loggedIn={loggedIn} />
       </main>
     </>
   );
 }
 
-export default Homepage;
+export default HomePage;

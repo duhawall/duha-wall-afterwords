@@ -1,9 +1,8 @@
-import "./OptionsList.scss";
+import "./DrawerMenu.scss";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const apiKey = "ninjatuna";
-function OptionsList({ handleTagClick, showTags, selectedTag, isHomeOptions }) {
+function DrawerMenu({ handleTagClick, showTags, selectedTag, isHomeOptions, user }) {
   const [tags, setTags] = useState(null);
 
   useEffect(() => { }, [tags]);
@@ -17,22 +16,19 @@ function OptionsList({ handleTagClick, showTags, selectedTag, isHomeOptions }) {
         >
           <ul className="filters__drawer">
             <li
-              className={`filters__tag ${selectedTag === "/about" ? "filters__tag--selected" : ""
-                }`}
+              className={`filters__tag ${selectedTag === "/about" && "filters__tag--selected"}`}
               onClick={() => handleTagClick("about", "/about")}
             >
               About
             </li>
             <li
-              className={`filters__tag ${selectedTag === "/how-to" ? "filters__tag--selected" : ""
-                }`}
+              className={`filters__tag ${selectedTag === "/how-to" && "filters__tag--selected"}`}
               onClick={() => handleTagClick("how-to", "/how-to")}
             >
               How To
             </li>
             <li
-              className={`filters__tag ${selectedTag === "/login" ? "filters__tag--selected" : ""
-                }`}
+              className={`filters__tag ${selectedTag === "/login" && "filters__tag--selected"}`}
               onClick={() => handleTagClick("login", "/login")}
             >
               Login
@@ -50,14 +46,21 @@ function OptionsList({ handleTagClick, showTags, selectedTag, isHomeOptions }) {
                 }`}
               onClick={() => handleTagClick("add-loved-one", "/add-loved-one")}
             >
-              Add Loved One
+              Add A Loved One
             </li>
             <li
-              className={`filters__tag ${selectedTag === "/loved-ones" ? "filters__tag--selected" : ""
+              className={`filters__tag ${selectedTag === "/add-entry" ? "filters__tag--selected" : ""
                 }`}
-              onClick={() => handleTagClick("loved-ones", "/loved-ones")}
+              onClick={() => handleTagClick("add-entry", "/add-entry")}
             >
-              Loved Ones
+              Add Entry
+            </li>
+            <li
+              className={`filters__tag ${selectedTag === `/loved-ones/${user.id}/all` ? "filters__tag--selected" : ""
+                }`}
+              onClick={() => handleTagClick("loved-ones", `/loved-ones/${user.id}/all`)}
+            >
+              View Loved Ones
             </li>
             <li
               className={`filters__tag ${selectedTag === "/logged" ? "filters__tag--selected" : ""
@@ -73,4 +76,4 @@ function OptionsList({ handleTagClick, showTags, selectedTag, isHomeOptions }) {
   );
 }
 
-export default OptionsList;
+export default DrawerMenu;

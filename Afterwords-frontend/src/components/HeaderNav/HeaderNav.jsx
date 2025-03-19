@@ -1,10 +1,10 @@
 import "./HeaderNav.scss";
 import { Link } from "react-router-dom";
 
-function HeaderNav({ filtersShowClick, showTags, isHomePage }) {
+function HeaderNav({ filtersShowClick, showTags, isHomePage, loggedIn }) {
   return (
     <>
-      {isHomePage ? (
+      {loggedIn ? (
         <nav className="primary-nav">
           <div className="primary-nav__header-container">
             <h1 className="primary-nav__header">

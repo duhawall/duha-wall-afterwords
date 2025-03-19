@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 
 
-function HomeComponents({ words, index, isHomePage, filtersShowClick, showTags, handleTagClick }) {
+function HomeComponents({ words, index, isHomePage, filtersShowClick, showTags, handleTagClick, loggedIn, setLoggedIn }) {
     const location = useLocation();
     const optionStatus = location.pathname;
 
@@ -18,18 +18,16 @@ function HomeComponents({ words, index, isHomePage, filtersShowClick, showTags, 
 
     const checkLogin = async () => {
         try {
-            const getLoginData = await axios.get(
+            const checkLogin = await axios.get(
                 `${backendUrl}/login/${params.email}`
             );
-            setEmail(response.data.email);
+            setEmail(checkLogin.data.email);
             console.log("hollup", setEmail);
             if (!checkLogin) {
-                return resizeBy.status(404).json({
-                    message: `Email ${req.params.email} not found`,
-                });
-            }
+                console.error(`Email ${params.email} was not found.`);
+            };
         } catch {
-            alert("Error: could not find email. Please check if it is correct");
+            alert("Error: could not find email. Please check if it is correct.");
         }
     };
 
@@ -63,7 +61,7 @@ function HomeComponents({ words, index, isHomePage, filtersShowClick, showTags, 
         }
 
         console.log("Logged in:", { email, password });
-
+        setLoggedIn(true);
         navigate("/logged");
 
         setEmail("");
@@ -72,18 +70,12 @@ function HomeComponents({ words, index, isHomePage, filtersShowClick, showTags, 
 
     return (
         <>
-
             <div className="options__container">
                 <div alt="light blue sky background" className="background-photo"></div>
                 <div className="options__selection">
                     {/* Home Page */}
                     {optionStatus === "/" && (
                         <>
-                            <HeaderNav
-                                isHomePage={true}
-                                filtersShowClick={filtersShowClick}
-                                handleTagClick={handleTagClick}
-                                showTags={showTags} />
                             <section className="mission__section">
                                 <h1 className="mission__text">
                                     Your <span className="mission__text mission__text--changing">{words[index]}</span>
@@ -97,9 +89,6 @@ function HomeComponents({ words, index, isHomePage, filtersShowClick, showTags, 
                     {/* About Page */}
                     {optionStatus === "/about" && (
                         <>
-                            <HeaderNav isHomePage={true}
-                                filtersShowClick={filtersShowClick}
-                                showTags={showTags} />
                             <section className="about__section">
                                 <p className="about__text">
                                     Afterwords understands that there is no right time to speak of loss, as it is one of
@@ -125,69 +114,73 @@ function HomeComponents({ words, index, isHomePage, filtersShowClick, showTags, 
 
                     {/* How-To Page */}
                     {optionStatus === "/how-to" && (
-                        <ul className="how-to__section">
-                            <li className="how-to__instructions">
-                                <strong>1. Sign Up:</strong>
-                                <p className="how-to__details"> Create an account on Afterwords to access and store your entries.</p>
-                            </li>
-                            <li className="how-to__instructions">
-                                <strong>2. Add a Loved One:</strong>
-                                <p className="how-to__details"> Enter their name to start writing.
-                                    You’ll get a Unique Code (UIC)—share it with them!</p>
-                            </li>
-                            <li className="how-to__instructions">
-                                <strong>3. Write Messages:</strong>
-                                <p className="how-to__details"> Leave up to 31 messages per person,
-                                    to encourage deep reflection. Edit anytime.</p>
-                            </li>
-                            <li className="how-to__instructions">
-                                <strong>4. Safe & Secure:</strong>
-                                <p className="how-to__details"> Entries are saved securely and encrypted, so only
-                                    you and your loved ones with the UIC can see them.</p>
-                            </li>
-                            <li className="how-to__instructions">
-                                <strong>5. Lost Code?</strong>
-                                <p className="how-to__details"> Our future updates will provide more safety and authentication options.</p>
-                            </li>
-                            <li className="how-to__instructions">
-                                <strong>6. Leave a Legacy:</strong>
-                                <p className="how-to__details how-to__details--no-padding"> Your words will comfort and support your loved ones forever.</p>
-                            </li>
-                        </ul>
+                        <>
+                            <ul className="how-to__section">
+                                <li className="how-to__instructions">
+                                    <strong>1. Sign Up:</strong>
+                                    <p className="how-to__details"> Create an account on Afterwords to access and store your entries.</p>
+                                </li>
+                                <li className="how-to__instructions">
+                                    <strong>2. Add a Loved One:</strong>
+                                    <p className="how-to__details"> Enter their name to start writing.
+                                        You’ll get a Unique Code (UIC)—share it with them!</p>
+                                </li>
+                                <li className="how-to__instructions">
+                                    <strong>3. Write Messages:</strong>
+                                    <p className="how-to__details"> Leave up to 31 messages per person,
+                                        to encourage deep reflection. Edit anytime.</p>
+                                </li>
+                                <li className="how-to__instructions">
+                                    <strong>4. Safe & Secure:</strong>
+                                    <p className="how-to__details"> Entries are saved securely and encrypted, so only
+                                        you and your loved ones with the UIC can see them.</p>
+                                </li>
+                                <li className="how-to__instructions">
+                                    <strong>5. Lost Code?</strong>
+                                    <p className="how-to__details"> Our future updates will provide more safety and authentication options.</p>
+                                </li>
+                                <li className="how-to__instructions">
+                                    <strong>6. Leave a Legacy:</strong>
+                                    <p className="how-to__details how-to__details--no-padding"> Your words will comfort and support your loved ones forever.</p>
+                                </li>
+                            </ul>
+                        </>
                     )}
                     {/* Login Page */}
                     {optionStatus === "/login" && (
-                        <form className="login__container" onSubmit={handleSubmit}>
-                            <label htmlFor="email" className="form__email">Email</label>
-                            <input
-                                id="email"
-                                className={`form__input form__input--email ${isEmailEmpty ? "form__input--error" : ""
-                                    }`}
-                                type="email"
-                                placeholder="Enter your email"
-                                name="email"
-                                // autoComplete="email"
-                                value={email}
-                                onChange={handleAddEmail}
-                            />
-                            <label htmlFor="password" className="form__password">
-                                Name
-                            </label>
-                            <input
-                                id="password"
-                                className={`form__input form__input--password ${isPasswordEmpty ? "form__input--error" : ""
-                                    }`}
-                                type="password"
-                                placeholder="Enter your password"
-                                name="password"
-                                value={password}
-                                // autoComplete="current-password"
-                                onChange={handleAddPassword}
-                            />
-                            <button className="form__button" type="submit">
-                                LOG IN
-                            </button>
-                        </form>
+                        <>
+                            <form className="login__container" onSubmit={handleSubmit}>
+                                <label htmlFor="email" className="form__email">Email</label>
+                                <input
+                                    id="email"
+                                    className={`form__input form__input--email ${isEmailEmpty ? "form__input--error" : ""
+                                        }`}
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    name="email"
+                                    // autoComplete="email"
+                                    value={email}
+                                    onChange={handleAddEmail}
+                                />
+                                <label htmlFor="password" className="form__password">
+                                    Name
+                                </label>
+                                <input
+                                    id="password"
+                                    className={`form__input form__input--password ${isPasswordEmpty ? "form__input--error" : ""
+                                        }`}
+                                    type="password"
+                                    placeholder="Enter your password"
+                                    name="password"
+                                    value={password}
+                                    // autoComplete="current-password"
+                                    onChange={handleAddPassword}
+                                />
+                                <button className="form__button" type="submit">
+                                    LOG IN
+                                </button>
+                            </form>
+                        </>
                     )}
                 </div>
             </div>

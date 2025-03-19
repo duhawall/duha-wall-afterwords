@@ -1,20 +1,18 @@
 import "./LoggedInPage.scss";
 import HeaderNav from "../../components/HeaderNav/HeaderNav.jsx";
-import OptionsList from "../../components/OptionsList/OptionsList.jsx";
+import DrawerMenu from "../../components/DrawerMenu/DrawerMenu.jsx";
 import LoggedComponents from "../../components/LoggedComponents/LoggedComponents.jsx";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-function LoggedInPage() {
+function LoggedInPage({ user, isHomePage }) {
   const [showTags, setShowTags] = useState(false);
   const [selectedTag, setSelectedTag] = useState("");
   const navigate = useNavigate();
 
   function filtersShowClick() {
     setShowTags(!showTags);
-    console.log("show me your tags", setShowTags);
-    console.log("hide your tags", showTags);
   }
 
   function handleTagClick(clickedTag, path) {
@@ -33,13 +31,14 @@ function LoggedInPage() {
         filtersShowClick={filtersShowClick}
         showTags={showTags} />
       <main className="main__section">
-        <OptionsList
+        <DrawerMenu
           isHomeOptions={false}
           handleTagClick={handleTagClick}
           showTags={showTags}
           selectedTag={selectedTag}
+          user={user}
         />
-        <LoggedComponents handleTagClick={handleTagClick} />
+        <LoggedComponents handleTagClick={handleTagClick} selectedTag={selectedTag} user={user} />
       </main>
     </>
   );
