@@ -1,5 +1,4 @@
 import "./Homepage.scss";
-// import PhotoList from "../../components/PhotoList/PhotoList.jsx";
 import HomeComponents from "../../components/HomeComponents/HomeComponents.jsx";
 import OptionsList from "../../components/OptionsList/OptionsList.jsx";
 import HeaderNav from "../../components/HeaderNav/HeaderNav.jsx";
@@ -34,7 +33,8 @@ function Homepage() {
       setIndex((prevIndex) => (prevIndex + 1) % words.length);
     }, 3000);
 
-    return () => clearInterval(interval); // cleanup on unmount
+    // cleanup on unmount
+    return () => clearInterval(interval);
   }, []);
 
 

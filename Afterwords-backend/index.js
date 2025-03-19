@@ -10,7 +10,9 @@ const PORT = process.env.PORT || 8081;
 const BACKEND_URL = process.env.BACKEND_URL;
 
 app.use(cors({ origin: process.env.CORS_ORIGIN }));
-app.use(express.json()); // attaches body to the req Object
+
+// attaches body to the req Object
+app.use(express.json());
 
 app.use("/authors", authorsRoutes);
 app.use("/loved-ones", lovedeEntriesRoutes);

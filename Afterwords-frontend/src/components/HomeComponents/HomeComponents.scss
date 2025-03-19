@@ -176,10 +176,10 @@
   &__input {
     color: $secondary-grey;
     border-radius: $border-radius;
+    width: 12rem;
     height: 2rem;
     background-color: $secondary-white;
     margin-bottom: 1.5rem;
-    // border: solid 2px $secondary-grey;
     font-family: $font-sub;
 
     &:active {
@@ -199,6 +199,14 @@
       height: 2.5rem;
       padding: 0.6rem;
     }
+
+    &--password {
+      font-size: 31px;
+
+      &::placeholder {
+        font-size: 14px;
+      }
+    }
   }
   &__button {
     color: $secondary-white;
@@ -217,10 +225,6 @@
   }
 }
 
-input[type="password"] {
-  // font-size: 41px;
-
-  &::placeholder {
-    font-size: 14px;
-  }
-}
+// input [type="password"] {
+//   font-size: 41px;
+// }

@@ -1,9 +1,10 @@
 import "./HomeComponents.scss";
+import HeaderNav from "../HeaderNav/HeaderNav.jsx";
 import { useState } from "react";
 import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 
 
-function HomeComponents({ words, index }) {
+function HomeComponents({ words, index, isHomePage, filtersShowClick, showTags, handleTagClick }) {
     const location = useLocation();
     const optionStatus = location.pathname;
 
@@ -71,42 +72,55 @@ function HomeComponents({ words, index }) {
 
     return (
         <>
+
             <div className="options__container">
                 <div alt="light blue sky background" className="background-photo"></div>
                 <div className="options__selection">
                     {/* Home Page */}
                     {optionStatus === "/" && (
-                        <section className="mission__section">
-                            <h1 className="mission__text">
-                                Your <span className="mission__text mission__text--changing">{words[index]}</span>
-                                <br />
-                                Their Comfort
-                            </h1>
-                        </section>
+                        <>
+                            <HeaderNav
+                                isHomePage={true}
+                                filtersShowClick={filtersShowClick}
+                                handleTagClick={handleTagClick}
+                                showTags={showTags} />
+                            <section className="mission__section">
+                                <h1 className="mission__text">
+                                    Your <span className="mission__text mission__text--changing">{words[index]}</span>
+                                    <br />
+                                    Their Comfort
+                                </h1>
+                            </section>
+                        </>
                     )}
 
                     {/* About Page */}
                     {optionStatus === "/about" && (
-                        <section className="about__section">
-                            <p className="about__text">
-                                Afterwords understands that there is no right time to speak of loss, as it is one of
-                                life’s most profound challenges.
-                            </p>
-                            <p className="about__text">
-                                So we wanted to create a space designed to shift and encourage a deeper focus towards
-                                embracing the love we carry for our loved ones and sharing its beauty in a deeply
-                                meaningful way.
-                            </p>
-                            <p className="about__text">
-                                Our aim is to help you leave the love and support for your loved ones, that can only be
-                                truly felt through you. Your entries are meant to offer comfort, guidance, and healing
-                                during their time of grief.
-                            </p>
-                            <p className="about__text">
-                                Our mission is simple: share what you want to leave your loved one(s) with in a way that
-                                transcends time.
-                            </p>
-                        </section>
+                        <>
+                            <HeaderNav isHomePage={true}
+                                filtersShowClick={filtersShowClick}
+                                showTags={showTags} />
+                            <section className="about__section">
+                                <p className="about__text">
+                                    Afterwords understands that there is no right time to speak of loss, as it is one of
+                                    life’s most profound challenges.
+                                </p>
+                                <p className="about__text">
+                                    So we wanted to create a space designed to shift and encourage a deeper focus towards
+                                    embracing the love we carry for our loved ones and sharing its beauty in a deeply
+                                    meaningful way.
+                                </p>
+                                <p className="about__text">
+                                    Our aim is to help you leave the love and support for your loved ones, that can only be
+                                    truly felt through you. Your entries are meant to offer comfort, guidance, and healing
+                                    during their time of grief.
+                                </p>
+                                <p className="about__text">
+                                    Our mission is simple: share what you want to leave your loved one(s) with in a way that
+                                    transcends time.
+                                </p>
+                            </section>
+                        </>
                     )}
 
                     {/* How-To Page */}

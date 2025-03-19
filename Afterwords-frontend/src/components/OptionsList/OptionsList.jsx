@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const apiKey = "ninjatuna";
-function OptionsList({ handleTagClick, showTags, selectedTag, clickedTag, isHomeOptions }) {
+function OptionsList({ handleTagClick, showTags, selectedTag, isHomeOptions }) {
   const [tags, setTags] = useState(null);
 
   useEffect(() => { }, [tags]);

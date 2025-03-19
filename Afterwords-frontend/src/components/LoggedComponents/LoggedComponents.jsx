@@ -1,4 +1,5 @@
 import "./LoggedComponents.scss";
+import HeaderNav from "../HeaderNav/HeaderNav";
 import { useState } from "react";
 import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 
@@ -93,13 +94,14 @@ function LoggedComponents({ words, index, handleTagClick, isHomePage }) {
                         </form>
                     )}
 
-                    {/* About Page */}
+                    {/* Loved Ones Page */}
+
                     {optionStatus === "/about" && (
                         <section className="about__section">
                         </section>
                     )}
 
-                    {/* How-To Page */}
+                    {/* Logout Page */}
                     {optionStatus === "/how-to" && (
                         <ul className="how-to__section">
                             <li className="how-to__instructions">
@@ -133,40 +135,42 @@ function LoggedComponents({ words, index, handleTagClick, isHomePage }) {
                     )}
                     {/* Login Page */}
                     {optionStatus === "/login" && (
-                        <form className="login__container" onSubmit={handleSubmit}>
-                            <label htmlFor="email" className="form__email">Email</label>
-                            <input
-                                id="email"
-                                className={`form__input form__input--email ${isEmailEmpty ? "form__input--error" : ""
-                                    }`}
-                                type="email"
-                                placeholder="Enter your email"
-                                name="email"
-                                // autoComplete="email"
-                                value={email}
-                                onChange={handleAddEmail}
-                            />
-                            <label htmlFor="password" className="form__password">
-                                Name
-                            </label>
-                            <input
-                                id="password"
-                                className={`form__input form__input--password ${isPasswordEmpty ? "form__input--error" : ""
-                                    }`}
-                                type="password"
-                                placeholder="Enter your password"
-                                name="password"
-                                value={password}
-                                // autoComplete="current-password"
-                                onChange={handleAddPassword}
-                            />
-                            <button className="form__button" type="submit">
-                                LOG IN
-                            </button>
-                        </form>
+                        <>
+                            <form className="login__container" onSubmit={handleSubmit}>
+                                <label htmlFor="email" className="form__email">Email</label>
+                                <input
+                                    id="email"
+                                    className={`form__input form__input--email ${isEmailEmpty ? "form__input--error" : ""
+                                        }`}
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    name="email"
+                                    // autoComplete="email"
+                                    value={email}
+                                    onChange={handleAddEmail}
+                                />
+                                <label htmlFor="password" className="form__password">
+                                    Name
+                                </label>
+                                <input
+                                    id="password"
+                                    className={`form__input form__input--password ${isPasswordEmpty ? "form__input--error" : ""
+                                        }`}
+                                    type="password"
+                                    placeholder="Enter your password"
+                                    name="password"
+                                    value={password}
+                                    // autoComplete="current-password"
+                                    onChange={handleAddPassword}
+                                />
+                                <button className="form__button" type="submit">
+                                    LOG IN
+                                </button>
+                            </form>
+                        </>
                     )}
-                </div>
-            </div>
+                </div >
+            </div >
         </>
     );
 }

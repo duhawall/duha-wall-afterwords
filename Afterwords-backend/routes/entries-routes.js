@@ -8,7 +8,7 @@ router.route("/:id/:lovedOneId/entry/add-new").post(entriesController.addEntry);
 
 router
   .route("/:id/:lovedOneId/entries")
-  .get(entriesController.getLovedOneEntries); // get all entries data
+  .get(entriesController.getLovedOneEntries); // get all entries for a loved one
 
 router
   .route("/:id/:lovedOneId/entry/:entryId")

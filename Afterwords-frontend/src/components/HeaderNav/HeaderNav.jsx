@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function HeaderNav({ filtersShowClick, showTags, isHomePage }) {
   return (
-    <header>
+    <>
       {isHomePage ? (
         <nav className="primary-nav">
           <div className="primary-nav__header-container">
@@ -51,7 +51,7 @@ function HeaderNav({ filtersShowClick, showTags, isHomePage }) {
           </div>
         </nav>
       )}
-    </header>
+    </>
   );
 }
 export default HeaderNav;

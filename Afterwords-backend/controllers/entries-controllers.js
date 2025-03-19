@@ -8,16 +8,14 @@ const router = express.Router();
 
 // get all loved one's entries - GET /:id/:lovedOneId/entries - localhost:8080/entries/1/101/entries
 const getLovedOneEntries = async (req, res) => {
-  const { id, lovedOneId } = req.params; // Extract author ID and loved one ID
+  const { id, lovedOneId } = req.params;
 
   try {
-    // Check if the author exists
     const authorExists = await knex("authors").where({ author_id: id }).first();
     if (!authorExists) {
       return res.status(404).json({ error: "Author not found." });
     }
 
-    // Check if the loved one exists and belongs to the author
     const lovedOneExists = await knex("loved_ones")
       .where({ loved_one_id: lovedOneId, author_id: id })
       .first();
@@ -27,19 +25,16 @@ const getLovedOneEntries = async (req, res) => {
         .json({ error: "Loved one not found for this author." });
     }
 
-    // Retrieve all entries for the given loved one and author
     const entries = await knex("entries")
       .where({ author_id: id, loved_one_id: lovedOneId })
       .select("entry_id", "title", "content", "timestamp");
 
-    // Check if there are any entries
     if (entries.length === 0) {
       return res
         .status(404)
         .json({ error: "No entries found for this loved one." });
     }
 
-    // Return the entries
     res.status(200).json({ entries });
   } catch (error) {
     console.error(
