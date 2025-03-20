@@ -32,28 +32,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Home Page Components */}
-        <Route path="/" element={<HomePage id={id} isHomePage={true} loggedIn={loggedIn} filtersShowClick={filtersShowClick} showTags={showTags} handleTagClick={handleTagClick} />} />
-        <Route path="/about" element={<HomePage id={id} loggedIn={loggedIn} handleTagClick={handleTagClick} />} />
-        <Route path="/how-to" element={<HomePage id={id} loggedIn={loggedIn} handleTagClick={handleTagClick} />} />
-        <Route path="/login" element={<HomePage id={id} isHomePage={true} user={user} loggedIn={loggedIn} setLoggedIn={setLoggedIn} handleTagClick={handleTagClick} />} />
-
-
-        {/* <Route path="/:id/add-loved-one" element={<LoggedInPage id={id} user={user}
-        // setLoggedIn={setLoggedIn}
-        // filtersShowClick={filtersShowClick}
-        // showTags={showTags}
-        // handleTagClick={handleTagClick} 
-        />
-        } /> */}
         {/* <Route path="/loved-ones" element={<LoggedInPage loggedIn={loggedIn} user={user} />} /> */}
-        {/* LoggedIn Page Components */}
-
+        <Route path="/loved-ones/:id/all" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} />
         <Route path="/:id/add-entry" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} />
+        <Route path="/logged" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} />
         <Route path="/logged" element={<Navigate to={`/loved-ones/${user.id}/all`} id={id} loggedIn={loggedIn} user={user} replace />} />
-        <Route path="/:id/loved-one" element={`/${user.id}/loved-one`} />
-        {/* <Route path="/:id/:lovedOneId/entry" element={`/${user.id}/${lovedOneId}`} />
-        <Route path="/:id/:lovedOneId/all-entries" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} /> */}
         {/* <Route path="/logged" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} /> */}
         <Route path="/logout" element={<Navigate to="/" replace />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />

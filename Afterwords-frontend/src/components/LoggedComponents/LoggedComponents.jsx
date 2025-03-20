@@ -10,16 +10,9 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
     const location = useLocation();
     const optionStatus = location.pathname;
 
-    const [lovedOne, setLovedOne] = useState("");
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const [isLovedOneEmpty, setIsLovedOneEmpty] = useState(false);
     const navigate = useNavigate();
-    // const { id } = useParams();
-    // const userId = params.id;
-    // console.log(id);
-    // console.log(lovedOne);
     const [authorLovedOnes, setAuthorLovedOnes] = useState([]);
-
+    const [lovedOne, setLovedOne] = useState("");
     const [newLovedOne, setNewLovedOne] = useState(""); // Stores input value
     // const [selectedTag, setSelectedTag] = useState(null);
 
@@ -75,16 +68,16 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
         setNewLovedOne("");
     };
 
-    const handleNameSubmit = (event) => {
-        event.preventDefault();
+    // const handleNameSubmit = (event) => {
+    //     event.preventDefault();
 
-        if (lovedOne.trim().length === 0) {
-            setIsLovedOneEmpty(true);
-            return alert("Please fill in the name field.");
-        }
-        setLovedOne("");
-    }
-
+    //     if (lovedOne.trim().length === 0) {
+    //         setIsLovedOneEmpty(true);
+    //         return alert("Please fill in the name field.");
+    //     }
+    //     setLovedOne("");
+    // }
+    console.log(optionStatus);
     return (
         <>
             <div alt="light blue sky background" className="background-photo background-photo--logged">
@@ -138,7 +131,7 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                                         className={`loved-list__loved-one ${selectedTag === Number(lovedOne.loved_one_id) ? "loved-list__lovedOne--selected" : ""
                                             }`}
                                         key={lovedOne.loved_one_id}
-                                        onClick={() => handleTagClick("loved-one", `/${user.id}/loved-one`)}
+                                    // onClick={() => handleTagClick("loved-one", `/${user.id}/loved-one`)}
                                     ><h2>{lovedOne.loved_one_name}</h2>
 
                                     </li>)
