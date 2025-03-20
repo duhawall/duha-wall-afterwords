@@ -27,38 +27,10 @@ function DrawerMenu({ handleTagClick, showTags, selectedTag, isHomeOptions, user
             }`}
         >
           <nav className="filters__drawer filters__drawer--extended">
-            <NavLink className="filters__tag" to={`/${id}/add-loved-one`}>+ Add A Loved One</NavLink>
-            <NavLink className="filters__tag" to={`/${id}/add-entry`}>Add Entry</NavLink>
+            {/* <NavLink className="filters__tag" to={`/${id}/add-loved-one`}>+ Add A Loved One</NavLink> */}
             <NavLink className="filters__tag" to={`/loved-ones/${id}/all`}>View Loved Ones</NavLink>
+            <NavLink className="filters__tag" to={`/${id}/add-entry`}>Add Entry</NavLink>
             <NavLink className="filters__tag" to="/">Logout</NavLink>
-            {/* <li
-              className={`filters__tag ${selectedTag === "/add-loved-one" ? "filters__tag--selected" : ""
-                }`}
-              onClick={() => handleTagClick("add-loved-one", "/add-loved-one")}
-            >
-              Add A Loved One
-            </li>
-            <li
-              className={`filters__tag ${selectedTag === `/add-entry/${id}` ? "filters__tag--selected" : ""
-                }`}
-              onClick={() => handleTagClick("add-entry", `/add-entry/${id}`)}
-            >
-              Add Entry
-            </li>
-            <li
-              className={`filters__tag ${selectedTag === `/loved-ones/${user.id}/all` ? "filters__tag--selected" : ""
-                }`}
-              onClick={() => handleTagClick("loved-ones", `/loved-ones/${user.id}/all`)}
-            >
-              View Loved Ones
-            </li>
-            <li
-              className={`filters__tag ${selectedTag === "/logged" ? "filters__tag--selected" : ""
-                }`}
-              onClick={() => handleTagClick("logged", "/logged")}
-            >
-              Logout
-            </li> */}
           </nav>
         </div>
       )}

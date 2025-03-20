@@ -7,7 +7,6 @@ import Footer from "./components/Footer/Footer.jsx";
 import { useState } from "react";
 
 function App() {
-  // const [user, setUser] = useState({ id: "1", name: "Dina" });
   const { id } = useParams();
   const [user, setUser] = useState({ id: "1", name: "Duha" });
   const [loggedIn, setLoggedIn] = useState(true);
@@ -51,7 +50,8 @@ function App() {
         {/* <Route path="/loved-ones" element={<LoggedInPage loggedIn={loggedIn} user={user} />} /> */}
         <Route path="/loved-ones/:id/all" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} />
         <Route path="/:id/add-entry" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} />
-        <Route path="/logged" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} />
+        <Route path="/logged" element={<Navigate to="/loved-ones/:id/all" id={id} loggedIn={loggedIn} user={user} replace />} />
+        {/* <Route path="/logged" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} /> */}
         <Route path="/logout" element={<Navigate to="/" replace />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />
         <Route path="/not-found" element={<NotFoundPage />} />

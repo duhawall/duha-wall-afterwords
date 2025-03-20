@@ -9,24 +9,22 @@ const backendUrl = import.meta.env.VITE_BACKEND_URL;
 function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id }) {
     const location = useLocation();
     const optionStatus = location.pathname;
-    console.log(user);
+
     const [lovedOne, setLovedOne] = useState("");
-    const [password, setPassword] = useState("");
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const [isLovedOneEmpty, setIsLovedOneEmpty] = useState(false);
-    const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
     const navigate = useNavigate();
     // const { id } = useParams();
     // const userId = params.id;
-    console.log(id);
-
+    // console.log(id);
+    // console.log(lovedOne);
     const [authorLovedOnes, setAuthorLovedOnes] = useState([]);
 
     const getLovedOnesForAuthor = async (id) => {
         try {
             const response = await axios.get(`${backendUrl}/loved-ones/${id}/all`);
             setAuthorLovedOnes(response.data);
-            console.log("here is response:", response.data);
+            // console.log("here is response:", response.data);
         } catch (error) {
             console.error("Error fetching loved ones list:", error);
         }
@@ -40,23 +38,28 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
         }
     }, []);
 
-    const handleAddPassword = (event) => {
-        setPassword(event.target.value);
-        setIsPasswordEmpty(false);
-    };
-
     const handleAddLovedOne = (event) => {
         setLovedOne(event.target.value);
         setIsLovedOneEmpty(false);
     };
-    // console.log(optionStatus);
+
+    const handleNameSubmit = (event) => {
+        event.preventDefault();
+
+        if (lovedOne.trim().length === 0) {
+            setIsLovedOneEmpty(true);
+            return alert("Please fill in the name field.");
+        }
+        setLovedOne("");
+    }
+
     return (
         <>
             <div alt="light blue sky background" className="background-photo background-photo--logged">
                 <div className="options__selection options__selection--logged">
                     {/* Add Loved One Page */}
                     {optionStatus === `/${id}/add-loved-one` && (
-                        <form className="add-loved__container" onSubmit={() => handleTagClick("add-loved-one", "/")}>
+                        <form className="add-loved__container" onSubmit={handleNameSubmit}>
                             {/* <button className="form__button form__login" type="submit">Add Loved One
                             </button> */}
                             <label htmlFor="name" className="form__loved-one"><h1>Loved One Name</h1></label>
@@ -67,7 +70,7 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                                 type="name"
                                 placeholder="Insert Name Here"
                                 name="name"
-                                value={name}
+                                value={lovedOne}
                                 onChange={handleAddLovedOne} />
                             <button className="form__button form__login" type="submit">Add Loved One
                             </button>
@@ -83,6 +86,9 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                     {optionStatus === `/loved-ones/${id}/all` && (
                         <div className="loved-list__section">
                             <h2 className="loved-list__title">LIST OF LOVED ONES</h2>
+                            <button className="loved-list__button">
+                                <div className="loved-list__loved-one loved-list__loved-one--add">+</div><h2>Add A Loved One</h2>
+                            </button>
                             <ul className="loved-list__list">
                                 {authorLovedOnes.map((lovedOne) => {
                                     console.log(lovedOne);
@@ -91,8 +97,8 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                                             }`}
                                         key={lovedOne.loved_one_id}
                                         onClick={() => setSelectedTag(lovedOne.loved_one_id)}
-                                    >
-                                        {lovedOne.loved_one_name}
+                                    ><h2>{lovedOne.loved_one_name}</h2>
+
                                     </li>)
                                 })}
                             </ul>
