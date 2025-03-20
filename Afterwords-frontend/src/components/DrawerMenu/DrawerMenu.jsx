@@ -1,8 +1,9 @@
 import "./DrawerMenu.scss";
 import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import axios from "axios";
 
-function DrawerMenu({ handleTagClick, showTags, selectedTag, isHomeOptions, user }) {
+function DrawerMenu({ handleTagClick, showTags, selectedTag, isHomeOptions, user, id }) {
   const [tags, setTags] = useState(null);
 
   useEffect(() => { }, [tags]);
@@ -14,34 +15,23 @@ function DrawerMenu({ handleTagClick, showTags, selectedTag, isHomeOptions, user
           className={`filters-container ${showTags === true ? "filters-container--open" : ""
             }`}
         >
-          <ul className="filters__drawer">
-            <li
-              className={`filters__tag ${selectedTag === "/about" && "filters__tag--selected"}`}
-              onClick={() => handleTagClick("about", "/about")}
-            >
-              About
-            </li>
-            <li
-              className={`filters__tag ${selectedTag === "/how-to" && "filters__tag--selected"}`}
-              onClick={() => handleTagClick("how-to", "/how-to")}
-            >
-              How To
-            </li>
-            <li
-              className={`filters__tag ${selectedTag === "/login" && "filters__tag--selected"}`}
-              onClick={() => handleTagClick("login", "/login")}
-            >
-              Login
-            </li>
-          </ul>
+          <nav className="filters__drawer">
+            <NavLink className="filters__tag" to="/about">About</NavLink>
+            <NavLink className="filters__tag" to="/how-to">How To</NavLink>
+            <NavLink className="filters__tag" to="/login">Login</NavLink>
+          </nav>
         </div>
       ) : (
         <div
           className={`filters-container ${showTags === true ? "filters-container--open" : ""
             }`}
         >
-          <ul className="filters__drawer filters__drawer--extended">
-            <li
+          <nav className="filters__drawer filters__drawer--extended">
+            <NavLink className="filters__tag" to={`/${id}/add-loved-one`}>+ Add A Loved One</NavLink>
+            <NavLink className="filters__tag" to={`/${id}/add-entry`}>Add Entry</NavLink>
+            <NavLink className="filters__tag" to={`/loved-ones/${id}/all`}>View Loved Ones</NavLink>
+            <NavLink className="filters__tag" to="/">Logout</NavLink>
+            {/* <li
               className={`filters__tag ${selectedTag === "/add-loved-one" ? "filters__tag--selected" : ""
                 }`}
               onClick={() => handleTagClick("add-loved-one", "/add-loved-one")}
@@ -49,9 +39,9 @@ function DrawerMenu({ handleTagClick, showTags, selectedTag, isHomeOptions, user
               Add A Loved One
             </li>
             <li
-              className={`filters__tag ${selectedTag === "/add-entry" ? "filters__tag--selected" : ""
+              className={`filters__tag ${selectedTag === `/add-entry/${id}` ? "filters__tag--selected" : ""
                 }`}
-              onClick={() => handleTagClick("add-entry", "/add-entry")}
+              onClick={() => handleTagClick("add-entry", `/add-entry/${id}`)}
             >
               Add Entry
             </li>
@@ -68,8 +58,8 @@ function DrawerMenu({ handleTagClick, showTags, selectedTag, isHomeOptions, user
               onClick={() => handleTagClick("logged", "/logged")}
             >
               Logout
-            </li>
-          </ul>
+            </li> */}
+          </nav>
         </div>
       )}
     </>

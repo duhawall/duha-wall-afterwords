@@ -34,11 +34,33 @@
   border: solid $secondary-green 0.5px;
 }
 
-@mixin title-mobile {
+@mixin text-container {
+  background-color: $background;
+  padding: 1rem;
+  margin: $padding-element-mobile;
+  width: 90%;
+  text-align: center;
+  border-radius: calc($border-radius * 16);
   font-size: 1.2rem;
-  line-height: 2.375rem;
-  font-weight: 400;
 }
+
+@mixin input-container {
+  color: $secondary-grey;
+  border-radius: $border-radius;
+  border: none;
+  width: 12rem;
+  height: 2.5rem;
+  padding: $padding-element-mobile calc($padding-element-mobile * 2);
+  background-color: $secondary-white;
+  margin: 1rem 0;
+  font-family: $font-sub;
+}
+
+// @include background-container {
+// }
+
+// @include drawer-button {
+// }
 
 @mixin heading-mobile {
   font-family: $font-sub;

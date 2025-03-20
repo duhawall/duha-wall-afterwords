@@ -15,30 +15,10 @@ footer,
 input,
 button,
 textarea,
-li,
 p {
   color: white;
   font-family: $font-sub, Arial, Helvetica, sans-serif;
   background-color: $primary-plum;
-}
-
-h1 {
-  font-size: 2rem;
-  line-height: 2rem;
-  font-weight: 400;
-}
-
-h2 {
-  @include heading-mobile;
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-h4 {
-  font-family: $font-sub;
-  font-weight: 300;
 }
 
 a {
@@ -48,4 +28,27 @@ a {
 
 Link {
   cursor: pointer;
+}
+
+h1 {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  font-weight: 400;
+}
+
+h2 {
+  @include heading-mobile;
+  font-family: $font-sub;
+  font-size: 1.125rem;
+  line-height: 1.4375rem;
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+h4 {
+  font-family: $font-sub;
+  font-weight: 300;
 }

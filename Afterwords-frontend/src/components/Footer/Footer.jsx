@@ -1,6 +1,5 @@
 import "./Footer.scss";
 import { FacebookIcon } from "../SocialIcons/SocialIcons";
-import { XIcon } from "../SocialIcons/SocialIcons";
 import { InstagramIcon } from "../SocialIcons/SocialIcons";
 import { PinterestIcon } from "../SocialIcons/SocialIcons";
 import { Link } from "react-router-dom";
@@ -40,7 +39,6 @@ function Footer() {
         </div> */}
         <div className="footer__section footer__section--social">
           <FacebookIcon />
-          <XIcon />
           <InstagramIcon />
           <PinterestIcon />
         </div>

@@ -5,7 +5,7 @@ import HeaderNav from "../../components/HeaderNav/HeaderNav.jsx";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function HomePage({ isHomePage, loggedIn, setLoggedIn }) {
+function HomePage({ isHomePage, loggedIn, setLoggedIn, id }) {
   const words = ["Light,", "Warmth,", "Legacy,", "Words,", "Messages,", "Story,"];
   const [index, setIndex] = useState(0);
   const [showTags, setShowTags] = useState(false);
@@ -14,6 +14,8 @@ function HomePage({ isHomePage, loggedIn, setLoggedIn }) {
 
   function filtersShowClick() {
     setShowTags(!showTags);
+    // console.log("show me your tags", setShowTags);
+    console.log("hide your tags", showTags);
   }
 
   function handleTagClick(clickedTag, path) {
@@ -49,8 +51,9 @@ function HomePage({ isHomePage, loggedIn, setLoggedIn }) {
           handleTagClick={handleTagClick}
           showTags={showTags}
           selectedTag={selectedTag}
+          id={id}
         />
-        <HomeComponents words={words} index={index} handleTagClick={handleTagClick} loggedIn={loggedIn} />
+        <HomeComponents words={words} index={index} handleTagClick={handleTagClick} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       </main>
     </>
   );

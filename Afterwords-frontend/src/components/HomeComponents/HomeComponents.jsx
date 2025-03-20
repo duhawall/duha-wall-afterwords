@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 
 
-function HomeComponents({ words, index, isHomePage, filtersShowClick, showTags, handleTagClick, loggedIn, setLoggedIn }) {
+function HomeComponents({ words, index, loggedIn, setLoggedIn }) {
     const location = useLocation();
     const optionStatus = location.pathname;
 

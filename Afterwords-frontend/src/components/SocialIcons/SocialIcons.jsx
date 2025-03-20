@@ -16,32 +16,6 @@ export function FacebookIcon() {
   );
 }
 
-export function XIcon() {
-  return (
-    <svg
-      className="footer__icon footer__icon--x"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g clipPath="url(#a)">
-        <mask id="b" maskUnits="userSpaceOnUse">
-          <path fill="#fff" d="M0 0h20v20H0V0Z" />
-        </mask>
-        <g mask="url(#b)">
-          <path
-            fill="#FFFFFF"
-            d="M15.75.937h3.067l-6.7 7.677L20 19.063h-6.171L8.99 12.727l-5.528 6.336H.393l7.166-8.214L0 .939h6.329l4.365 5.79L15.75.937Zm-1.079 16.286h1.7L5.4 2.68H3.577l11.094 14.542Z"
-          />
-        </g>
-      </g>
-      <defs>
-        <clipPath id="a">
-          <path fill="#fff" d="M0 0h20v20H0z" />
-        </clipPath>
-      </defs>
-    </svg>
-  );
-}
-
 export function InstagramIcon() {
   return (
     <svg

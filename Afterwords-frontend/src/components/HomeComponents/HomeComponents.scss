@@ -151,8 +151,8 @@
     align-items: center;
     width: 15rem;
     height: 15rem;
-    background-color: $primary-lilac;
-    border-radius: calc($border-radius * 4);
+    background-color: $background;
+    border-radius: $border-radius;
   }
 }
 
@@ -174,13 +174,7 @@
   }
 
   &__input {
-    color: $secondary-grey;
-    border-radius: $border-radius;
-    width: 12rem;
-    height: 2rem;
-    background-color: $secondary-white;
-    margin-bottom: 1.5rem;
-    font-family: $font-sub;
+    @include input-container;
 
     &:active {
       border: solid 2px $primary-lilac;
@@ -197,22 +191,26 @@
     &--email,
     &--password {
       height: 2.5rem;
-      padding: 0.6rem;
+      padding: 0.8rem;
+      border: none;
+      font-size: 14px;
     }
 
     &--password {
       font-size: 31px;
+      padding-top: 0.2rem;
 
       &::placeholder {
         font-size: 14px;
+        padding-top: -0.2rem;
+        padding-bottom: 0.2rem;
       }
     }
   }
   &__button {
     color: $secondary-white;
     background-color: $primary-lilac;
-    // align-self: flex-start;
-    width: 4.5rem;
+    width: 5.5rem;
     margin: 0rem 0.2rem;
     padding: 0.4rem 0.8rem;
 
@@ -224,7 +222,3 @@
     }
   }
 }
-
-// input [type="password"] {
-//   font-size: 41px;
-// }

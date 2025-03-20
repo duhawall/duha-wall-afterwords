@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-function LoggedInPage({ user, isHomePage }) {
+function LoggedInPage({ user, isHomePage, id }) {
   const [showTags, setShowTags] = useState(false);
   const [selectedTag, setSelectedTag] = useState("");
   const navigate = useNavigate();
@@ -37,6 +37,7 @@ function LoggedInPage({ user, isHomePage }) {
           showTags={showTags}
           selectedTag={selectedTag}
           user={user}
+          id={id}
         />
         <LoggedComponents handleTagClick={handleTagClick} selectedTag={selectedTag} user={user} />
       </main>

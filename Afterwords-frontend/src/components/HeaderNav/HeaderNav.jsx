@@ -31,7 +31,7 @@ function HeaderNav({ filtersShowClick, showTags, isHomePage, loggedIn }) {
         <nav className="primary-nav">
           <div className="primary-nav__header-container">
             <h1 className="primary-nav__header">
-              <Link to="/">Afterwords LOGGED.</Link>
+              <Link to="/">Afterwords..</Link>
             </h1>
             <button
               className={`primary-nav__filters-container ${showTags ? "primary-nav__filters-container--clicked" : ""
