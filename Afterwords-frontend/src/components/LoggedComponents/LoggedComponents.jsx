@@ -20,11 +20,19 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
     // console.log(lovedOne);
     const [authorLovedOnes, setAuthorLovedOnes] = useState([]);
 
+    const [newLovedOne, setNewLovedOne] = useState(""); // Stores input value
+    // const [selectedTag, setSelectedTag] = useState(null);
+
     const getLovedOnesForAuthor = async (id) => {
         try {
             const response = await axios.get(`${backendUrl}/loved-ones/${id}/all`);
-            setAuthorLovedOnes(response.data);
-            // console.log("here is response:", response.data);
+            console.log("Before sorting:", response.data);
+
+            const authorLovedOnesSorted = [...response.data].sort((a, b) => Number(b.loved_one_id) - Number(a.loved_one_id));
+
+            setAuthorLovedOnes(authorLovedOnesSorted);
+
+            console.log("After sorting:", authorLovedOnesSorted);
         } catch (error) {
             console.error("Error fetching loved ones list:", error);
         }
@@ -39,8 +47,32 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
     }, []);
 
     const handleAddLovedOne = (event) => {
-        setLovedOne(event.target.value);
-        setIsLovedOneEmpty(false);
+        event.preventDefault();
+
+        if (newLovedOne.trim() === "") {
+            alert("Please enter a name.");
+            return;
+        }
+
+        const newEntry = {
+            author_id: user.id,
+            loved_one_id: authorLovedOnes.length > 0
+                ? Math.max(...authorLovedOnes.map(l => Number(l.loved_one_id))) + 1 // Ensure unique ID
+                : 1,
+            loved_one_name: newLovedOne,
+        };
+
+        const postLovedOne = async (newEntry) => {
+            try {
+                await axios.post(`${backendUrl}/loved-ones/${user.id}/add-new`, newEntry);
+            } catch {
+                alert("Error posting new loved one.");
+            }
+        }
+
+        postLovedOne(newEntry);
+        setAuthorLovedOnes([newEntry, ...authorLovedOnes]);
+        setNewLovedOne("");
     };
 
     const handleNameSubmit = (event) => {
@@ -57,46 +89,26 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
         <>
             <div alt="light blue sky background" className="background-photo background-photo--logged">
                 <div className="options__selection options__selection--logged">
-                    {/* Add Loved One Page */}
-                    {optionStatus === `/${id}/add-loved-one` && (
-                        <form className="add-loved__container" onSubmit={handleNameSubmit}>
-                            {/* <button className="form__button form__login" type="submit">Add Loved One
-                            </button> */}
-                            <label htmlFor="name" className="form__loved-one"><h1>Loved One Name</h1></label>
-                            <input
-                                id="name"
-                                className={`form__input form__input--loved-one ${isLovedOneEmpty ? "form__input--error" : ""
-                                    }`}
-                                type="name"
-                                placeholder="Insert Name Here"
-                                name="name"
-                                value={lovedOne}
-                                onChange={handleAddLovedOne} />
-                            <button className="form__button form__login" type="submit">Add Loved One
-                            </button>
-                        </form>
-                    )}
-                    {/* Add Entry */}
-                    {optionStatus === `/${id}/add-entry` && (
-                        <section className="entry-add__section">
-                            HI HI ENTRY COMPONENT HERE!
-                        </section>
-                    )}
-                    {/* View List of Loved Ones Page */}
-                    {optionStatus === `/loved-ones/${id}/all` && (
+                    {/* View List of Loved Ones Component */}
+                    {optionStatus === `/loved-ones/${user.id}/all` && (
                         <div className="loved-list__section">
                             <h2 className="loved-list__title">LIST OF LOVED ONES</h2>
-                            <button className="loved-list__button">
-                                <div className="loved-list__loved-one loved-list__loved-one--add">+</div><h2>Add A Loved One</h2>
-                            </button>
+                            <form className="loved-list__form" onSubmit={handleAddLovedOne}>
+                                <input
+                                    type="text"
+                                    className="loved-list__button"
+                                    placeholder="+ Add a new name"
+                                    value={newLovedOne}
+                                    onChange={(e) => setNewLovedOne(e.target.value)}
+                                />
+                            </form>
                             <ul className="loved-list__list">
                                 {authorLovedOnes.map((lovedOne) => {
-                                    console.log(lovedOne);
                                     return (<li
                                         className={`loved-list__loved-one ${selectedTag === Number(lovedOne.loved_one_id) ? "loved-list__lovedOne--selected" : ""
                                             }`}
                                         key={lovedOne.loved_one_id}
-                                        onClick={() => setSelectedTag(lovedOne.loved_one_id)}
+                                        onClick={() => handleTagClick("loved-one", `/${user.id}/loved-one`)}
                                     ><h2>{lovedOne.loved_one_name}</h2>
 
                                     </li>)
@@ -104,47 +116,48 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                             </ul>
                         </div>
                     )}
+                    {/* Loved One's Entries Component */}
+                    {optionStatus === `/${user.id}/loved-one` && (
+                        <div className="loved-list__section">
+                            <h2 className="loved-list__title">LIST OF LOVED ONES</h2>
+                            <form className="loved-list__form" onSubmit={handleAddLovedOne}>
+                                <input
+                                    type="text"
+                                    className="loved-list__button"
+                                    placeholder="+ Add a new name"
+                                    value={newLovedOne}
+                                    onChange={(e) => setNewLovedOne(e.target.value)}
+                                />
+                            </form>
+                            {/* <button className="loved-list__button">
+                                <span className="loved-list__loved-one loved-list__loved-one--add">+</span><h2>Add A Loved One</h2>
+                            </button> */}
+                            <ul className="loved-list__list">
+                                {authorLovedOnes.map((lovedOne) => {
+                                    return (<li
+                                        className={`loved-list__loved-one ${selectedTag === Number(lovedOne.loved_one_id) ? "loved-list__lovedOne--selected" : ""
+                                            }`}
+                                        key={lovedOne.loved_one_id}
+                                        onClick={() => handleTagClick("loved-one", `/${user.id}/loved-one`)}
+                                    ><h2>{lovedOne.loved_one_name}</h2>
+
+                                    </li>)
+                                })}
+                            </ul>
+                        </div>
+                    )}
+                    {/* ---------- Component */}
+                    {optionStatus === true && (
+                        <section className="entry-add__section">
+                            HI HI ENTRY COMPONENT HERE!
+                        </section>
+                    )}
+
                     {/* Logout Page */}
                     {optionStatus === "/logout" && (
                         <>
                         </>
                     )}
-                    {/* Login Page */}
-                    {/* {optionStatus === "/login" && (
-                        <>
-                            <form className="login__container" onSubmit={handleSubmit}>
-                                <label htmlFor="email" className="form__email">Email</label>
-                                <input
-                                    id="email"
-                                    className={`form__input form__input--email ${isEmailEmpty ? "form__input--error" : ""
-                                        }`}
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    name="email"
-                                    // autoComplete="email"
-                                    value={email}
-                                    onChange={handleAddEmail}
-                                />
-                                <label htmlFor="password" className="form__password">
-                                    Name
-                                </label>
-                                <input
-                                    id="password"
-                                    className={`form__input form__input--password ${isPasswordEmpty ? "form__input--error" : ""
-                                        }`}
-                                    type="password"
-                                    placeholder="Enter your password"
-                                    name="password"
-                                    value={password}
-                                    // autoComplete="current-password"
-                                    onChange={handleAddPassword}
-                                />
-                                <button className="form__button" type="submit">
-                                    LOG IN
-                                </button>
-                            </form>
-                        </>
-                    )} */}
                 </div>
             </div >
         </>
@@ -152,3 +165,22 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
 }
 
 export default LoggedComponents;
+
+//  {/* Add Loved One Page */}
+//  {optionStatus === `/${id}/add-loved-one` && (
+//     <form className="add-loved__container" onSubmit={handleNameSubmit}>
+//         {/* <button className="form__button form__login" type="submit">Add Loved One
+//         </button> */}
+//         <label htmlFor="name" className="form__button form__login"><h1>Loved One Name</h1></label>
+//         <input
+//             id="name"
+//             className="form__button form__login"
+//             type="name"
+//             placeholder="Insert Name Here"
+//             name="name"
+//             value={lovedOne}
+//             onChange={handleAddLovedOne} />
+//         <button className="form__button form__login" type="submit">Add Loved One
+//         </button>
+//     </form>
+// )}

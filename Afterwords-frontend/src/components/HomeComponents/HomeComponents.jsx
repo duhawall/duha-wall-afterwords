@@ -158,7 +158,6 @@ function HomeComponents({ words, index, loggedIn, setLoggedIn }) {
                                     type="email"
                                     placeholder="Enter your email"
                                     name="email"
-                                    // autoComplete="email"
                                     value={email}
                                     onChange={handleAddEmail}
                                 />
@@ -173,7 +172,6 @@ function HomeComponents({ words, index, loggedIn, setLoggedIn }) {
                                     placeholder="Enter your password"
                                     name="password"
                                     value={password}
-                                    // autoComplete="current-password"
                                     onChange={handleAddPassword}
                                 />
                                 <button className="form__button" type="submit">

@@ -7,10 +7,10 @@ const router = express.Router();
 
 // add a new author (data) - POST /loved-ones/:id/add-new - localhost:8080/loved-ones/1/add-new
 const postLovedOne = async (req, res) => {
-  const { lovedOneName } = req.body;
+  const { loved_one_name } = req.body;
   const { id } = req.params;
 
-  if (!lovedOneName) {
+  if (!loved_one_name) {
     return res.status(400).json({ error: "Loved One name is required." });
   }
 
@@ -35,9 +35,9 @@ const postLovedOne = async (req, res) => {
     const newLovedOneId = (Number(highestIdData.highestId) || 0) + 1;
 
     const newLovedOne = {
-      loved_one_id: newLovedOneId,
       author_id: id,
-      loved_one_name: lovedOneName,
+      loved_one_id: newLovedOneId,
+      loved_one_name: loved_one_name,
     };
 
     await knex("loved_ones").insert(newLovedOne);
