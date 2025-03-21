@@ -30,7 +30,7 @@
     @include tablet {
       display: flex;
       justify-content: space-between;
-      padding-bottom: 9rem;
+      // padding-bottom: 9rem;
     }
 
     @include desktop {
@@ -77,7 +77,6 @@
       }
 
       @include desktop {
-        justify-content: flex-end;
         padding-top: 1.7rem;
         padding-right: 1rem;
         width: 15%;
@@ -93,7 +92,6 @@
       @include tablet {
         justify-content: flex-start;
         gap: 1.3rem;
-        padding-bottom: 2.5rem;
       }
     }
   }
