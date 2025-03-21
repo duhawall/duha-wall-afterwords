@@ -9,10 +9,11 @@ import { useState } from "react";
 function App() {
   const { id } = useParams();
   const [user, setUser] = useState({ id: "1", name: "Duha" });
+  const [lovedOne, setLovedOne] = useState("");
   const [loggedIn, setLoggedIn] = useState(true);
   const [showTags, setShowTags] = useState(false);
   const [selectedTag, setSelectedTag] = useState("");
-  console.log(user);
+  // console.log(user);
 
   function filtersShowClick() {
     setShowTags(!showTags);
@@ -32,15 +33,21 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/loved-ones" element={<LoggedInPage loggedIn={loggedIn} user={user} />} /> */}
-        <Route path="/loved-ones/:id/all" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} />
-        <Route path="/:id/add-entry" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} />
-        <Route path="/logged" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} />
-        <Route path="/logged" element={<Navigate to={`/loved-ones/${user.id}/all`} id={id} loggedIn={loggedIn} user={user} replace />} />
-        {/* <Route path="/logged" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} /> */}
+        {/* Home Page Components */}
+        <Route path="/" element={<HomePage id={id} isHomePage={true} loggedIn={loggedIn} filtersShowClick={filtersShowClick} showTags={showTags} handleTagClick={handleTagClick} />} />
+
+        <Route path="/about" element={<HomePage id={id} loggedIn={loggedIn} handleTagClick={handleTagClick} />} />
+        <Route path="/how-to" element={<HomePage id={id} loggedIn={loggedIn} handleTagClick={handleTagClick} />} />
+        <Route path="/login" element={<HomePage id={id} isHomePage={true} user={user} loggedIn={loggedIn} setLoggedIn={setLoggedIn} handleTagClick={handleTagClick} />} />
+
+        <Route path="/logged" element={<Navigate to={`/${user.id}/loved-ones/all`} id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} replace />} />
+        <Route path="/:id/loved-ones/all" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} />} />
+        <Route path="/:id/loved-one/:lovedOneId/entries" element={<Navigate to={`/${user.id}/loved-ones/${lovedOne.loved_one_id}/entries`} id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} replace />} />
+        <Route path="/:id/loved-one/:lovedOneId/entries" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} />} />
+        {/* <Route path="/:id/loved-one/entry" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} /> */}
         <Route path="/logout" element={<Navigate to="/" replace />} />
-        <Route path="*" element={<Navigate to="/not-found" replace />} />
-        <Route path="/not-found" element={<NotFoundPage />} />
+        {/* <Route path="*" element={<Navigate to="/not-found" replace />} />
+        <Route path="/not-found" element={<NotFoundPage />} /> */}
       </Routes>
       <Footer />
     </BrowserRouter>
