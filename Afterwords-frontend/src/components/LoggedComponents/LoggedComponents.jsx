@@ -12,7 +12,7 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
     const navigate = useNavigate();
     const [authorLovedOnes, setAuthorLovedOnes] = useState([]);
     const [newLovedOne, setNewLovedOne] = useState("");
-    const [selectedNameId, setSelectedNameId] = useState(null);  // Initially null instead of "null"
+    const [lovedId, setLovedId] = useState(null);
 
     const getLovedOnesForAuthor = async (id) => {
         try {
@@ -25,11 +25,18 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
         }
     };
 
-    const handleLovedEntriesClick = (lovedOneId) => {
-        console.log("Clicked lovedOneId:", lovedOneId);  // Debugging line
-        setSelectedNameId(lovedOneId);  // Update state with clicked lovedOneId
-        console.log("set selected name id:", selectedNameId);
-        navigate(`/${user.id}/loved-one/${lovedOneId}/entries`);  // Navigate with the lovedOneId in the URL
+    const handleLovedEntriesClick = async (lovedOneId) => {
+        setLovedId(lovedOneId);  // Update state with clicked lovedOneId
+        console.log("Clicked loveOneId:", lovedOneId);
+        navigate(`/${user.id}/${lovedOneId}/entries`);
+        try {
+            const response = await axios.get(`${backendUrl}/entries/1/${lovedOneId}/entries`);
+            // const authorLovedOnesSorted = [...response.data].sort((a, b) => Number(b.loved_one_id) - Number(a.loved_one_id));
+            setAuthorLovedOnes(response);
+            console.log("sorted authors from axios", response);
+        } catch (error) {
+            console.error("Error fetching loved ones list:", error);
+        }
     };
 
     useEffect(() => {
@@ -51,7 +58,7 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
         const newEntry = {
             author_id: user.id,
             loved_one_id: authorLovedOnes.length > 0
-                ? Math.max(...authorLovedOnes.map(l => Number(l.loved_one_id))) + 1 // Ensure unique ID
+                ? Math.max(...authorLovedOnes.map(l => Number(l.loved_one_id))) + 1
                 : 1,
             loved_one_name: newLovedOne,
         };
@@ -94,8 +101,8 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                                     return (
                                         <li
                                             className={`loved-list__loved-one ${selectedTag === Number(lovedOne.loved_one_id) ? "loved-list__lovedOne--selected" : ""}`}
-                                            key={lovedOne.loved_one_id}
-                                            onClick={() => console.log(handleLovedEntriesClick(lovedOne.loved_one_id))}  // Pass lovedOneId to handleLovedEntriesClick
+                                            key={Number(lovedOne.loved_one_id)}
+                                            onClick={() => handleLovedEntriesClick(lovedOne.loved_one_id)}
                                         >
                                             <h2>{lovedOne.loved_one_name}</h2>
                                         </li>
@@ -106,7 +113,7 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                     )}
 
                     {/* Loved One's Entries Component */}
-                    {optionStatus === `/${user.id}/loved-one/${selectedNameId}/entries` && (
+                    {optionStatus === `/${user.id}/loved-one/${lovedId}/entries` && (
                         <div className="loved-list__section">
                             <h2 className="loved-list__title">
                                 {authorLovedOnes.find((l) => l.loved_one_id === selectedNameId)?.loved_one_name?.toUpperCase()}'S ENTRIES

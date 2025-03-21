@@ -13,7 +13,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(true);
   const [showTags, setShowTags] = useState(false);
   const [selectedTag, setSelectedTag] = useState("");
-  // console.log(user);
+  console.log(user);
 
   function filtersShowClick() {
     setShowTags(!showTags);
@@ -42,8 +42,8 @@ function App() {
 
         <Route path="/logged" element={<Navigate to={`/${user.id}/loved-ones/all`} id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} replace />} />
         <Route path="/:id/loved-ones/all" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} />} />
-        <Route path="/:id/loved-one/:lovedOneId/entries" element={<Navigate to={`/${user.id}/loved-ones/${lovedOne.loved_one_id}/entries`} id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} replace />} />
-        <Route path="/:id/loved-one/:lovedOneId/entries" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} />} />
+        <Route path="/:id/:lovedOneId/entries" element={<Navigate to={`/${user.id}/${user.loved_one_id}/entries`} id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} replace />} />
+        <Route path="/:id/:lovedOneId/entries" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} />} />
         {/* <Route path="/:id/loved-one/entry" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} /> */}
         <Route path="/logout" element={<Navigate to="/" replace />} />
         {/* <Route path="*" element={<Navigate to="/not-found" replace />} />
