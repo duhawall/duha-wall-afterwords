@@ -7,15 +7,29 @@
     padding: 0 1rem;
 
     @include tablet {
-      width: 76%;
+      width: 100%;
     }
+
+    // @include tablet {
+    //   width: 76%;
+    // }
   }
 
   &__selection {
-    // display: flex;
-    // flex-direction: column;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    // width: 100%;
     padding: 3rem 0;
+  }
+}
+
+.main__section {
+  @include desktop {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
 }
 
@@ -30,14 +44,14 @@
   background-repeat: no-repeat;
   box-shadow: inset 1px 1px 10px -1px rgba(0, 0, 0, 0.3);
 
-  @include tablet {
-    width: 2.5rem;
-    border-radius: 500px;
-  }
+  // @include tablet {
+  //   width: 2.5rem;
+  //   border-radius: 500px;
+  // }
 
-  @include desktop {
-    width: 2.5rem;
-  }
+  // @include desktop {
+  //   width: 2.5rem;
+  // }
 
   // @include tablet {
   //   width: 100%;
@@ -150,10 +164,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 15rem;
-    height: 15rem;
+    width: 100%;
+    height: 18rem;
+    padding: 1rem;
+    margin: 0.5rem;
     background-color: $background;
     border-radius: $border-radius;
+    background-image: url("../../assets/images/sky-background.jpg");
+    filter: hue-rotate(14deg);
+
+    @include tablet {
+      width: 70%;
+    }
   }
 }
 

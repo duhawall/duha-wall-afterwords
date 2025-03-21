@@ -5,7 +5,7 @@ const knex = initKnex(configuration);
 
 const router = express.Router();
 
-// add a new author (data) - POST /loved-ones/:id/add-new - localhost:8080/loved-ones/1/add-new
+// add a new loved one - POST /loved-ones/:id/add-new - localhost:8080/loved-ones/1/add-new
 const postLovedOne = async (req, res) => {
   const { loved_one_name } = req.body;
   const { id } = req.params;

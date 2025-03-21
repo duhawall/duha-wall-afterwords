@@ -6,14 +6,6 @@ body {
   font-family: $font-main;
 }
 
-.main__section {
-  @include desktop {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-  }
-}
-
 .mission-photos__section {
   @include desktop {
     width: 100%;

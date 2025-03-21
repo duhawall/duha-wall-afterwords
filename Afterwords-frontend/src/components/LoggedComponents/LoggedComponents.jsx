@@ -32,14 +32,16 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
 
     const handleLovedEntriesClick = async (lovedOneId) => {
         setLovedId(lovedOneId);
-        console.log("setlovedId is:", lovedOneId);
-        console.log("lovedId is:", lovedId);
-
-        navigate(`/${user.id}/${lovedId}/entries`);
+        // console.log("lovedOneId is:", lovedOneId);
+        // console.log("lovedId is:", lovedId);
+        // console.log(`/${user.id}/${lovedOneId}/entries`);
+        navigate(`/${user.id}/${lovedOneId}/entries`);
         try {
-            const lovedOneEntriesData = await axios.get(`${backendUrl}/entries/${user.id}/${lovedOneId}/entries`);
-            setLovedOneEntries(lovedOneEntriesData);
-            console.log("sorted authors from axios", lovedOneEntriesData);
+            const response = await axios.get(`${backendUrl}/entries/${user.id}/${lovedOneId}/entries`);
+            setLovedOneEntries(response.data.entries);
+            // console.log("loved ones entries DATA:", response.data);
+
+            // console.log("sorted authors from axios", response);
         } catch (error) {
             console.error("Error fetching loved ones list:", error);
         }
@@ -61,7 +63,7 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
             return;
         }
 
-        const newEntry = {
+        const newLovedOneName = {
             author_id: user.id,
             loved_one_id: authorLovedOnes.length > 0
                 ? Math.max(...authorLovedOnes.map(l => Number(l.loved_one_id))) + 1
@@ -69,17 +71,16 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
             loved_one_name: newLovedOne,
         };
 
-        const postLovedOne = async (newEntry) => {
+        const postLovedOne = async (newLovedOne) => {
             try {
-                const response = await axios.post(`${backendUrl}/loved-ones/${user.id}/add-new`, newEntry);
-                setAuthorLovedOnes([response.data, ...authorLovedOnes]);
+                await axios.post(`${backendUrl}/loved-ones/${user.id}/add-new`, newLovedOne);
+                getLovedOnesForAuthor(user.id);
             } catch {
                 alert("Error posting new loved one.");
             }
         };
 
-        postLovedOne(newEntry);
-        setAuthorLovedOnes([newEntry, ...authorLovedOnes]);
+        postLovedOne(newLovedOneName);
         setNewLovedOne("");
     };
 
@@ -119,31 +120,39 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                     )}
 
                     {/* Loved One's Entries Component */}
-                    {optionStatus === `/${user.id}/loved-one/${lovedId}/entries` && (
-                        <div className="loved-list__section">
-                            <h2 className="loved-list__title">
+                    {optionStatus === `/${user.id}/${lovedId}/entries` && (
+                        <div className="loved-entries-list__section">
+                            {/* {console.log("test")}
+                            {console.log("loved one entries:", typeof lovedOneEntries)} */}
+                            {/* <h2 className="loved-entries-list__title">
                                 {lovedOneEntries.find((l) => l.loved_one_id === selectedNameId)?.loved_one_name?.toUpperCase()}'S ENTRIES
                             </h2>
-                            <form className="loved-list__form" onSubmit={handleAddLovedOne}>
+                            <form className="loved-entries-list__form">
                                 <input
                                     type="text"
-                                    className="loved-list__button"
+                                    className="loved-entries-list__button"
                                     placeholder="+ Add a new name"
                                     value={newLovedOne}
                                     onChange={(e) => setNewLovedOne(e.target.value)}
                                 />
-                            </form>
-                            <ul className="loved-list__list">
-                                {authorLovedOnes.map((lovedOne) => {
-                                    return (
-                                        <li
-                                            className={`loved-list__loved-one ${selectedTag === Number(lovedOne.loved_one_id) ? "loved-list__lovedOne--selected" : ""}`}
-                                            key={lovedOne.loved_one_id}
-                                        >
-                                            <h2>{lovedOne.loved_one_name}</h2>
-                                        </li>
-                                    );
-                                })}
+                            </form> */}
+                            <ul className="loved-entries-list__list">
+                                {lovedOneEntries.length > 0 ?
+                                    lovedOneEntries.map((entry) => {
+                                        return (
+                                            <li
+                                                className="entry__title"
+                                                key={entry.entry_id}
+                                            >
+                                                <h2>{entry.title}</h2>
+                                                <h2>{entry.content}</h2>
+                                                <h2>{entry.timestamp}</h2>
+                                                {/* onSubmit={handleAddEntry} */}
+                                            </li>
+                                        );
+                                    })
+                                    :
+                                    <li>No Entries yet.</li>}
                             </ul>
                         </div>
                     )}
@@ -151,7 +160,7 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                     {/* Logout Page */}
                     {optionStatus === "/logout" && <></>}
                 </div>
-            </div>
+            </div >
         </>
     );
 }
