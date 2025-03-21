@@ -7,13 +7,16 @@ import axios from "axios";
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id }) {
+    const [lovedId, setLovedId] = useState(null);
+    const [entryId, setEntryId] = useState(null);
     const location = useLocation();
     const optionStatus = location.pathname;
     const navigate = useNavigate();
+
     const [authorLovedOnes, setAuthorLovedOnes] = useState([]);
     const [newLovedOne, setNewLovedOne] = useState("");
     const [lovedOneEntries, setLovedOneEntries] = useState([]);
-    const [lovedId, setLovedId] = useState(null);
+    const [newEntryTitle, setNewEntryTitle] = useState("");
 
     const getLovedOnesForAuthor = async (id) => {
         try {
@@ -28,7 +31,8 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
 
     useEffect(() => {
 
-    }, [lovedId]);
+    }, [lovedId, entryId]);
+
 
     const handleLovedEntriesClick = async (lovedOneId) => {
         setLovedId(lovedOneId);
@@ -38,7 +42,9 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
         navigate(`/${user.id}/${lovedOneId}/entries`);
         try {
             const response = await axios.get(`${backendUrl}/entries/${user.id}/${lovedOneId}/entries`);
-            setLovedOneEntries(response.data.entries);
+            const entriesData = [...response.data.entries].sort((a, b) => b.timestamp - a.timestamp);
+            setLovedOneEntries(entriesData);
+            // setLovedOneEntries(response.data.entries);
             // console.log("loved ones entries DATA:", response.data);
 
             // console.log("sorted authors from axios", response);
@@ -46,6 +52,23 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
             console.error("Error fetching loved ones list:", error);
         }
     };
+
+    const handleEntryClick = async (lovedOneId, lovedEntryId) => {
+        setLovedId(lovedOneId);
+        setEntryId(lovedEntryId);
+        navigate(`/${user.id}/${lovedOneId}/entry/${lovedEntryId}`);
+        try {
+            const response = await axios.get(`${backendUrl}/entries/${user.id}/${lovedOneId}/entry/${lovedEntryId}`);
+            setLovedId(response.data.entries.loved_one_id);
+            setEntryId(response.data.entries.entry_id);
+            console.log(response.data.entries.entry_id);
+            // console.log("loved ones entries DATA:", response.data);
+        } catch (error) {
+            console.error("Error fetching loved ones list:", error);
+        }
+        // console.log("entry data:", response.data);
+        // setNewEntryTitle(response.data);
+    }
 
     useEffect(() => {
         if (id) {
@@ -124,30 +147,37 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                         <div className="loved-entries-list__section">
                             {/* {console.log("test")}
                             {console.log("loved one entries:", typeof lovedOneEntries)} */}
-                            {/* <h2 className="loved-entries-list__title">
-                                {lovedOneEntries.find((l) => l.loved_one_id === selectedNameId)?.loved_one_name?.toUpperCase()}'S ENTRIES
+                            <h2 className="loved-entries-list__title">
+                                {authorLovedOnes.find((l) => l.loved_one_id === lovedId).loved_one_name.toUpperCase()}'S ENTRIES
                             </h2>
-                            <form className="loved-entries-list__form">
+                            {/* onSubmit={handleAddEntry} */}
+                            <form className="loved-list__form">
                                 <input
                                     type="text"
-                                    className="loved-entries-list__button"
-                                    placeholder="+ Add a new name"
-                                    value={newLovedOne}
-                                    onChange={(e) => setNewLovedOne(e.target.value)}
-                                />
-                            </form> */}
+                                    className="loved-list__button"
+                                    placeholder="+ Add a new entry"
+                                    value={newEntryTitle}
+                                    onChange={(e) => setNewEntryTitle(e.target.value)}
+
+                                />{console.log(newEntryTitle)}
+                            </form>
                             <ul className="loved-entries-list__list">
                                 {lovedOneEntries.length > 0 ?
                                     lovedOneEntries.map((entry) => {
                                         return (
                                             <li
-                                                className="entry__title"
+                                                className="loved-list__loved-one"
                                                 key={entry.entry_id}
+                                                onClick={() => handleEntryClick(entry.loved_one_id, entry.entry_id)}
                                             >
                                                 <h2>{entry.title}</h2>
-                                                <h2>{entry.content}</h2>
-                                                <h2>{entry.timestamp}</h2>
-                                                {/* onSubmit={handleAddEntry} */}
+                                                {/* <h2>{entry.content}</h2> */}
+                                                <h2>{new Date(entry.timestamp).toLocaleDateString("en-US", {
+                                                    year: "numeric",
+                                                    month: "2-digit",
+                                                    day: "2-digit",
+                                                })}</h2>
+
                                             </li>
                                         );
                                     })
