@@ -17,13 +17,13 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
     const [newLovedOne, setNewLovedOne] = useState("");
     const [lovedOneEntries, setLovedOneEntries] = useState([]);
     const [newEntryTitle, setNewEntryTitle] = useState("");
+    const [selectedEntry, setSelectedEntry] = useState({});
 
     const getLovedOnesForAuthor = async (id) => {
         try {
             const response = await axios.get(`${backendUrl}/loved-ones/${id}/all`);
             const authorLovedOnesSorted = [...response.data].sort((a, b) => Number(b.loved_one_id) - Number(a.loved_one_id));
             setAuthorLovedOnes(authorLovedOnesSorted);
-            console.log("sorted authors from axios", authorLovedOnesSorted);
         } catch (error) {
             console.error("Error fetching loved ones list:", error);
         }
@@ -36,38 +36,28 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
 
     const handleLovedEntriesClick = async (lovedOneId) => {
         setLovedId(lovedOneId);
-        // console.log("lovedOneId is:", lovedOneId);
-        // console.log("lovedId is:", lovedId);
-        // console.log(`/${user.id}/${lovedOneId}/entries`);
         navigate(`/${user.id}/${lovedOneId}/entries`);
         try {
             const response = await axios.get(`${backendUrl}/entries/${user.id}/${lovedOneId}/entries`);
             const entriesData = [...response.data.entries].sort((a, b) => b.timestamp - a.timestamp);
             setLovedOneEntries(entriesData);
-            // setLovedOneEntries(response.data.entries);
-            // console.log("loved ones entries DATA:", response.data);
-
-            // console.log("sorted authors from axios", response);
+            // console.log("loved ones entries DATA:", response.data.entries);
         } catch (error) {
             console.error("Error fetching loved ones list:", error);
         }
     };
 
     const handleEntryClick = async (lovedOneId, lovedEntryId) => {
-        setLovedId(lovedOneId);
         setEntryId(lovedEntryId);
         navigate(`/${user.id}/${lovedOneId}/entry/${lovedEntryId}`);
+        console.log(`/${user.id}/${lovedOneId}/entry/${lovedEntryId}`);
         try {
             const response = await axios.get(`${backendUrl}/entries/${user.id}/${lovedOneId}/entry/${lovedEntryId}`);
-            setLovedId(response.data.entries.loved_one_id);
-            setEntryId(response.data.entries.entry_id);
-            console.log(response.data.entries.entry_id);
-            // console.log("loved ones entries DATA:", response.data);
+            console.log("specific entry data:", response.data.entry);
+            setSelectedEntry(response.data.entry);
         } catch (error) {
             console.error("Error fetching loved ones list:", error);
         }
-        // console.log("entry data:", response.data);
-        // setNewEntryTitle(response.data);
     }
 
     useEffect(() => {
@@ -106,7 +96,6 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
         postLovedOne(newLovedOneName);
         setNewLovedOne("");
     };
-
     // console.log(optionStatus);  // Debugging line to log current URL status
 
     return (
@@ -141,7 +130,6 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                             </ul>
                         </div>
                     )}
-
                     {/* Loved One's Entries Component */}
                     {optionStatus === `/${user.id}/${lovedId}/entries` && (
                         <div className="loved-entries-list__section">
@@ -159,7 +147,7 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                                     value={newEntryTitle}
                                     onChange={(e) => setNewEntryTitle(e.target.value)}
 
-                                />{console.log(newEntryTitle)}
+                                />
                             </form>
                             <ul className="loved-entries-list__list">
                                 {lovedOneEntries.length > 0 ?
@@ -168,7 +156,7 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                                             <li
                                                 className="loved-list__loved-one"
                                                 key={entry.entry_id}
-                                                onClick={() => handleEntryClick(entry.loved_one_id, entry.entry_id)}
+                                                onClick={() => handleEntryClick(lovedId, entry.entry_id)}
                                             >
                                                 <h2>{entry.title}</h2>
                                                 {/* <h2>{entry.content}</h2> */}
@@ -184,6 +172,19 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                                     :
                                     <li>No Entries yet.</li>}
                             </ul>
+                        </div>
+                    )}
+                    {/* Loved One's SELECTED Entry Component */}
+                    {optionStatus === `/${user.id}/${lovedId}/entry/${entryId}` && (
+                        <div className="loved-entries-list__section">
+                            <h2>{selectedEntry.title}</h2>
+                            <div>{console.log("return selectedEntry", selectedEntry)}</div>
+                            <h2>{selectedEntry.content}</h2>
+                            <h2>{new Date(selectedEntry.timestamp).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "2-digit",
+                                day: "2-digit",
+                            })}</h2>
                         </div>
                     )}
 
