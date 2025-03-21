@@ -141,7 +141,7 @@ function HomeComponents({ words, index, loggedIn, setLoggedIn }) {
                                 </li>
                                 <li className="how-to__instructions">
                                     <strong>6. Leave a Legacy:</strong>
-                                    <p className="how-to__details how-to__details--no-padding"> Your words will comfort and support your loved ones forever.</p>
+                                    <p className="how-to__details how-to__details--no-padding"> Your words of comfort will support your loved ones forever.</p>
                                 </li>
                             </ul>
                         </>

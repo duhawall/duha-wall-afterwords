@@ -12,6 +12,7 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
     const navigate = useNavigate();
     const [authorLovedOnes, setAuthorLovedOnes] = useState([]);
     const [newLovedOne, setNewLovedOne] = useState("");
+    const [lovedOneEntries, setLovedOneEntries] = useState([]);
     const [lovedId, setLovedId] = useState(null);
 
     const getLovedOnesForAuthor = async (id) => {
@@ -25,15 +26,20 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
         }
     };
 
+    useEffect(() => {
+
+    }, [lovedId]);
+
     const handleLovedEntriesClick = async (lovedOneId) => {
-        setLovedId(lovedOneId);  // Update state with clicked lovedOneId
-        console.log("Clicked loveOneId:", lovedOneId);
-        navigate(`/${user.id}/${lovedOneId}/entries`);
+        setLovedId(lovedOneId);
+        console.log("setlovedId is:", lovedOneId);
+        console.log("lovedId is:", lovedId);
+
+        navigate(`/${user.id}/${lovedId}/entries`);
         try {
-            const response = await axios.get(`${backendUrl}/entries/1/${lovedOneId}/entries`);
-            // const authorLovedOnesSorted = [...response.data].sort((a, b) => Number(b.loved_one_id) - Number(a.loved_one_id));
-            setAuthorLovedOnes(response);
-            console.log("sorted authors from axios", response);
+            const lovedOneEntriesData = await axios.get(`${backendUrl}/entries/${user.id}/${lovedOneId}/entries`);
+            setLovedOneEntries(lovedOneEntriesData);
+            console.log("sorted authors from axios", lovedOneEntriesData);
         } catch (error) {
             console.error("Error fetching loved ones list:", error);
         }
@@ -116,7 +122,7 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                     {optionStatus === `/${user.id}/loved-one/${lovedId}/entries` && (
                         <div className="loved-list__section">
                             <h2 className="loved-list__title">
-                                {authorLovedOnes.find((l) => l.loved_one_id === selectedNameId)?.loved_one_name?.toUpperCase()}'S ENTRIES
+                                {lovedOneEntries.find((l) => l.loved_one_id === selectedNameId)?.loved_one_name?.toUpperCase()}'S ENTRIES
                             </h2>
                             <form className="loved-list__form" onSubmit={handleAddLovedOne}>
                                 <input
