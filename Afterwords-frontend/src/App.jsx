@@ -46,8 +46,8 @@ function App() {
         <Route path="/:id/:lovedOneId/entry/:entryId" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} />} />
         {/* <Route path="/:id/loved-one/entry" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} /> */}
         <Route path="/logout" element={<Navigate to="/" replace />} />
-        {/* <Route path="*" element={<Navigate to="/not-found" replace />} />
-        <Route path="/not-found" element={<NotFoundPage />} /> */}
+        <Route path="*" element={<Navigate to="/not-found" replace />} />
+        <Route path="/not-found" element={<NotFoundPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

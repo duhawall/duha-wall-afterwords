@@ -1,16 +1,14 @@
 import "./HomeComponents.scss";
-import HeaderNav from "../HeaderNav/HeaderNav.jsx";
 import { useState } from "react";
-import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 
-function HomeComponents({ words, index, loggedIn, setLoggedIn }) {
+function HomeComponents({ words, index, setLoggedIn }) {
     const location = useLocation();
     const optionStatus = location.pathname;
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const [isEmailEmpty, setIsEmailEmpty] = useState(false);
     const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
     const navigate = useNavigate();
@@ -71,7 +69,7 @@ function HomeComponents({ words, index, loggedIn, setLoggedIn }) {
     return (
         <>
             <div className="options__container">
-                <div alt="light blue sky background" className="background-photo"></div>
+                <div alt="light blue sky background" className="background-photo background-photo--mobile"></div>
                 {/* <div className="options__selection"> */}
                 {/* Home Page */}
                 {optionStatus === "/" && (
@@ -83,29 +81,31 @@ function HomeComponents({ words, index, loggedIn, setLoggedIn }) {
                                 Their Comfort
                             </h1>
                         </section>
+                        <div alt="light blue sky background" className="background-photo background-photo--tablet"></div>
                     </>
                 )}
 
                 {/* About Page */}
                 {optionStatus === "/about" && (
                     <>
+                        <div alt="light blue sky background" className="background-photo background-photo--drawer"></div>
                         <section className="about__section">
                             <p className="about__text">
-                                Afterwords understands that there is no right time to speak of loss, as it is one of
+                                We at <i>Afterwords</i> understand that there is no right time to speak of loss, as it is one of
                                 life’s most profound challenges.
                             </p>
                             <p className="about__text">
                                 So we wanted to create a space designed to shift and encourage a deeper focus towards
-                                embracing the love we carry for our loved ones and sharing its beauty in a deeply
+                                embracing the love we carry for our loved ones, and to share that beauty in a deeply
                                 meaningful way.
                             </p>
                             <p className="about__text">
-                                Our aim is to help you leave the love and support for your loved ones, that can only be
+                                The aim is to help you leave the love and support for your loved ones, that can only be
                                 truly felt through you. Your entries are meant to offer comfort, guidance, and healing
                                 during their time of grief.
                             </p>
                             <p className="about__text">
-                                Our mission is simple: share what you want to leave your loved one(s) with in a way that
+                                Our mission is simple: share what you want to leave your loved one(s) in a way that
                                 transcends time.
                             </p>
                         </section>
@@ -115,6 +115,7 @@ function HomeComponents({ words, index, loggedIn, setLoggedIn }) {
                 {/* How-To Page */}
                 {optionStatus === "/how-to" && (
                     <>
+                        <div alt="light blue sky background" className="background-photo background-photo--drawer"></div>
                         <ul className="how-to__section">
                             <li className="how-to__instructions">
                                 <strong>1. Sign Up:</strong>
@@ -149,6 +150,7 @@ function HomeComponents({ words, index, loggedIn, setLoggedIn }) {
                 {/* Login Page */}
                 {optionStatus === "/login" && (
                     <>
+                        <div alt="light blue sky background" className="background-photo background-photo--drawer"></div>
                         <form className="login__container" onSubmit={handleSubmit}>
                             <label htmlFor="email" className="form__email">Email</label>
                             <input
@@ -177,6 +179,7 @@ function HomeComponents({ words, index, loggedIn, setLoggedIn }) {
                             <button className="form__button" type="submit">
                                 LOG IN
                             </button>
+                            <h3 className="form__signup">No Account? <a href="/" className="signup-link">Signup</a> Here</h3>
                         </form>
                     </>
                 )}

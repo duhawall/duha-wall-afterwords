@@ -42,7 +42,7 @@ CREATE TABLE entries (
 );
 
 INSERT INTO entries (entry_id, title, content, timestamp, author_id, loved_one_id) VALUES
-('2f8e3f10-b0a7-4c83-bf93-9089f607def7', 'Until We Meet Again', 'Love is not measured in days...', 1673344800, '1', '101'),
+('2f8e3f10-b0a7-4c83-bf93-9089f607def7', 'Until We Meet Again', 'Love is not measured in days but not today out of all days', 1673344800, '1', '101'),
 ('7d3b9cb7-90ea-4bfa-9a51-4c2a4b8d9f2d', 'The Light You Left Behind', 'You were always the warmth...', 1676477400, '1', '101'),
 ('1f2c7ea9-d052-48e0-8b0c-69085e746d1f', 'If Love Had a Shape', 'If love had a shape...', 1679301900, '1', '102'),
 ('943f13d0-2488-4feb-ab80-101a7db0f9c8', 'A Whisper in the Wind', 'I still reach for your hand...', 1680705600, '2', '103'),

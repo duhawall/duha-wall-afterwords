@@ -1,12 +1,8 @@
 import "./DrawerMenu.scss";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 
-function DrawerMenu({ handleTagClick, showTags, selectedTag, isHomeOptions, user, id }) {
-  const [tags, setTags] = useState(null);
-
-  useEffect(() => { }, [tags]);
+function DrawerMenu({ showTags, isHomeOptions, id }) {
 
   return (
     <>

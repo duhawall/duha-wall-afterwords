@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function HomePage({ isHomePage, loggedIn, setLoggedIn, id }) {
-  const words = ["Light,", "Warmth,", "Legacy,", "Words,", "Messages,", "Story,"];
+  const words = ["Light,", "Warmth,", "Words,", "Story,", "Legacy,"];
   const [index, setIndex] = useState(0);
   const [showTags, setShowTags] = useState(false);
   const [selectedTag, setSelectedTag] = useState("");
