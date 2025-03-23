@@ -123,7 +123,8 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                                             key={Number(lovedOne.loved_one_id)}
                                             onClick={() => handleLovedEntriesClick(lovedOne.loved_one_id)}
                                         >
-                                            <h2>{lovedOne.loved_one_name}</h2>
+                                            <h2 className="loved-list__loved-one--name">{lovedOne.loved_one_name}</h2>
+                                            <a className="loved-list__loved-one--qr"></a>
                                         </li>
                                     );
                                 })}
@@ -135,9 +136,11 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                         <div className="loved-entries-list__section">
                             {/* {console.log("test")}
                             {console.log("loved one entries:", typeof lovedOneEntries)} */}
-                            <h2 className="loved-entries-list__title">
-                                {authorLovedOnes.find((l) => l.loved_one_id === lovedId).loved_one_name.toUpperCase()}'S ENTRIES
-                            </h2>
+                            <div className="loved-entries-list__container">
+                                <li className="loved-list__loved-one--qr loved-list__loved-one--qr-bigger"></li>
+                                <h1 className="loved-entries-list__title">
+                                    {authorLovedOnes.find((l) => l.loved_one_id === lovedId).loved_one_name.toUpperCase()}'S ENTRIES</h1>
+                            </div>
                             {/* onSubmit={handleAddEntry} */}
                             <form className="loved-list__form">
                                 <input
@@ -146,7 +149,6 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                                     placeholder="+ Add a new entry"
                                     value={newEntryTitle}
                                     onChange={(e) => setNewEntryTitle(e.target.value)}
-
                                 />
                             </form>
                             <ul className="loved-entries-list__list">
@@ -154,18 +156,19 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                                     lovedOneEntries.map((entry) => {
                                         return (
                                             <li
-                                                className="loved-list__loved-one"
+                                                className="loved-list__loved-one lovedd-list__entry-section"
                                                 key={entry.entry_id}
                                                 onClick={() => handleEntryClick(lovedId, entry.entry_id)}
                                             >
-                                                <h2>{entry.title}</h2>
-                                                {/* <h2>{entry.content}</h2> */}
-                                                <h2>{new Date(entry.timestamp).toLocaleDateString("en-US", {
-                                                    year: "numeric",
-                                                    month: "2-digit",
-                                                    day: "2-digit",
-                                                })}</h2>
-
+                                                <a className="loved-list__entry loved-list__entry-reorder" />
+                                                <div className="loved-list__entry-separator">
+                                                    <h2 className="loved-list__entry loved-list__entry-title">{entry.title}</h2>
+                                                    <h2 className="loved-list__entry loved-list__entry-date">{new Date(entry.timestamp).toLocaleDateString("en-US", {
+                                                        year: "numeric",
+                                                        month: "2-digit",
+                                                        day: "2-digit",
+                                                    })}</h2>
+                                                </div>
                                             </li>
                                         );
                                     })
@@ -176,15 +179,17 @@ function LoggedComponents({ handleTagClick, selectedTag, user, isHomePage, id })
                     )}
                     {/* Loved One's SELECTED Entry Component */}
                     {optionStatus === `/${user.id}/${lovedId}/entry/${entryId}` && (
-                        <div className="loved-entries-list__section">
-                            <h2>{selectedEntry.title}</h2>
-                            <div>{console.log("return selectedEntry", selectedEntry)}</div>
-                            <h2>{selectedEntry.content}</h2>
-                            <h2>{new Date(selectedEntry.timestamp).toLocaleDateString("en-US", {
-                                year: "numeric",
-                                month: "2-digit",
-                                day: "2-digit",
-                            })}</h2>
+                        <div className="loved-entry__section">
+                            <div className="loved-entry__container">
+                                <h2 className="loved-entry__text loved-entry__text--title">{selectedEntry.title}</h2>
+                                <h2 className="loved-entry__text loved-entry__text--date">{new Date(selectedEntry.timestamp).toLocaleDateString("en-US", {
+                                    year: "numeric",
+                                    month: "2-digit",
+                                    day: "2-digit",
+                                })}</h2>
+                            </div>
+                            {/* <div>{console.log("return selectedEntry", selectedEntry)}</div> */}
+                            <h2 className="loved-entry__content">{selectedEntry.content}</h2>
                         </div>
                     )}
 

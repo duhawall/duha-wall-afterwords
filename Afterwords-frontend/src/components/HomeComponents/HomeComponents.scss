@@ -6,6 +6,7 @@
     display: flex;
     padding: 0 1rem;
     position: relative;
+    // height: 64vh;
 
     @include tablet {
       width: 100%;
@@ -30,23 +31,29 @@
   filter: hue-rotate(14deg);
   min-width: 2rem;
   height: auto;
-  border-radius: 15rem;
+  border-radius: 20rem;
   background-size: cover;
   background-repeat: no-repeat;
-  box-shadow: inset 1px 1px 10px -1px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 1px 1px 20px -2px rgba(0, 0, 0, 0.3);
+  // box-shadow: inset 1px 1px 10px -1px rgba(0, 0, 0, 0.3);
 
   @include tablet {
     display: none;
+    border-radius: 50rem;
+    width: 26rem;
   }
 
   @include desktop {
-    min-width: 70%;
+    min-width: 37%;
+    // min-width: 70%;
     min-height: 90%;
   }
 
   &--drawer {
+    display: none;
+
     @include tablet {
-      display: block;
+      display: list-item;
     }
   }
 
@@ -54,30 +61,37 @@
     display: none;
 
     @include tablet {
-      border-radius: 280px 280px 0 0;
+      border-radius: 35rem 35rem 0 0;
       box-shadow: inset 1px 2px 20px 0px rgba(0, 0, 0, 0.38);
       display: inline;
-      position: absolute;
-      width: 32rem;
-      height: 35.2rem;
-      bottom: -126px;
+      position: fixed;
+      width: 70%;
+      // min-width: 32rem;
+      // max-width: 55rem;
+      min-height: 65rem;
+      max-height: 100vh;
+      overflow-y: auto;
+      top: 20px;
+      // bottom: -126px;
       left: 63%;
       transform: translateX(-50%);
       z-index: 1;
     }
+
+    // @include desktop {
+    //   border-radius: 26rem 26rem 0 0;
+    // }
   }
 }
 
 .mission {
   &__section {
     padding: $margin-mobile;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    color: white;
+    margin: auto 0;
 
     @include tablet {
       width: 18rem;
+      min-height: auto;
       padding: 3rem 1rem 3rem 0;
     }
   }
@@ -89,7 +103,6 @@
     text-align: left;
     line-height: 60px;
     width: 35%;
-    padding-left: 1rem;
 
     @include tablet {
       font-size: 2.5rem;
@@ -127,6 +140,13 @@
 .how-to {
   &__section {
     padding: 5rem 0;
+    margin: auto;
+  }
+
+  @include tablet {
+    display: flex;
+    justify-content: center;
+    // padding: auto 0;
   }
 }
 
@@ -137,7 +157,7 @@
     font-size: 1.07rem;
 
     @include tablet {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
     }
   }
 }
@@ -150,10 +170,16 @@
 
   &__instructions {
     line-height: 1.5rem;
+    font-size: 1.15rem;
   }
 
   &__details {
     padding: 0rem 0 1.5rem 0;
+    font-size: 1.15rem;
+
+    @include tablet {
+      font-size: 1.2rem;
+    }
 
     &--no-padding {
       padding: 0;
@@ -254,6 +280,5 @@
 
 .signup-link {
   color: blue;
-  text-decoration: underline;
   cursor: pointer;
 }

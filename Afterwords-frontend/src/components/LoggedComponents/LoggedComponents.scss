@@ -8,7 +8,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    // background-image: url("../../assets/images/sky-background.jpg");
 
     border-radius: $border-radius;
     height: 14rem;
@@ -38,6 +37,7 @@
   &--logged {
     width: 92%;
     margin: auto;
+    display: block;
   }
 }
 
@@ -46,10 +46,15 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2.75rem 0 6rem 0;
-    margin: 4rem auto 15rem auto;
+    padding-top: 2.75rem;
+    margin: 4rem auto 9rem auto;
     max-width: 80%;
     border-radius: calc($border-radius * 16);
+
+    @include tablet {
+      padding-top: 0;
+      margin: 0;
+    }
   }
 
   &__list {
@@ -60,8 +65,72 @@
     margin-bottom: 1rem;
   }
 
+  &__entry {
+    cursor: pointer;
+    font-size: 1rem;
+
+    @include tablet {
+      font-size: 1.2rem;
+    }
+
+    &-section {
+      display: flex;
+    }
+
+    &-reorder {
+      background-image: url("../../assets/images/reorder-icon.svg");
+      background-size: 50px 50px;
+      background-repeat: no-repeat;
+      width: 50px;
+      height: 50px;
+      fill: #ffffff;
+      cursor: pointer;
+    }
+
+    &-separator {
+      display: flex;
+      // flex-direction: column;
+      text-align: left;
+      flex-wrap: wrap;
+      width: 15rem;
+
+      @include tablet {
+        flex-direction: row;
+        min-width: 27rem;
+        justify-content: space-between;
+      }
+    }
+  }
+
   &__loved-one {
     @include text-container;
+    padding: 0.3rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    &--one {
+      width: auto;
+    }
+
+    &--qr {
+      background-size: 40px 40px;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 50px;
+      height: 50px;
+      background-image: url("../../assets/images/LovedoneLinkedIn.svg");
+      cursor: pointer;
+
+      &-bigger {
+        background-image: url("../../assets/images/EmilyCartierQR.svg");
+        background-size: 150px 150px;
+        width: 150px;
+        height: 150px;
+        margin-bottom: 1rem;
+      }
+    }
 
     &--add {
       padding: 0.2rem;
@@ -91,7 +160,84 @@
 }
 
 .options__selection {
+  padding: 0;
+
   &--logged {
-    padding: 1rem 0;
+    // padding: 8rem 0;
+
+    @include tablet {
+      margin: 0 2rem;
+      // padding: 9rem 0;
+      // height: auto;
+    }
+  }
+}
+
+.loved-entries-list {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__section {
+    width: 90%;
+    justify-content: center;
+    margin: 5rem 0;
+
+    @include tablet {
+      margin: 3rem 1rem;
+      min-width: 30%;
+      max-width: 80%;
+    }
+  }
+
+  &__title {
+    text-align: center;
+  }
+}
+
+.loved-entry {
+  &__section {
+    background-color: $background;
+    border-radius: $border-radius;
+    padding: 2rem 1rem;
+    margin: 4rem 1rem;
+    box-shadow: 0px 5px 15px -3px #000000;
+
+    @include tablet {
+      padding: 2rem 2rem;
+      margin: 3rem 3rem;
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  &__text {
+    font-size: 1.4rem;
+    line-height: 2rem;
+
+    &--date {
+      letter-spacing: 0.05rem;
+    }
+  }
+
+  &__content {
+    background-color: $secondary-grey;
+    color: rgb(41, 41, 41);
+    border-radius: $border-radius;
+    padding: 3rem 2rem;
+    line-height: 1.5rem;
+    white-space: pre-wrap;
+    box-shadow: 0px 5px 15px -3px #000000;
+
+    @include tablet {
+      padding: 4rem 3rem;
+    }
   }
 }

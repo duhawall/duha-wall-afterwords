@@ -179,7 +179,9 @@ function HomeComponents({ words, index, setLoggedIn }) {
                             <button className="form__button" type="submit">
                                 LOG IN
                             </button>
-                            <h3 className="form__signup">No Account? <a href="/" className="signup-link">Signup</a> Here</h3>
+                            <h3 className="form__signup">No Account?
+                                <br />
+                                <a href="/" className="signup-link">Sign up here</a></h3>
                         </form>
                     </>
                 )}

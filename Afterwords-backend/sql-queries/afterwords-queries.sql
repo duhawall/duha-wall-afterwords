@@ -8,11 +8,11 @@ SELECT * from authors where author_id = 1;
 -- to get all loved ones
 SELECT * from loved_ones;
 
-DELETE from authors
-WHERE author_id = '10';
+SET SQL_SAFE_UPDATES = 0;
+
 
 DELETE from loved_ones
-WHERE loved_one_id = '110';
+WHERE loved_one_id IN (108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119);
 
 SELECT * from loved_ones where author_id = 1;
 
