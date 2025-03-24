@@ -77,12 +77,12 @@
 
 .mission {
   &__section {
-    padding: $margin-mobile;
+    padding: 4rem $margin-mobile;
     margin: auto 0;
 
     @include tablet {
       width: 18rem;
-      min-height: auto;
+      height: auto;
       padding: 3rem 1rem 3rem 0;
     }
   }
@@ -166,7 +166,7 @@
 
   &__details {
     padding: 0rem 0 1.5rem 0;
-    font-size: 1.15rem;
+    font-size: 1.07rem;
 
     @include tablet {
       font-size: 1.2rem;
@@ -232,11 +232,16 @@
       padding: 0.8rem;
       border: none;
       font-size: 14px;
+      color: black;
     }
 
     &--password {
       font-size: 31px;
       padding-top: 0.2rem;
+
+      &:active {
+        padding-top: 0.5rem;
+      }
 
       &::placeholder {
         font-size: 14px;
