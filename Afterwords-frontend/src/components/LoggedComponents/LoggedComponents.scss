@@ -38,6 +38,10 @@
     width: 92%;
     margin: auto;
     display: block;
+
+    @include tablet {
+      padding: 2rem 0;
+    }
   }
 }
 
@@ -48,7 +52,7 @@
     align-items: center;
     padding-top: 2.75rem;
     margin: 4rem auto 9rem auto;
-    max-width: 80%;
+    width: 80%;
     border-radius: calc($border-radius * 16);
 
     @include tablet {
@@ -81,23 +85,24 @@
       background-image: url("../../assets/images/reorder-icon.svg");
       background-size: 50px 50px;
       background-repeat: no-repeat;
-      width: 50px;
+      min-width: 50px;
       height: 50px;
-      fill: #ffffff;
       cursor: pointer;
     }
 
     &-separator {
       display: flex;
-      // flex-direction: column;
       text-align: left;
       flex-wrap: wrap;
-      width: 15rem;
+      justify-content: space-between;
+      // min-width: 10rem;
+      width: 33rem;
+      gap: 1rem;
 
       @include tablet {
         flex-direction: row;
-        min-width: 27rem;
-        justify-content: space-between;
+        min-width: 85%;
+        justify-content: inherit;
       }
     }
   }
@@ -106,9 +111,14 @@
     @include text-container;
     padding: 0.3rem 1rem;
     display: flex;
-    flex-wrap: wrap;
+    // flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+
+    @include tablet {
+      padding: 0.3rem 3rem;
+    }
 
     &--one {
       width: auto;
@@ -161,14 +171,12 @@
 
 .options__selection {
   padding: 0;
+  margin: 1rem 0;
 
   &--logged {
-    // padding: 8rem 0;
-
     @include tablet {
-      margin: 0 2rem;
-      // padding: 9rem 0;
-      // height: auto;
+      margin: 1rem 2rem;
+      // padding: 2rem 0;
     }
   }
 }
@@ -187,7 +195,7 @@
     margin: 5rem 0;
 
     @include tablet {
-      margin: 3rem 1rem;
+      margin: 0 1rem;
       min-width: 30%;
       max-width: 80%;
     }
@@ -202,13 +210,13 @@
   &__section {
     background-color: $background;
     border-radius: $border-radius;
-    padding: 2rem 1rem;
-    margin: 4rem 1rem;
+    padding: 1rem;
+    margin: 10rem 0.5rem;
     box-shadow: 0px 5px 15px -3px #000000;
 
     @include tablet {
       padding: 2rem 2rem;
-      margin: 3rem 3rem;
+      margin: 10rem 3rem;
     }
   }
 
@@ -231,7 +239,7 @@
     background-color: $secondary-grey;
     color: rgb(41, 41, 41);
     border-radius: $border-radius;
-    padding: 3rem 2rem;
+    padding: 3rem 1rem;
     line-height: 1.5rem;
     white-space: pre-wrap;
     box-shadow: 0px 5px 15px -3px #000000;

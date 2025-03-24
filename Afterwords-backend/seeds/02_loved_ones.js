@@ -3,7 +3,7 @@
  * @returns { Promise<void> }
  */
 export async function seed(knex) {
-  await knex("loved_ones").del();
+  await knex("loved_ones").del(); // Deletes existing entries
   await knex("loved_ones").insert([
     { loved_one_id: "101", loved_one_name: "Shaun Adams", author_id: 1 },
     { loved_one_id: "102", loved_one_name: "Emily Carter", author_id: 1 },

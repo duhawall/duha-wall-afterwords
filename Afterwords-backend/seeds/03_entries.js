@@ -34,25 +34,25 @@ export async function seed(knex) {
       entry_id: "1f2c7ea9-d052-48e0-8b0c-69085e746d1f",
       title: "If Love Had a Shape",
       content: `I once thought love was a circle,
-  endless, unbroken,
-  like the way we laughed,
-  like the way we always found each other,
-  no matter how far we wandered.
-  
-  But now, I think love is a thread,
-  woven through time,
-  binding me to you, even here, even now.
-  It stretches across the silence,
-  tugs at your heart when you least expect it—
-  in a song, in a whisper, in the hush before sleep.
-  
-  You do not have to hold onto grief to hold onto me.
-  I am not in the past, not in the pain.
-  I am in the shape of your days,
-  in the way your heart still knows mine.
-  
-  And so, if love had a shape,
-  it would be you.`,
+      endless, unbroken,
+      like the way we laughed,
+      like the way we always found each other,
+      no matter how far we wandered.
+
+      But now, I think love is a thread,
+      woven through time,
+      binding me to you, even here, even now.
+      It stretches across the silence,
+      tugs at your heart when you least expect it—
+      in a song, in a whisper, in the hush before sleep.
+
+      You do not have to hold onto grief to hold onto me.
+      I am not in the past, not in the pain.
+      I am in the shape of your days,
+      in the way your heart still knows mine.
+
+      And so, if love had a shape,
+      it would be you.`,
       timestamp: 1396310400,
       author_id: 1,
       loved_one_id: "102",
