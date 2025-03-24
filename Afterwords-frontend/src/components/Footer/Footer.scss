@@ -1,0 +1,68 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.footer {
+  background-color: $primary-plum;
+
+  &__container {
+    margin: $margin-mobile;
+    width: 10rem;
+    position: initial;
+    bottom: 0;
+    left: 0;
+    color: white;
+
+    @include tablet {
+      margin: 3rem 0 0 2rem;
+      width: auto;
+    }
+
+    &--home {
+      position: fixed;
+    }
+  }
+
+  &__section {
+    @include tablet {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &--social {
+      display: flex;
+      justify-content: flex-start;
+      align-items: baseline;
+      gap: 1rem;
+      padding-bottom: 1.2rem;
+
+      @include tablet {
+        gap: 1.2rem;
+      }
+    }
+
+    &--legal {
+      display: flex;
+      font-family: $font-sub;
+      font-weight: 500;
+      color: white;
+      gap: 0.6rem;
+      padding-bottom: 1rem;
+
+      @include tablet {
+        justify-content: flex-start;
+        gap: 1.3rem;
+        padding-bottom: 2rem;
+      }
+    }
+  }
+
+  &__icon {
+    font-size: 0.58rem;
+    width: 23px;
+    height: 23px;
+
+    &--x {
+      padding-top: 0.15rem;
+    }
+  }
+}

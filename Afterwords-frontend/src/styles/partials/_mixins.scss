@@ -1,0 +1,47 @@
+@use "./variables" as *;
+
+@mixin tablet {
+  @media screen and (min-width: $tablet__min-breakpoint) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media screen and (min-width: $desktop__min-breakpoint) {
+    @content;
+  }
+}
+
+@mixin box-border {
+  background-color: $secondary-white;
+  border-radius: $border-radius;
+  border: solid $secondary-green 0.5px;
+}
+
+@mixin text-container {
+  background-color: $background;
+  padding: 1rem 0;
+  margin: $padding-element-mobile 0;
+  text-align: center;
+  border-radius: calc($border-radius * 16);
+  font-size: 1.2rem;
+}
+
+@mixin input-container {
+  color: $secondary-grey;
+  border-radius: $border-radius;
+  border: none;
+  width: 12rem;
+  height: 2.5rem;
+  padding: $padding-element-mobile calc($padding-element-mobile * 2);
+  background-color: $secondary-white;
+  margin: 1rem 0;
+  font-family: $font-sub;
+}
+
+@mixin heading-mobile {
+  font-family: $font-sub;
+  font-size: 1.125rem;
+  line-height: 1.4375rem;
+  font-weight: 500;
+}

@@ -1,0 +1,59 @@
+@use "./styles/partials/variables" as *;
+@use "./styles/partials/mixins" as *;
+@use "./styles/partials/fonts" as *;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+header,
+body,
+footer,
+input,
+textarea,
+p {
+  color: white;
+  font-family: $font-sub, Arial, Helvetica, sans-serif;
+  background-color: $primary-plum;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+Link,
+button {
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  font-weight: 400;
+}
+
+h2 {
+  @include heading-mobile;
+  font-family: $font-sub;
+  font-size: 1.2rem;
+  line-height: 1.4375rem;
+  font-weight: 400;
+}
+
+h3 {
+  font-size: 1rem;
+}
+
+h4 {
+  font-family: $font-sub;
+  font-weight: 300;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+}

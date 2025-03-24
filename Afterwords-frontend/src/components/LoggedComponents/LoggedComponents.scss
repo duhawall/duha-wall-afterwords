@@ -1,0 +1,248 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.add-loved {
+  &__container {
+    background-color: $background;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: $border-radius;
+    height: 14rem;
+    width: 17rem;
+    margin: auto;
+  }
+}
+
+.form {
+  &__loved-one {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__login {
+    width: 10rem;
+  }
+
+  &__input {
+    &--email {
+      border-radius: calc($border-radius * 4);
+    }
+  }
+}
+
+.background-photo {
+  &--logged {
+    width: 92%;
+    margin: auto;
+    display: block;
+
+    @include tablet {
+      padding: 2rem 0;
+    }
+  }
+}
+
+.loved-list {
+  &__section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2.75rem;
+    margin: 4rem auto 9rem auto;
+    width: 80%;
+    border-radius: calc($border-radius * 16);
+
+    @include tablet {
+      padding-top: 0;
+      margin: 0;
+    }
+  }
+
+  &__list {
+    width: 100%;
+  }
+
+  &__title {
+    margin-bottom: 1rem;
+  }
+
+  &__entry {
+    cursor: pointer;
+    font-size: 1rem;
+
+    @include tablet {
+      font-size: 1.2rem;
+    }
+
+    &-section {
+      display: flex;
+    }
+
+    &-reorder {
+      background-image: url("../../assets/images/reorder-icon.svg");
+      background-size: 50px 50px;
+      background-repeat: no-repeat;
+      min-width: 50px;
+      height: 50px;
+      cursor: pointer;
+    }
+
+    &-separator {
+      display: flex;
+      text-align: left;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 33rem;
+      gap: 1rem;
+
+      @include tablet {
+        flex-direction: row;
+        min-width: 85%;
+        justify-content: inherit;
+      }
+    }
+  }
+
+  &__loved-one {
+    @include text-container;
+    padding: 0.3rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+
+    @include tablet {
+      padding: 0.3rem 3rem;
+    }
+
+    &--one {
+      width: auto;
+    }
+
+    &--qr {
+      background-size: 40px 40px;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 50px;
+      height: 50px;
+      background-image: url("../../assets/images/LovedoneLinkedIn.svg");
+      cursor: pointer;
+
+      &-bigger {
+        background-image: url("../../assets/images/EmilyCartierQR.svg");
+        background-size: 150px 150px;
+        width: 150px;
+        height: 150px;
+        margin-bottom: 1rem;
+      }
+    }
+
+    &--add {
+      padding: 0.2rem;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+  &__form {
+    width: 100%;
+  }
+
+  &__button {
+    @include text-container;
+    margin-bottom: 0;
+    width: 100%;
+    color: white;
+    border: none;
+
+    &::placeholder {
+      color: #bbbbbb;
+    }
+
+    &:active {
+      color: white;
+    }
+  }
+}
+
+.options__selection {
+  padding: 0;
+  margin: 1rem 0;
+
+  &--logged {
+    @include tablet {
+      margin: 1rem 2rem;
+    }
+  }
+}
+
+.loved-entries-list {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__section {
+    width: 90%;
+    justify-content: center;
+    margin: 5rem 0;
+
+    @include tablet {
+      margin: 0 1rem;
+      min-width: 30%;
+      max-width: 80%;
+    }
+  }
+
+  &__title {
+    text-align: center;
+  }
+}
+
+.loved-entry {
+  &__section {
+    background-color: $background;
+    border-radius: $border-radius;
+    padding: 1rem;
+    margin: 10rem 0.5rem;
+    box-shadow: 0px 5px 15px -3px #000000;
+
+    @include tablet {
+      padding: 2rem 2rem;
+      margin: 10rem 3rem;
+    }
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  &__text {
+    font-size: 1.4rem;
+    line-height: 2rem;
+
+    &--date {
+      letter-spacing: 0.05rem;
+    }
+  }
+
+  &__content {
+    background-color: $secondary-grey;
+    color: rgb(41, 41, 41);
+    border-radius: $border-radius;
+    padding: 3rem 1rem;
+    line-height: 1.5rem;
+    white-space: pre-wrap;
+    box-shadow: 0px 5px 15px -3px #000000;
+
+    @include tablet {
+      padding: 4rem 3rem;
+    }
+  }
+}

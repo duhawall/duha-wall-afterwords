@@ -1,18 +1,15 @@
 import express from "express";
-import * as inventoriesController from "../controllers/loved-ones-controllers.js";
-
+import * as lovedOnesController from "../controllers/loved-ones-controllers.js";
 const router = express.Router();
 
-// REMEMBER TO CHANGE THE "PLACEHOLDER" TO THE NAME OF YOUR FUNCTION
-router
-  .route("/")
-  .get(inventoriesController.inventories) // GET all inventory items
-  .post(inventoriesController.addInventoryItem); // Create a new inventory item
+router.route("/:id/add-new").post(lovedOnesController.postLovedOne); // add new loved one
+
+router.route("/:id/all").get(lovedOnesController.getLovedOnesForAuthor); // get all loved ones data
 
 router
-  .route("/:id")
-  .get(inventoriesController.findInventory) // GET a single inventory item
-  .put(inventoriesController.upInv) // Edit an inventory item
-  .delete(inventoriesController.deleteItem); // Delete an inventory item
+  .route("/:id/loved-one/:lovedOneId")
+  .get(lovedOnesController.getLovedOne) // get a loved one
+  .put(lovedOnesController.putLovedOne) // update a loved one
+  .delete(lovedOnesController.deleteLovedOne); // delete a loved one
 
 export default router;

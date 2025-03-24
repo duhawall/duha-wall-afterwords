@@ -1,0 +1,35 @@
+// RESPONSIVE SCREEN SIZES
+$tablet__min-breakpoint: 768px;
+$tablet__max-breakpoint: 1279px;
+$desktop__min-breakpoint: 1280px;
+
+// FONT FAMILY
+$font-main: "LibreBodoni";
+$font-sub: "Montserrat";
+
+// COLOR VARIABLES
+$primary-lilac: #b6a3d6;
+$primary-plum: #9b7b91;
+$primary-grey: #b1b1b1;
+
+$secondary-green: #799af7;
+$secondary-grey: #e6e6e6;
+$secondary-white: #ffffff;
+$background: rgba(0, 0, 0, 0.25);
+
+// STANDARD PAGE LAYOUT & MARGINS
+$margin-mobile: 1rem;
+$margin-tablet: 1.5rem;
+$margin-desktop: auto;
+
+$column-mobile: auto;
+$column-tablet: $column-mobile;
+$column-desktop: 5rem;
+
+// STANDARD ELEMENT PADDING
+$padding-element-mobile: 0.5rem;
+$margin-primary-nav: 1.5rem;
+$margin-section: 3rem;
+
+// BORDER RADIUS
+$border-radius: 40px;

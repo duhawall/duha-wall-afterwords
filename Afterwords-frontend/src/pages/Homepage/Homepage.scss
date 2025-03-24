@@ -1,0 +1,18 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+@use "../../styles/partials/fonts" as *;
+
+body {
+  font-family: $font-main;
+}
+
+.mission-photos__section {
+  @include desktop {
+    width: 100%;
+  }
+}
+
+.logo {
+  font-family: "LibreBodoni";
+  color: #262626;
+}

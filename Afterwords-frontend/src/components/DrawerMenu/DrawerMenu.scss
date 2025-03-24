@@ -1,0 +1,87 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.filters-container {
+  display: none;
+
+  @include desktop {
+    width: 35rem;
+  }
+
+  &--open {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    position: absolute;
+    z-index: 2;
+
+    @include tablet {
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+.filters {
+  &__drawer {
+    background-color: white;
+    padding: 0.2rem $padding-element-mobile;
+    width: 15em;
+    border: 2px solid $primary-grey;
+    border-radius: 50px 0 0 50px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.3rem;
+
+    @include tablet {
+      width: 17em;
+    }
+
+    @include desktop {
+      width: 17em;
+      height: 2.8rem;
+    }
+
+    &--extended {
+      width: 22em;
+
+      @include tablet {
+        width: auto;
+      }
+    }
+  }
+
+  &__tag {
+    @include box-border;
+    font-size: 0.9rem;
+    font-family: $font-sub;
+    font-weight: 500;
+    color: $primary-lilac;
+    padding: 0.1rem 0.4rem;
+    margin: 0.2rem;
+    border: solid 0.124rem $primary-lilac;
+
+    @include tablet {
+      padding: 0.2rem 0.7rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    &.active {
+      background-color: $primary-grey;
+      color: $secondary-white;
+    }
+  }
+
+  &__text {
+    font-family: $font-sub;
+    padding: $padding-element-mobile 0.2rem;
+
+    @include tablet {
+      font-size: 1.5rem;
+      padding: 1.5rem 0;
+    }
+    @include desktop {
+      padding-bottom: 3rem;
+    }
+  }
+}

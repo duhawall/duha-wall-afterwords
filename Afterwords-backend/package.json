@@ -3,13 +3,24 @@
   "version": "1.0.0",
   "description": "backend capstone project",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch index.js",
+    "db:migrate": "knex migrate:latest",
+    "migrate:down": "npx knex migrate:down",
+    "migrate:rollback": "npx knex migrate:rollback",
+    "db:seed": "knex seed:run"
   },
   "author": "Duha Wall",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "knex": "^3.1.0",
+    "migrate": "^2.1.0",
+    "mysql2": "^3.13.0",
+    "uuid": "^11.1.0"
   }
 }

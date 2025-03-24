@@ -1,0 +1,277 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
+.options {
+  &__container {
+    display: flex;
+    padding: 0 1rem;
+    position: relative;
+
+    @include tablet {
+      width: 100%;
+      padding: 0 1.5rem;
+    }
+  }
+
+  &__selection {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 0;
+  }
+}
+
+.main__section {
+  margin: 0 0 2rem 0;
+}
+
+.background-photo {
+  background-image: url("../../assets/images/sky-background.jpg");
+  filter: hue-rotate(14deg);
+  min-width: 2rem;
+  height: auto;
+  border-radius: 20rem;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: inset 1px 1px 20px -2px rgba(0, 0, 0, 0.3);
+
+  @include tablet {
+    display: none;
+    border-radius: 50rem;
+    width: 3rem;
+  }
+
+  @include desktop {
+    min-width: 37%;
+    min-height: 90%;
+  }
+
+  &--drawer {
+    display: none;
+
+    @include tablet {
+      display: flex;
+    }
+  }
+
+  &--tablet {
+    display: none;
+
+    @include tablet {
+      border-radius: 35rem 35rem 0 0;
+      box-shadow: inset 1px 2px 20px 0px rgba(0, 0, 0, 0.38);
+      display: inline;
+      position: fixed;
+      width: 70%;
+      min-height: 65rem;
+      max-height: 100vh;
+      overflow-y: auto;
+      top: 20px;
+      left: 63%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+  }
+}
+
+.mission {
+  &__section {
+    padding: 4rem $margin-mobile;
+    margin: auto 0;
+
+    @include tablet {
+      width: 18rem;
+      height: auto;
+      padding: 3rem 1rem 3rem 0;
+    }
+  }
+
+  &__text {
+    font-family: $font-sub;
+    font-weight: 400;
+    font-size: 2rem;
+    text-align: left;
+    line-height: 60px;
+    width: 35%;
+
+    @include tablet {
+      font-size: 2.5rem;
+      line-height: 4rem;
+      width: 20%;
+      padding-left: 1rem;
+    }
+
+    &--changing {
+      padding-left: 0;
+      font-size: 2rem;
+      opacity: 0;
+      animation: fadeInInterval 3s ease-in-out infinite;
+
+      @keyframes fadeInInterval {
+        0% {
+          opacity: 0%;
+        }
+        35% {
+          opacity: 100%;
+        }
+        65% {
+          opacity: 100%;
+        }
+      }
+
+      @include tablet {
+        font-size: 2.5rem;
+      }
+    }
+  }
+}
+
+.about,
+.how-to {
+  &__section {
+    padding: 5rem 0;
+    margin: auto;
+  }
+
+  @include tablet {
+    display: flex;
+    justify-content: center;
+    padding: 5rem 2rem 5rem 0;
+  }
+}
+
+.about {
+  &__text {
+    padding: 0.5rem 1rem 0.5rem 2rem;
+    line-height: 1.6rem;
+    font-size: 1.07rem;
+
+    @include tablet {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+.how-to {
+  &__section {
+    width: 100%;
+    padding-left: 2rem;
+  }
+
+  &__instructions {
+    line-height: 1.5rem;
+    font-size: 1.15rem;
+  }
+
+  &__details {
+    padding: 0rem 0 1.5rem 0;
+    font-size: 1.07rem;
+
+    @include tablet {
+      font-size: 1.2rem;
+    }
+
+    &--no-padding {
+      padding: 0;
+    }
+  }
+}
+
+.login {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    padding: 3rem 1rem;
+    margin: 4rem 0 4rem 0.9rem;
+    background-color: $background;
+    border-radius: $border-radius;
+
+    @include tablet {
+      height: 22rem;
+      width: 50%;
+      padding: 2rem;
+      margin: 4rem 1rem;
+    }
+  }
+}
+
+.form {
+  &__section {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 0;
+  }
+
+  &__email,
+  &__password {
+    font-family: $font-sub;
+
+    @include tablet {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__input {
+    @include input-container;
+    margin-top: 0.5rem;
+    width: 100%;
+
+    &:active {
+      border: solid 2px $primary-lilac;
+    }
+
+    &--error {
+      border: solid 3px #b10606;
+    }
+
+    &--email,
+    &--password {
+      height: 2.5rem;
+      padding: 0.8rem;
+      border: none;
+      font-size: 14px;
+      color: black;
+    }
+
+    &--password {
+      font-size: 31px;
+      padding-top: 0.2rem;
+
+      &:active {
+        padding-top: 0.5rem;
+      }
+
+      &::placeholder {
+        font-size: 14px;
+        padding-top: -0.2rem;
+        padding-bottom: 0.2rem;
+      }
+    }
+  }
+
+  &__button {
+    color: $secondary-white;
+    background-color: $primary-lilac;
+    width: 6rem;
+    margin: 1rem 0.2rem;
+    padding: 0.8rem 0.8rem;
+    font-weight: 500;
+
+    @include tablet {
+      width: 7rem;
+      padding: 0.6rem 1rem;
+    }
+  }
+
+  &__signup {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+.signup-link {
+  color: blue;
+  cursor: pointer;
+}

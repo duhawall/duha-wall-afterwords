@@ -1,0 +1,44 @@
+@font-face {
+  font-family: "LibreBodoni";
+  src: url(../../../src/assets/font/LibreBodoni-Regular.woff) format("woff"),
+    url(../../../src/assets/font/alternative-files/LibreBodoni-Regular.woff2)
+      format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LibreBodoni";
+  src: url(../../../src/assets/font/LibreBodoni-Italic.woff) format("woff"),
+    url(../../..//src/assets/font/alternative-files/LibreBodoni-Italic.woff2)
+      format("woff2");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url(../../../src/assets/font/Montserrat-Thin.woff) format("woff"),
+    url(../../../src/assets/font/alternative-files/Montserrat-Thin.woff2)
+      format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url(../../../src/assets/font/Montserrat-Regular.woff) format("woff"),
+    url(../../../src/assets/font/alternative-files/Montserrat-Regular.woff2)
+      format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url(../../../src/assets/font/Montserrat-Medium.woff) format("woff"),
+    url(../../../src/assets/font/alternative-files/Montserrat-Medium.woff2)
+      format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
