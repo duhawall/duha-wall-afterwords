@@ -95,6 +95,8 @@ Storage/Security:
 
 ### Data
 
+![](./Afterwords-frontend/src/assets/Afterwords-Diagram.png)
+
 Data is managed by MySQL where 3 tables are created:
 authors - has author_id
 loved ones - linked to foreign key of author_id
@@ -137,7 +139,7 @@ Primary User - The Author
 
 - fetch the how to component to understand how the platform works
 
-**GET /user**
+**GET /login**
 
 - log in to fetch user data saved with loved ones list and entries
 
@@ -153,7 +155,7 @@ Response:
 ]
 ```
 
-**GET /loved-one/:id/entries**
+**GET /loved-ones/:id/entries**
 
 - fetch a specific loved one and their data
 
@@ -164,8 +166,8 @@ Response:
     {
         "id": 1,
         "email": "duhaemousa@gmail.com",
-        "lovedOne": "Tony",
-        "loved-one_id": 1,
+        "loved_one_name": "Tony",
+        "loved-one_id": "1",
         "entries": [
     "Hey there love, I just thought of when we went on our first date. I cannot believe it has been 20 years, and I get to wake up to your beautiful face today. I feel so blessed and I want you to know I cherish your presence and laughter. You warm my heart so much, and my life feels and smells the best, even with your farts. I love you to all my bits and yours",
     "Travelling without you sucks. I miss holding you at night. Surprisingly, it feels too quiet without you snoring here. I hope you are warm and the kiddos are having a blast at the camp! Counting the days till I get home and hold you all my love. Four more... Happy Valentine's Day babes",
