@@ -30,7 +30,6 @@ const postLovedOne = async (req, res) => {
         error: "Internal server error to fetch highest loved one ID.",
       });
     }
-    console.log("What is highestIdData", highestIdData);
 
     const newLovedOneId = (Number(highestIdData.highestId) || 0) + 1;
 
@@ -57,16 +56,15 @@ const postLovedOne = async (req, res) => {
 // get all author's loved ones - GET /loved-ones/:id/all - localhost:8080/loved-ones/1/all
 const getLovedOnesForAuthor = async (req, res) => {
   try {
-    const lovedOnesFound = await knex("loved_ones")
-      // .select("loved_one_name")
-      .where({ author_id: req.params.id });
+    const lovedOnesFound = await knex("loved_ones").where({
+      author_id: req.params.id,
+    });
 
     if (lovedOnesFound.length === 0) {
       return res.status(404).json({
         message: `No loved ones created yet for author with ID ${req.params.id}`,
       });
     }
-    console.log(lovedOnesFound);
     const lovedOneNames = lovedOnesFound.map(
       (lovedOne) => lovedOne.loved_one_name
     );
@@ -102,8 +100,6 @@ const getLovedOne = async (req, res) => {
     res.status(500).json({
       message: `Internal server error retrieving loved one with ID ${lovedOneId} for author with ID ${id}.`,
     });
-    console.log("LovedOne ID:", lovedOneId);
-    console.log("author ID:", id);
   }
 };
 
@@ -152,7 +148,6 @@ const deleteLovedOne = async (req, res) => {
     const lovedOne = await knex("loved_ones")
       .where({ author_id: id, loved_one_id: lovedOneId })
       .first();
-    console.log("Who's the loved one?", lovedOne);
 
     if (!lovedOne) {
       return res.status(404).json({

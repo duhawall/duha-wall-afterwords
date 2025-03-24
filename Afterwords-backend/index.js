@@ -11,7 +11,6 @@ const BACKEND_URL = process.env.BACKEND_URL;
 
 app.use(cors({ origin: process.env.CORS_ORIGIN }));
 
-// attaches body to the req Object
 app.use(express.json());
 
 app.use("/authors", authorsRoutes);

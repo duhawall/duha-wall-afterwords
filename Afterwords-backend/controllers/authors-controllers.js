@@ -19,12 +19,12 @@ const postAuthor = async (req, res) => {
   try {
     const result = await knex("authors").insert(req.body);
 
-    const newAuthorId = result[0]; // new ID number
+    const newAuthorId = result[0];
     const createdAuthor = await knex("authors")
       .where({
         author_id: newAuthorId,
       })
-      .first(); // get the object rather than []
+      .first();
 
     res.status(201).json(createdAuthor);
   } catch (err) {
@@ -63,7 +63,6 @@ const putAuthor = async (req, res) => {
   const { id } = req.params;
   const updateData = req.body;
   const allowedFields = ["author_name", "email"];
-  console.log("ID here:", updateData);
   const fieldsToUpdate = allowedFields.filter((field) => updateData[field]);
   if (fieldsToUpdate.length === 0) {
     return res.status(400).json({
@@ -104,7 +103,7 @@ const putAuthor = async (req, res) => {
 
 // delete author's data - DELETE /authors/:id
 const deleteAuthor = async (req, res) => {
-  const { author_name, email } = req.body; // Assuming the name and email are passed in the request body.
+  const { author_name, email } = req.body;
 
   if (!author_name || !email) {
     return res.status(400).json({

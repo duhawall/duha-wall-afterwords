@@ -1,5 +1,5 @@
 import "./App.scss";
-import { BrowserRouter, Routes, Route, useNavigate, Navigate, useParams } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useParams } from "react-router-dom";
 import HomePage from "./pages/Homepage/Homepage.jsx";
 import LoggedInPage from "./pages/LoggedInPage/LoggedInPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage.jsx";
@@ -13,12 +13,9 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(true);
   const [showTags, setShowTags] = useState(false);
   const [selectedTag, setSelectedTag] = useState("");
-  // console.log(user);
 
   function filtersShowClick() {
     setShowTags(!showTags);
-    console.log("show me your tags", setShowTags);
-    console.log("hide your tags", showTags);
   }
 
   function handleTagClick(clickedTag, path) {
@@ -40,11 +37,12 @@ function App() {
         <Route path="/how-to" element={<HomePage id={id} loggedIn={loggedIn} handleTagClick={handleTagClick} />} />
         <Route path="/login" element={<HomePage id={id} isHomePage={true} user={user} loggedIn={loggedIn} setLoggedIn={setLoggedIn} handleTagClick={handleTagClick} />} />
 
+
+        {/* Logged Page Components */}
         <Route path="/logged" element={<Navigate to={`/${user.id}/loved-ones/all`} id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} replace />} />
         <Route path="/:id/loved-ones/all" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} />} />
         <Route path="/:id/:lovedOneId/entries" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} />} />
         <Route path="/:id/:lovedOneId/entry/:entryId" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} lovedOne={lovedOne} />} />
-        {/* <Route path="/:id/loved-one/entry" element={<LoggedInPage id={id} loggedIn={loggedIn} user={user} />} /> */}
         <Route path="/logout" element={<Navigate to="/" replace />} />
         <Route path="*" element={<Navigate to="/not-found" replace />} />
         <Route path="/not-found" element={<NotFoundPage />} />

@@ -18,20 +18,10 @@
     @include tablet {
       padding-bottom: 1rem;
     }
-
-    // @include desktop {
-    //   width: 25rem;
-    // }
   }
 }
 
 .filters {
-  // &-container {
-  //   @include desktop {
-  //     width: 32%;
-  //   }
-  // }
-
   &__drawer {
     background-color: white;
     padding: 0.2rem $padding-element-mobile;
@@ -75,11 +65,6 @@
       font-size: 0.9rem;
       font-weight: 500;
     }
-
-    // &--selected {
-    //   background-color: black;
-    //   color: $secondary-white;
-    // }
 
     &.active {
       background-color: $primary-grey;

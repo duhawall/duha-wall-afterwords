@@ -28,6 +28,21 @@ WHERE entries.author_id = 2;
 
 DESCRIBE loved_ones;
 
+SELECT * FROM knex_migrations;
+SET SQL_SAFE_UPDATES = 1;
+
+DELETE FROM knex_migrations WHERE name = '20250317213823_create_users_table.js';
+
+DROP TABLE IF EXISTS authors;
+DROP TABLE IF EXISTS loved_ones;
+DROP TABLE IF EXISTS entries;
+
+SELECT CONSTRAINT_NAME
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE TABLE_NAME = 'entries' AND COLUMN_NAME = 'author_id';
+
+
+
 
 
 

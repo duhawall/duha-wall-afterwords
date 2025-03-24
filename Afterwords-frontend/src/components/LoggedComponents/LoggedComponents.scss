@@ -95,7 +95,6 @@
       text-align: left;
       flex-wrap: wrap;
       justify-content: space-between;
-      // min-width: 10rem;
       width: 33rem;
       gap: 1rem;
 
@@ -111,7 +110,6 @@
     @include text-container;
     padding: 0.3rem 1rem;
     display: flex;
-    // flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
@@ -176,7 +174,6 @@
   &--logged {
     @include tablet {
       margin: 1rem 2rem;
-      // padding: 2rem 0;
     }
   }
 }

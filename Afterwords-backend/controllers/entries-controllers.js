@@ -49,7 +49,7 @@ const getLovedOneEntries = async (req, res) => {
 
 // add a new entry - POST /entries/:id/:lovedOneId/entry/add-new - localhost:8080/entries/1/101/entry/add-new
 const addEntry = async (req, res) => {
-  const { title, content } = req.body; // Assuming 'title' and 'content' are passed in the body
+  const { title, content } = req.body;
   const { id, lovedOneId } = req.params;
 
   if (!title || !content) {

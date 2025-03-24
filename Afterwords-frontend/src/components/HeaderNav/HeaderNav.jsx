@@ -1,7 +1,7 @@
 import "./HeaderNav.scss";
 import { Link } from "react-router-dom";
 
-function HeaderNav({ filtersShowClick, showTags, isHomePage, loggedIn }) {
+function HeaderNav({ filtersShowClick, showTags, loggedIn }) {
 
   return (
     <>

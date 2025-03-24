@@ -14,21 +14,6 @@ function HomeComponents({ words, index, setLoggedIn }) {
     const navigate = useNavigate();
     const params = useParams();
 
-    const checkLogin = async () => {
-        try {
-            const checkLogin = await axios.get(
-                `${backendUrl}/login/${params.email}`
-            );
-            setEmail(checkLogin.data.email);
-            console.log("hollup", setEmail);
-            if (!checkLogin) {
-                console.error(`Email ${params.email} was not found.`);
-            };
-        } catch {
-            alert("Error: could not find email. Please check if it is correct.");
-        }
-    };
-
     const handleAddEmail = (event) => {
         setEmail(event.target.value);
         setIsEmailEmpty(false);
@@ -58,7 +43,6 @@ function HomeComponents({ words, index, setLoggedIn }) {
             return alert("Please fill in the password field first.");
         }
 
-        console.log("Logged in:", { email, password });
         setLoggedIn(true);
         navigate("/logged");
 
@@ -70,7 +54,6 @@ function HomeComponents({ words, index, setLoggedIn }) {
         <>
             <div className="options__container">
                 <div alt="light blue sky background" className="background-photo background-photo--mobile"></div>
-                {/* <div className="options__selection"> */}
                 {/* Home Page */}
                 {optionStatus === "/" && (
                     <>
@@ -186,7 +169,6 @@ function HomeComponents({ words, index, setLoggedIn }) {
                     </>
                 )}
             </div>
-            {/* </div> */}
         </>
     );
 }

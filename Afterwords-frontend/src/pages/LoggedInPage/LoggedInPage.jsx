@@ -2,11 +2,10 @@ import "./LoggedInPage.scss";
 import HeaderNav from "../../components/HeaderNav/HeaderNav.jsx";
 import DrawerMenu from "../../components/DrawerMenu/DrawerMenu.jsx";
 import LoggedComponents from "../../components/LoggedComponents/LoggedComponents.jsx";
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function LoggedInPage({ user, isHomePage, id }) {
+function LoggedInPage({ user, id }) {
   const [showTags, setShowTags] = useState(false);
   const [selectedTag, setSelectedTag] = useState("");
   const navigate = useNavigate();
