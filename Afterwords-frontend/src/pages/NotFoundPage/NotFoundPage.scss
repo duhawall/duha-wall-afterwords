@@ -1,7 +1,21 @@
+@use "../../styles/partials/variables" as *;
+@use "../../styles/partials/mixins" as *;
+
 .notFound {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  text-align: center;
+  &__text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 78vh;
+    text-align: center;
+    font-family: $font-sub;
+    font-size: 2rem;
+    line-height: 4rem;
+    margin: 0 2rem;
+
+    @include tablet {
+      font-size: 3rem;
+      line-height: 5rem;
+    }
+  }
 }

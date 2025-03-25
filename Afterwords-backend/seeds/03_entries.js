@@ -68,8 +68,8 @@ export async function seed(knex) {
       The wind carries your voice, the stars hold your gaze, 
       and I carry your love in my heart, forever and always.`,
       timestamp: 1680705600,
-      author_id: 2,
-      loved_one_id: "103",
+      author_id: 1,
+      loved_one_id: "101",
     },
     {
       entry_id: "922f13d0-2488-4feb-7s81-101a7db0f9c8",
@@ -81,8 +81,8 @@ export async function seed(knex) {
 
       And though you are no longer here, your love continues to shape my world, like a soft, unspoken echo.`,
       timestamp: 1683528000,
-      author_id: 3,
-      loved_one_id: "105",
+      author_id: 1,
+      loved_one_id: "101",
     },
     {
       entry_id: "b4c2e1f8-24a2-467b-bb8b-908cbf7e1234",
@@ -95,8 +95,8 @@ export async function seed(knex) {
       
       You are always here, in the quiet corners of my soul.`,
       timestamp: 1686611400,
-      author_id: 4,
-      loved_one_id: "106",
+      author_id: 2,
+      loved_one_id: "102",
     },
   ]);
 }

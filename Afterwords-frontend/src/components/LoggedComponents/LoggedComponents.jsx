@@ -2,6 +2,7 @@ import "./LoggedComponents.scss";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Reorder, useDragControls } from "framer-motion";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -111,18 +112,22 @@ function LoggedComponents({ selectedTag, user, id }) {
                                 />
                             </form>
                             <ul className="loved-list__list">
-                                {authorLovedOnes.map((lovedOne) => {
-                                    return (
-                                        <li
-                                            className={`loved-list__loved-one ${selectedTag === Number(lovedOne.loved_one_id) ? "loved-list__lovedOne--selected" : ""}`}
-                                            key={Number(lovedOne.loved_one_id)}
-                                            onClick={() => handleLovedEntriesClick(lovedOne.loved_one_id)}
-                                        >
-                                            <h2 className="loved-list__loved-one--name">{lovedOne.loved_one_name}</h2>
-                                            <a className="loved-list__loved-one--qr"></a>
-                                        </li>
-                                    );
-                                })}
+                                <Reorder.Group values={authorLovedOnes} onReorder={setAuthorLovedOnes}>
+                                    {authorLovedOnes.map((lovedOne) => {
+                                        return (
+                                            <Reorder.Item value={lovedOne} key={lovedOne}>
+                                                <li
+                                                    className={`loved-list__loved-one ${selectedTag === Number(lovedOne.loved_one_id) ? "loved-list__lovedOne--selected" : ""}`}
+                                                    key={Number(lovedOne.loved_one_id)}
+                                                    onClick={() => handleLovedEntriesClick(lovedOne.loved_one_id)}
+                                                >
+                                                    <h2 className="loved-list__loved-one--name">{lovedOne.loved_one_name}</h2>
+                                                    <a className="loved-list__loved-one--qr"></a>
+                                                </li>
+                                            </Reorder.Item>
+                                        );
+                                    })}
+                                </Reorder.Group>
                             </ul>
                         </div>
                     )}
@@ -144,26 +149,30 @@ function LoggedComponents({ selectedTag, user, id }) {
                                 />
                             </form>
                             <ul className="loved-entries-list__list">
+
                                 {lovedOneEntries.length > 0 ?
-                                    lovedOneEntries.map((entry) => {
-                                        return (
-                                            <li
-                                                className="loved-list__loved-one lovedd-list__entry-section"
-                                                key={entry.entry_id}
-                                                onClick={() => handleEntryClick(lovedId, entry.entry_id)}
-                                            >
-                                                <a className="loved-list__entry loved-list__entry-reorder" />
-                                                <div className="loved-list__entry-separator">
-                                                    <h2 className="loved-list__entry loved-list__entry-title">{entry.title}</h2>
-                                                    <h2 className="loved-list__entry loved-list__entry-date">{new Date(entry.timestamp).toLocaleDateString("en-US", {
-                                                        year: "numeric",
-                                                        month: "2-digit",
-                                                        day: "2-digit",
-                                                    })}</h2>
-                                                </div>
-                                            </li>
-                                        );
-                                    })
+                                    <Reorder.Group values={lovedOneEntries} onReorder={setLovedOneEntries}>
+                                        {lovedOneEntries.map((entry) => {
+                                            return (
+                                                <Reorder.Item value={entry} key={entry}>
+                                                    <li
+                                                        className="loved-list__loved-one lovedd-list__entry-section"
+                                                        key={entry.entry_id}
+                                                        onClick={() => handleEntryClick(lovedId, entry.entry_id)}
+                                                    >
+                                                        <a className="loved-list__entry loved-list__entry-reorder" />
+                                                        <div className="loved-list__entry-separator">
+                                                            <h2 className="loved-list__entry loved-list__entry-title">{entry.title}</h2>
+                                                            <h2 className="loved-list__entry loved-list__entry-date">{new Date(entry.timestamp).toLocaleDateString("en-US", {
+                                                                year: "numeric",
+                                                                month: "2-digit",
+                                                                day: "2-digit",
+                                                            })}</h2>
+                                                        </div>
+                                                    </li>
+                                                </Reorder.Item>
+                                            );
+                                        })}</Reorder.Group>
                                     :
                                     <li>No Entries yet.</li>}
                             </ul>
@@ -179,6 +188,8 @@ function LoggedComponents({ selectedTag, user, id }) {
                                     month: "2-digit",
                                     day: "2-digit",
                                 })}</h2>
+                                <a className="loved-list__text loved-list__text--edit" />
+                                <a className="loved-list__text loved-list__text--delete" />
                             </div>
                             <h2 className="loved-entry__content">{selectedEntry.content}</h2>
                         </div>
